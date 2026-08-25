@@ -15,11 +15,11 @@ import (
 	"strings"
 	"sync"
 
-	canonical "github.com/faustbrian/golib/pkg/json-schema"
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
-	"github.com/faustbrian/golib/pkg/openapi/parse"
-	"github.com/faustbrian/golib/pkg/openapi/specification"
-	"github.com/faustbrian/golib/pkg/openapi/specversion"
+	canonical "github.com/faustbrian/go-json-schema"
+	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/parse"
+	"github.com/faustbrian/go-openapi/specification"
+	"github.com/faustbrian/go-openapi/specversion"
 )
 
 // Dialect identifies one pinned Swagger or OpenAPI Schema Object rule set.
@@ -44,8 +44,8 @@ const (
 )
 
 const (
-	vocabularySwagger20 = "https://github.com/faustbrian/golib/pkg/openapi/jsonschema/swagger/2.0"
-	vocabularyOAS30     = "https://github.com/faustbrian/golib/pkg/openapi/jsonschema/oas/3.0"
+	vocabularySwagger20 = "https://github.com/faustbrian/go-openapi/jsonschema/swagger/2.0"
+	vocabularyOAS30     = "https://github.com/faustbrian/go-openapi/jsonschema/oas/3.0"
 	vocabularyOAS31     = "https://spec.openapis.org/oas/3.1/vocab/base"
 	vocabularyOAS32     = "https://spec.openapis.org/oas/3.2/vocab/base"
 	defaultMaxNodes     = 1_000_000

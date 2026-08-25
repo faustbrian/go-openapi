@@ -9,7 +9,7 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/jsonvalue"
 )
 
 // ErrInvalidServer reports a malformed Server Object or substitution value.

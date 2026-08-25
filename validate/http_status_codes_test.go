@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/specification"
+	"github.com/faustbrian/go-openapi/specification"
 )
 
 func TestRegisteredHTTPStatusCodesMatchPinnedIANARegistry(t *testing.T) {

@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/internal/specification"
+	"github.com/faustbrian/go-openapi/internal/specification"
 )
 
 func TestGenerateCreatesVersionedImmutableTypedAccessors(t *testing.T) {

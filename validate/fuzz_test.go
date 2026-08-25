@@ -6,10 +6,10 @@ import (
 	"reflect"
 	"testing"
 
-	openapi "github.com/faustbrian/golib/pkg/openapi"
-	"github.com/faustbrian/golib/pkg/openapi/parse"
-	"github.com/faustbrian/golib/pkg/openapi/reference"
-	"github.com/faustbrian/golib/pkg/openapi/validate"
+	openapi "github.com/faustbrian/go-openapi"
+	"github.com/faustbrian/go-openapi/parse"
+	"github.com/faustbrian/go-openapi/reference"
+	"github.com/faustbrian/go-openapi/validate"
 )
 
 func FuzzDocumentValidationDeterminism(f *testing.F) {

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/jsonvalue"
 )
 
 // ErrInvalidDialectAdvisory reports an invalid Schema Object or resource use.

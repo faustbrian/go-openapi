@@ -7,9 +7,9 @@ import (
 	"strings"
 	"testing"
 
-	openapi "github.com/faustbrian/golib/pkg/openapi"
-	"github.com/faustbrian/golib/pkg/openapi/compose"
-	"github.com/faustbrian/golib/pkg/openapi/parse"
+	openapi "github.com/faustbrian/go-openapi"
+	"github.com/faustbrian/go-openapi/compose"
+	"github.com/faustbrian/go-openapi/parse"
 )
 
 func TestFilterOperationsTraversesEveryOwnedPathItem(t *testing.T) {

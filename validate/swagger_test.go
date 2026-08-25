@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/validate"
+	"github.com/faustbrian/go-openapi/validate"
 )
 
 func TestSwaggerOperationSummaryRecommendation(t *testing.T) {

@@ -10,10 +10,10 @@ import (
 	"testing"
 	"time"
 
-	canonical "github.com/faustbrian/golib/pkg/json-schema"
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
-	"github.com/faustbrian/golib/pkg/openapi/parse"
-	"github.com/faustbrian/golib/pkg/openapi/specversion"
+	canonical "github.com/faustbrian/go-json-schema"
+	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/parse"
+	"github.com/faustbrian/go-openapi/specversion"
 )
 
 func TestCompilerRejectsInvalidConfigurationAndInputs(t *testing.T) {

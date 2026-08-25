@@ -4,7 +4,7 @@ import (
 	"errors"
 	"testing"
 
-	openapi "github.com/faustbrian/golib/pkg/openapi"
+	openapi "github.com/faustbrian/go-openapi"
 )
 
 func TestParseVersionPreservesSupportedPatchVersion(t *testing.T) {

@@ -4,8 +4,8 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
-	"github.com/faustbrian/golib/pkg/openapi/security"
+	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/security"
 )
 
 func TestSatisfiedAppliesAlternativeAndCombinedRequirements(t *testing.T) {

@@ -7,7 +7,7 @@ import (
 	"testing"
 	"unicode/utf8"
 
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/jsonvalue"
 )
 
 func FuzzValueMarshalJSONWithLimits(f *testing.F) {

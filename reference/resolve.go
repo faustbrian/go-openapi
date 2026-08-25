@@ -8,7 +8,7 @@ import (
 	"reflect"
 	"slices"
 
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/jsonvalue"
 )
 
 // ErrExternalResolutionDisabled reports a non-local reference without an

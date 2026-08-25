@@ -4,7 +4,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/server"
+	"github.com/faustbrian/go-openapi/server"
 )
 
 func TestResolveReferenceUsesServerURLAsRFC3986Base(t *testing.T) {

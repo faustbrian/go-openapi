@@ -6,7 +6,7 @@ go version go1.26.5 darwin/arm64
 Darwin 27.0.0 arm64
 goos: darwin
 goarch: arm64
-pkg: github.com/faustbrian/golib/pkg/openapi
+pkg: github.com/faustbrian/go-openapi
 cpu: Apple M4 Max
 BenchmarkParseJSON                   	     566	    685980 ns/op	  24.58 MB/s	  488840 B/op	   10907 allocs/op
 BenchmarkParseJSON                   	     573	    930027 ns/op	  18.13 MB/s	  488840 B/op	   10907 allocs/op
@@ -84,11 +84,11 @@ BenchmarkConvertOpenAPI32ToSwagger20 	      62	  10080681 ns/op	21418720 B/op	  
 BenchmarkConvertOpenAPI32ToSwagger20 	      70	   4171493 ns/op	21418720 B/op	   28357 allocs/op
 BenchmarkConvertOpenAPI32ToSwagger20 	      78	   7420626 ns/op	21418720 B/op	   28357 allocs/op
 PASS
-ok  	github.com/faustbrian/golib/pkg/openapi	40.948s
+ok  	github.com/faustbrian/go-openapi	40.948s
 # peak process memory probe
 goos: darwin
 goarch: arm64
-pkg: github.com/faustbrian/golib/pkg/openapi
+pkg: github.com/faustbrian/go-openapi
 cpu: Apple M4 Max
 BenchmarkParseJSON                   	       1	    584500 ns/op	  28.85 MB/s	  488840 B/op	   10907 allocs/op
 BenchmarkParseJSONScaling/paths_1    	       1	     28708 ns/op	  12.05 MB/s	   12024 B/op	     282 allocs/op
@@ -116,7 +116,7 @@ BenchmarkConvertOpenAPI31To30        	       1	   2116583 ns/op	 9281440 B/op	  
 BenchmarkConvertOpenAPI32To31        	       1	   1201959 ns/op	 6327696 B/op	    7925 allocs/op
 BenchmarkConvertOpenAPI32ToSwagger20 	       1	   3890750 ns/op	21418720 B/op	   28357 allocs/op
 PASS
-ok  	github.com/faustbrian/golib/pkg/openapi	0.439s
+ok  	github.com/faustbrian/go-openapi	0.439s
         0.98 real         0.41 user         0.23 sys
            218480640  maximum resident set size
                    0  average shared memory size

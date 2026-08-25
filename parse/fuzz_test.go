@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/parse"
+	"github.com/faustbrian/go-openapi/parse"
 )
 
 func FuzzJSONParserDeterminism(f *testing.F) {

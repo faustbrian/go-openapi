@@ -6,11 +6,11 @@ import (
 	"fmt"
 	"strings"
 
-	openapi "github.com/faustbrian/golib/pkg/openapi"
-	"github.com/faustbrian/golib/pkg/openapi/compose"
-	"github.com/faustbrian/golib/pkg/openapi/parse"
-	"github.com/faustbrian/golib/pkg/openapi/serialize"
-	"github.com/faustbrian/golib/pkg/openapi/validate"
+	openapi "github.com/faustbrian/go-openapi"
+	"github.com/faustbrian/go-openapi/compose"
+	"github.com/faustbrian/go-openapi/parse"
+	"github.com/faustbrian/go-openapi/serialize"
+	"github.com/faustbrian/go-openapi/validate"
 )
 
 func ExampleParseJSON() {

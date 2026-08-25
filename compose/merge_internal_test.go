@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
-	"github.com/faustbrian/golib/pkg/openapi/specversion"
+	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/specversion"
 )
 
 type cancelAfterFirstMergeCheck struct {

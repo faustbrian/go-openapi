@@ -4,9 +4,9 @@ import (
 	"regexp"
 	"strings"
 
-	openapi "github.com/faustbrian/golib/pkg/openapi"
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
-	"github.com/faustbrian/golib/pkg/openapi/specversion"
+	openapi "github.com/faustbrian/go-openapi"
+	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/specversion"
 )
 
 func validateResponses(document openapi.Document) []Diagnostic {

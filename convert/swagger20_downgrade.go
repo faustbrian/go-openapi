@@ -8,8 +8,8 @@ import (
 	"strconv"
 	"strings"
 
-	openapi "github.com/faustbrian/golib/pkg/openapi"
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
+	openapi "github.com/faustbrian/go-openapi"
+	"github.com/faustbrian/go-openapi/jsonvalue"
 )
 
 type oas30SwaggerConverter struct {

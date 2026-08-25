@@ -4,8 +4,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
-	"github.com/faustbrian/golib/pkg/openapi/model"
+	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/model"
 )
 
 const defaultAnnotatedEnumMaxCases = 10_000

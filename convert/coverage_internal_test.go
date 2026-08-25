@@ -6,9 +6,9 @@ import (
 	"strings"
 	"testing"
 
-	openapi "github.com/faustbrian/golib/pkg/openapi"
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
-	"github.com/faustbrian/golib/pkg/openapi/parse"
+	openapi "github.com/faustbrian/go-openapi"
+	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/parse"
 )
 
 func TestOAS31PureHelpersCoverCompleteValueAlgebra(t *testing.T) {

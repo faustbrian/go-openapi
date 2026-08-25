@@ -4,8 +4,8 @@ import (
 	"net/url"
 	"path"
 
-	openapi "github.com/faustbrian/golib/pkg/openapi"
-	"github.com/faustbrian/golib/pkg/openapi/specversion"
+	openapi "github.com/faustbrian/go-openapi"
+	"github.com/faustbrian/go-openapi/specversion"
 )
 
 func validateRoot(document openapi.Document, options Options) []Diagnostic {

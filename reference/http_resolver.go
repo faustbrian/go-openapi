@@ -20,8 +20,8 @@ import (
 
 	"golang.org/x/net/idna"
 
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
-	"github.com/faustbrian/golib/pkg/openapi/parse"
+	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/parse"
 )
 
 // HTTPResolverOptions defines the complete authority, transport policy, and

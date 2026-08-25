@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/media"
+	"github.com/faustbrian/go-openapi/media"
 )
 
 func TestSerializeLinksetTranscodesRFC9264JSONModel(t *testing.T) {

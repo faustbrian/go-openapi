@@ -6,9 +6,9 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/expression"
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
-	"github.com/faustbrian/golib/pkg/openapi/reference"
+	"github.com/faustbrian/go-openapi/expression"
+	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/reference"
 )
 
 func TestEvaluatePreservesRuntimeValueTypes(t *testing.T) {

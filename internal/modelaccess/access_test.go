@@ -3,7 +3,7 @@ package modelaccess
 import (
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/jsonvalue"
 )
 
 func TestTypedFieldsPreservePresenceNullAndInvalidRepresentations(t *testing.T) {

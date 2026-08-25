@@ -5,7 +5,7 @@ import (
 	"encoding/csv"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/specification"
+	"github.com/faustbrian/go-openapi/specification"
 )
 
 func TestRegisteredHTTPAuthenticationSchemesMatchPinnedIANARegistry(t *testing.T) {

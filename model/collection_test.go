@@ -4,7 +4,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/model"
+	"github.com/faustbrian/go-openapi/model"
 )
 
 func TestListOwnsInputAndReturnedSlices(t *testing.T) {

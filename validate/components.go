@@ -3,8 +3,8 @@ package validate
 import (
 	"regexp"
 
-	openapi "github.com/faustbrian/golib/pkg/openapi"
-	"github.com/faustbrian/golib/pkg/openapi/specversion"
+	openapi "github.com/faustbrian/go-openapi"
+	"github.com/faustbrian/go-openapi/specversion"
 )
 
 var componentNamePattern = regexp.MustCompile(`^[A-Za-z0-9._-]+$`)

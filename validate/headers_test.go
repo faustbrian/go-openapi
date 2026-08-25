@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/validate"
+	"github.com/faustbrian/go-openapi/validate"
 )
 
 func TestDocumentValidatesHeaderContentCardinalityAcrossAllSurfaces(t *testing.T) {

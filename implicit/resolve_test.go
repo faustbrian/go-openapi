@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/implicit"
-	"github.com/faustbrian/golib/pkg/openapi/parse"
+	"github.com/faustbrian/go-openapi/implicit"
+	"github.com/faustbrian/go-openapi/parse"
 )
 
 func TestResolveComponentDefaultsToEntryDocument(t *testing.T) {

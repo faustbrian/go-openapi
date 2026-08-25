@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"io"
 
-	representation "github.com/faustbrian/golib/pkg/openapi/parse"
+	representation "github.com/faustbrian/go-openapi/parse"
 )
 
 // ParseJSON performs bounded strict JSON parsing and selects the exact

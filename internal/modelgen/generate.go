@@ -11,7 +11,7 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/faustbrian/golib/pkg/openapi/internal/specification"
+	"github.com/faustbrian/go-openapi/internal/specification"
 )
 
 var wrapperPattern = regexp.MustCompile(`func wrap([A-Za-z0-9]+)\(`)
@@ -158,10 +158,10 @@ func Generate(config Config, fields []specification.ObjectField) ([]byte, error)
 	"fmt"
 	"strings"
 
-	"github.com/faustbrian/golib/pkg/openapi/internal/modelaccess"
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
-	"github.com/faustbrian/golib/pkg/openapi/model"
-	"github.com/faustbrian/golib/pkg/openapi/specversion"
+	"github.com/faustbrian/go-openapi/internal/modelaccess"
+	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/model"
+	"github.com/faustbrian/go-openapi/specversion"
 )
 
 `)
@@ -220,7 +220,7 @@ func GenerateTests(config Config, fields []specification.ObjectField) ([]byte, e
 	"reflect"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/jsonvalue"
 )
 
 func TestGeneratedModelSurface(t *testing.T) {

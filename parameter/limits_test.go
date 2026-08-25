@@ -4,7 +4,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/parameter"
+	"github.com/faustbrian/go-openapi/parameter"
 )
 
 func TestCodecEnforcesByteAndItemLimits(t *testing.T) {

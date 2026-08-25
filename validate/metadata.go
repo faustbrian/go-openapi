@@ -3,8 +3,8 @@ package validate
 import (
 	"net/mail"
 
-	openapi "github.com/faustbrian/golib/pkg/openapi"
-	"github.com/faustbrian/golib/pkg/openapi/specversion"
+	openapi "github.com/faustbrian/go-openapi"
+	"github.com/faustbrian/go-openapi/specversion"
 )
 
 func validateMetadata(document openapi.Document) []Diagnostic {

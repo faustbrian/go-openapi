@@ -9,13 +9,13 @@ import (
 	"strings"
 	"unicode"
 
-	openapi "github.com/faustbrian/golib/pkg/openapi"
-	openapischema "github.com/faustbrian/golib/pkg/openapi/jsonschema"
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
-	"github.com/faustbrian/golib/pkg/openapi/parameter"
-	"github.com/faustbrian/golib/pkg/openapi/parse"
-	"github.com/faustbrian/golib/pkg/openapi/reference"
-	"github.com/faustbrian/golib/pkg/openapi/specversion"
+	openapi "github.com/faustbrian/go-openapi"
+	openapischema "github.com/faustbrian/go-openapi/jsonschema"
+	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/parameter"
+	"github.com/faustbrian/go-openapi/parse"
+	"github.com/faustbrian/go-openapi/reference"
+	"github.com/faustbrian/go-openapi/specversion"
 )
 
 func validateExamples(

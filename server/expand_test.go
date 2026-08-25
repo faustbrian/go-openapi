@@ -6,9 +6,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
-	"github.com/faustbrian/golib/pkg/openapi/parse"
-	"github.com/faustbrian/golib/pkg/openapi/server"
+	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/parse"
+	"github.com/faustbrian/go-openapi/server"
 )
 
 func TestExpandUsesDefaultsAndCallerOverrides(t *testing.T) {

@@ -7,10 +7,10 @@ import (
 	"strings"
 	"testing"
 
-	openapi "github.com/faustbrian/golib/pkg/openapi"
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
-	"github.com/faustbrian/golib/pkg/openapi/parse"
-	"github.com/faustbrian/golib/pkg/openapi/reference"
+	openapi "github.com/faustbrian/go-openapi"
+	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/parse"
+	"github.com/faustbrian/go-openapi/reference"
 )
 
 func TestBundleComponentsLocalizesExternalGraphsAndCycles(t *testing.T) {

@@ -4,7 +4,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/media"
+	"github.com/faustbrian/go-openapi/media"
 )
 
 func TestMultipartFormDataEncodeWritesDeterministicBoundedParts(t *testing.T) {

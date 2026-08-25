@@ -6,9 +6,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
-	"github.com/faustbrian/golib/pkg/openapi/media"
-	"github.com/faustbrian/golib/pkg/openapi/reference"
+	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/media"
+	"github.com/faustbrian/go-openapi/reference"
 )
 
 func TestSelectSerializationDataTypePrefersRuntimeData(t *testing.T) {

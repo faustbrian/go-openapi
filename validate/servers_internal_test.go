@@ -3,7 +3,7 @@ package validate
 import (
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/specversion"
+	"github.com/faustbrian/go-openapi/specversion"
 )
 
 func TestServerLiteralRuneIntervalsIncludeExactEndpoints(t *testing.T) {

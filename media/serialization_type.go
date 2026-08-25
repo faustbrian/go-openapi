@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"math/bits"
 
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
-	"github.com/faustbrian/golib/pkg/openapi/reference"
+	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/reference"
 )
 
 var (

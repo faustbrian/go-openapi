@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/expression"
+	"github.com/faustbrian/go-openapi/expression"
 )
 
 func FuzzRuntimeExpressionParse(f *testing.F) {

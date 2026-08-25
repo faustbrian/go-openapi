@@ -1,0 +1,664 @@
+{
+  "schema_version": 1,
+  "repository": "github.com/faustbrian/go-openapi",
+  "go_version": "1.26.6",
+  "modules": [
+    {
+      "directory": ".",
+      "module_path": "github.com/faustbrian/go-openapi",
+      "go_version": "1.26.6",
+      "packages": [
+        {
+          "module_directory": ".",
+          "directory": ".",
+          "name": "openapi",
+          "import_path": "github.com/faustbrian/go-openapi",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "compose",
+          "name": "compose",
+          "import_path": "github.com/faustbrian/go-openapi/compose",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "convert",
+          "name": "convert",
+          "import_path": "github.com/faustbrian/go-openapi/convert",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "diff",
+          "name": "diff",
+          "import_path": "github.com/faustbrian/go-openapi/diff",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "discriminator",
+          "name": "discriminator",
+          "import_path": "github.com/faustbrian/go-openapi/discriminator",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "expression",
+          "name": "expression",
+          "import_path": "github.com/faustbrian/go-openapi/expression",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "implicit",
+          "name": "implicit",
+          "import_path": "github.com/faustbrian/go-openapi/implicit",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "internal/modelaccess",
+          "name": "modelaccess",
+          "import_path": "github.com/faustbrian/go-openapi/internal/modelaccess",
+          "kind": "internal",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "internal/modelgen",
+          "name": "modelgen",
+          "import_path": "github.com/faustbrian/go-openapi/internal/modelgen",
+          "kind": "internal",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "internal/modelgen/cmd/modelgen",
+          "name": "main",
+          "import_path": "github.com/faustbrian/go-openapi/internal/modelgen/cmd/modelgen",
+          "kind": "tooling",
+          "production": false,
+          "executable": true,
+          "coverage_required": false,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "internal/quality/cmd/dependencyaudit",
+          "name": "main",
+          "import_path": "github.com/faustbrian/go-openapi/internal/quality/cmd/dependencyaudit",
+          "kind": "tooling",
+          "production": false,
+          "executable": true,
+          "coverage_required": false,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "internal/quality/cmd/mutationgate",
+          "name": "main",
+          "import_path": "github.com/faustbrian/go-openapi/internal/quality/cmd/mutationgate",
+          "kind": "tooling",
+          "production": false,
+          "executable": true,
+          "coverage_required": false,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "internal/specification",
+          "name": "specification",
+          "import_path": "github.com/faustbrian/go-openapi/internal/specification",
+          "kind": "internal",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "internal/specification/cmd/provenance",
+          "name": "main",
+          "import_path": "github.com/faustbrian/go-openapi/internal/specification/cmd/provenance",
+          "kind": "tooling",
+          "production": false,
+          "executable": true,
+          "coverage_required": false,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "internal/specification/cmd/specmatrix",
+          "name": "main",
+          "import_path": "github.com/faustbrian/go-openapi/internal/specification/cmd/specmatrix",
+          "kind": "tooling",
+          "production": false,
+          "executable": true,
+          "coverage_required": false,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "jsonschema",
+          "name": "jsonschema",
+          "import_path": "github.com/faustbrian/go-openapi/jsonschema",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "jsonvalue",
+          "name": "jsonvalue",
+          "import_path": "github.com/faustbrian/go-openapi/jsonvalue",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "media",
+          "name": "media",
+          "import_path": "github.com/faustbrian/go-openapi/media",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "model",
+          "name": "model",
+          "import_path": "github.com/faustbrian/go-openapi/model",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "oas30",
+          "name": "oas30",
+          "import_path": "github.com/faustbrian/go-openapi/oas30",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "oas31",
+          "name": "oas31",
+          "import_path": "github.com/faustbrian/go-openapi/oas31",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "oas32",
+          "name": "oas32",
+          "import_path": "github.com/faustbrian/go-openapi/oas32",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "parameter",
+          "name": "parameter",
+          "import_path": "github.com/faustbrian/go-openapi/parameter",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "parse",
+          "name": "parse",
+          "import_path": "github.com/faustbrian/go-openapi/parse",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "reference",
+          "name": "reference",
+          "import_path": "github.com/faustbrian/go-openapi/reference",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "response",
+          "name": "response",
+          "import_path": "github.com/faustbrian/go-openapi/response",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "security",
+          "name": "security",
+          "import_path": "github.com/faustbrian/go-openapi/security",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "serialize",
+          "name": "serialize",
+          "import_path": "github.com/faustbrian/go-openapi/serialize",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "server",
+          "name": "server",
+          "import_path": "github.com/faustbrian/go-openapi/server",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "specification",
+          "name": "specification",
+          "import_path": "github.com/faustbrian/go-openapi/specification",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "specversion",
+          "name": "specversion",
+          "import_path": "github.com/faustbrian/go-openapi/specversion",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "swagger20",
+          "name": "swagger20",
+          "import_path": "github.com/faustbrian/go-openapi/swagger20",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "validate",
+          "name": "validate",
+          "import_path": "github.com/faustbrian/go-openapi/validate",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        },
+        {
+          "module_directory": ".",
+          "directory": "xmlvalue",
+          "name": "xmlvalue",
+          "import_path": "github.com/faustbrian/go-openapi/xmlvalue",
+          "kind": "public",
+          "production": true,
+          "executable": true,
+          "coverage_required": true,
+          "build_required": true,
+          "build_tags": []
+        }
+      ],
+      "purpose": "`openapi` is a version-aware OpenAPI document toolkit for Go. It provides immutable lossless semantic values, bounded JSON and YAML parsing, generated typed views for Swagger 2.0 and OpenAPI 3.0 through 3.2, normative validation, OpenAPI JSON Schema dialects, explicit reference resolution, composition, conversion, compatibility diffing, and bounded deterministic serialization.",
+      "lifecycle": "stable",
+      "kind": "public library",
+      "releasable": true,
+      "family": "protocols-and-descriptions",
+      "family_label": "Protocols And Descriptions",
+      "family_description": "Standards, envelopes, schemas, descriptions, signatures, and wire interoperability.",
+      "family_order": 3,
+      "version": "v1.0.0",
+      "tag_prefix": "v",
+      "owned_dependencies": [
+        "github.com/faustbrian/go-json-schema"
+      ],
+      "reverse_owned_dependencies": [
+        "github.com/faustbrian/go-http-middleware/integration/siblings",
+        "github.com/faustbrian/go-openapi/interoperability"
+      ],
+      "external_runtime_dependencies": [
+        "go.yaml.in/yaml/v3",
+        "golang.org/x/net"
+      ],
+      "required_services": [],
+      "build_tags": [],
+      "test_tags": [],
+      "interoperability_tools": [],
+      "specifications": [
+        "Swagger 2.0",
+        "OpenAPI 3.0.0 through 3.0.4",
+        "OpenAPI 3.1.0 through 3.1.2",
+        "OpenAPI 3.2.0",
+        "OpenAPI published schemas and registries",
+        "JSON Schema Draft 4 and 2020-12 dialects"
+      ],
+      "conformance_corpora": [
+        "Pinned Swagger 2.0 and OpenAPI 3.0 through 3.2 normative publications",
+        "Generated 2,381-row normative and object-field evidence matrices",
+        "Pinned published schemas, dialects, registries, and accepted errata",
+        "Pinned Swagger Petstore and GitHub REST API descriptions"
+      ],
+      "provenance": [
+        "specification/manifest.json"
+      ],
+      "goal_files": [
+        ".ai/GOAL.md",
+        ".ai/GOAL_HARDEN.md",
+        ".ai/GOAL_POLISH.md"
+      ],
+      "goal_status": "implementation-evidence-inventoried",
+      "goal_evidence": [
+        {
+          "file": ".ai/GOAL.md",
+          "requirements_sha256": "55d5e5ac8785e520dc16ed2ffad666281fc6425ebbe2c31850d073a78b4a1537",
+          "implementation_evidence": [
+            "CHANGELOG.md",
+            "README.md",
+            "docs/audit-report.md",
+            "docs/performance.md",
+            "docs/security.md"
+          ],
+          "verification_gates": [
+            "format-check",
+            "tidy-check",
+            "safety",
+            "vet",
+            "test",
+            "race",
+            "coverage",
+            "lint",
+            "staticcheck",
+            "vulnerability",
+            "secrets",
+            "licenses",
+            "sbom",
+            "fuzz",
+            "mutation",
+            "nilaway",
+            "docs",
+            "api",
+            "conformance",
+            "interoperability",
+            "benchmark"
+          ],
+          "implementation_status": "implemented-requires-fresh-verification"
+        },
+        {
+          "file": ".ai/GOAL_HARDEN.md",
+          "requirements_sha256": "cca275ef08475ea40e6cabbee252ac899defb0c85d6890387ed1ed72ed6342c5",
+          "implementation_evidence": [
+            "CHANGELOG.md",
+            "README.md",
+            "docs/audit-report.md",
+            "docs/performance.md",
+            "docs/security.md"
+          ],
+          "verification_gates": [
+            "format-check",
+            "tidy-check",
+            "safety",
+            "vet",
+            "test",
+            "race",
+            "coverage",
+            "lint",
+            "staticcheck",
+            "vulnerability",
+            "secrets",
+            "licenses",
+            "sbom",
+            "fuzz",
+            "mutation",
+            "nilaway",
+            "docs",
+            "api",
+            "conformance",
+            "interoperability",
+            "benchmark"
+          ],
+          "implementation_status": "implemented-requires-fresh-verification"
+        },
+        {
+          "file": ".ai/GOAL_POLISH.md",
+          "requirements_sha256": "a218d0870ca94cc5dd68414c1a5b78b180def86adc4afe387418e3bb41c6d0ee",
+          "implementation_evidence": [
+            "CHANGELOG.md",
+            "README.md",
+            "docs/audit-report.md",
+            "docs/performance.md",
+            "docs/security.md"
+          ],
+          "verification_gates": [
+            "format-check",
+            "tidy-check",
+            "safety",
+            "vet",
+            "test",
+            "race",
+            "coverage",
+            "lint",
+            "staticcheck",
+            "vulnerability",
+            "secrets",
+            "licenses",
+            "sbom",
+            "fuzz",
+            "mutation",
+            "nilaway",
+            "docs",
+            "api",
+            "conformance",
+            "interoperability",
+            "benchmark"
+          ],
+          "implementation_status": "implemented-requires-fresh-verification"
+        }
+      ],
+      "gates": {
+        "api_compatibility": true,
+        "benchmarks": true,
+        "conformance": true,
+        "coverage": true,
+        "documentation": true,
+        "fuzz": true,
+        "lint": true,
+        "mutation": true,
+        "race": true,
+        "security": true,
+        "tests": true
+      }
+    },
+    {
+      "directory": "interoperability",
+      "module_path": "github.com/faustbrian/go-openapi/interoperability",
+      "go_version": "1.26.6",
+      "packages": [
+        {
+          "module_directory": "interoperability",
+          "directory": ".",
+          "name": "main",
+          "import_path": "github.com/faustbrian/go-openapi/interoperability",
+          "kind": "harness",
+          "production": false,
+          "executable": false,
+          "coverage_required": false,
+          "build_required": true,
+          "build_tags": [
+            "interop"
+          ]
+        }
+      ],
+      "purpose": "See the module README and goal files.",
+      "lifecycle": "internal",
+      "kind": "interoperability harness",
+      "releasable": false,
+      "version": "unreleased",
+      "tag_prefix": "interoperability/v",
+      "owned_dependencies": [
+        "github.com/faustbrian/go-json-schema",
+        "github.com/faustbrian/go-openapi"
+      ],
+      "reverse_owned_dependencies": [],
+      "external_runtime_dependencies": [
+        "github.com/getkin/kin-openapi",
+        "github.com/go-openapi/loads",
+        "github.com/pb33f/libopenapi"
+      ],
+      "required_services": [],
+      "build_tags": [
+        "interop"
+      ],
+      "test_tags": [],
+      "interoperability_tools": [],
+      "specifications": [
+        "Swagger 2.0",
+        "OpenAPI 3.0.0 through 3.0.4",
+        "OpenAPI 3.1.0 through 3.1.2",
+        "OpenAPI 3.2.0",
+        "OpenAPI published schemas and registries",
+        "JSON Schema Draft 4 and 2020-12 dialects"
+      ],
+      "conformance_corpora": [
+        "Pinned Swagger 2.0 and OpenAPI 3.0 through 3.2 normative publications",
+        "Generated 2,381-row normative and object-field evidence matrices",
+        "Pinned published schemas, dialects, registries, and accepted errata",
+        "Pinned Swagger Petstore and GitHub REST API descriptions"
+      ],
+      "provenance": [],
+      "goal_files": [],
+      "goal_status": "not-applicable",
+      "goal_evidence": [],
+      "gates": {
+        "api_compatibility": false,
+        "benchmarks": false,
+        "conformance": false,
+        "coverage": false,
+        "documentation": false,
+        "fuzz": false,
+        "lint": false,
+        "mutation": false,
+        "race": false,
+        "security": false,
+        "tests": false
+      }
+    }
+  ]
+}

@@ -8,11 +8,11 @@ import (
 	"sync"
 	"testing"
 
-	canonical "github.com/faustbrian/golib/pkg/json-schema"
-	openapi "github.com/faustbrian/golib/pkg/openapi"
-	openapischema "github.com/faustbrian/golib/pkg/openapi/jsonschema"
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
-	"github.com/faustbrian/golib/pkg/openapi/specversion"
+	canonical "github.com/faustbrian/go-json-schema"
+	openapi "github.com/faustbrian/go-openapi"
+	openapischema "github.com/faustbrian/go-openapi/jsonschema"
+	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/specversion"
 )
 
 func TestBoundDocumentRejectsWideValuesBeforeCopyingChildren(t *testing.T) {

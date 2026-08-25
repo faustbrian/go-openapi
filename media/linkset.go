@@ -6,7 +6,7 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/jsonvalue"
 )
 
 var (

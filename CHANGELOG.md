@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 1.0.0 - 2026-08-25
+
 ### Fixed
 
 - Keep OpenAPI 3 documents valid when downgrading to Swagger 2.0 by removing
@@ -19,6 +21,7 @@
 
 ### Changed
 
+- Publish the module from its standalone `github.com/faustbrian/go-openapi` identity while preserving its documented API and behavior.
 - Normalize the existing accepted-erratum, HTTP representation, and strict
   JSON parser decisions into the auditable specification-decision contract.
 - Record the existing version, reference, path, callback, webhook, extension,

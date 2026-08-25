@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
-	"github.com/faustbrian/golib/pkg/openapi/response"
+	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/response"
 )
 
 func TestSelectAppliesExactRangeAndDefaultPrecedence(t *testing.T) {

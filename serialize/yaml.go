@@ -8,7 +8,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/jsonvalue"
 	"go.yaml.in/yaml/v3"
 )
 

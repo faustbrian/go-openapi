@@ -15,14 +15,14 @@ import (
 	"strings"
 	"testing"
 
-	openapi "github.com/faustbrian/golib/pkg/openapi"
-	"github.com/faustbrian/golib/pkg/openapi/compose"
-	"github.com/faustbrian/golib/pkg/openapi/convert"
-	"github.com/faustbrian/golib/pkg/openapi/diff"
-	"github.com/faustbrian/golib/pkg/openapi/parse"
-	"github.com/faustbrian/golib/pkg/openapi/reference"
-	"github.com/faustbrian/golib/pkg/openapi/serialize"
-	"github.com/faustbrian/golib/pkg/openapi/validate"
+	openapi "github.com/faustbrian/go-openapi"
+	"github.com/faustbrian/go-openapi/compose"
+	"github.com/faustbrian/go-openapi/convert"
+	"github.com/faustbrian/go-openapi/diff"
+	"github.com/faustbrian/go-openapi/parse"
+	"github.com/faustbrian/go-openapi/reference"
+	"github.com/faustbrian/go-openapi/serialize"
+	"github.com/faustbrian/go-openapi/validate"
 )
 
 func BenchmarkParseJSON(b *testing.B) {

@@ -7,11 +7,11 @@ import (
 	"strings"
 	"sync"
 
-	canonical "github.com/faustbrian/golib/pkg/json-schema"
-	openapi "github.com/faustbrian/golib/pkg/openapi"
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
-	"github.com/faustbrian/golib/pkg/openapi/specification"
-	"github.com/faustbrian/golib/pkg/openapi/specversion"
+	canonical "github.com/faustbrian/go-json-schema"
+	openapi "github.com/faustbrian/go-openapi"
+	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/specification"
+	"github.com/faustbrian/go-openapi/specversion"
 )
 
 // Document validates one selected OpenAPI description against the pinned

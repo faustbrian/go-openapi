@@ -1,9 +1,9 @@
-module github.com/faustbrian/golib/pkg/openapi
+module github.com/faustbrian/go-openapi
 
 go 1.26.6
 
 require (
-	github.com/faustbrian/golib/pkg/json-schema v0.0.0
+	github.com/faustbrian/go-json-schema v1.0.0
 	go.yaml.in/yaml/v3 v3.0.4
 	golang.org/x/net v0.57.0
 )

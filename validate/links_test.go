@@ -4,8 +4,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/reference"
-	"github.com/faustbrian/golib/pkg/openapi/validate"
+	"github.com/faustbrian/go-openapi/reference"
+	"github.com/faustbrian/go-openapi/validate"
 )
 
 func TestDocumentValidatesLinksAndCallbackExpressions(t *testing.T) {

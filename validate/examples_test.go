@@ -7,10 +7,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
-	"github.com/faustbrian/golib/pkg/openapi/parse"
-	"github.com/faustbrian/golib/pkg/openapi/reference"
-	"github.com/faustbrian/golib/pkg/openapi/validate"
+	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/parse"
+	"github.com/faustbrian/go-openapi/reference"
+	"github.com/faustbrian/go-openapi/validate"
 )
 
 type strictExampleCodec struct{}

@@ -3,8 +3,8 @@ package parameter_test
 import (
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/parameter"
-	"github.com/faustbrian/golib/pkg/openapi/specversion"
+	"github.com/faustbrian/go-openapi/parameter"
+	"github.com/faustbrian/go-openapi/specversion"
 )
 
 func FuzzOpenAPI32QueryDecode(f *testing.F) {

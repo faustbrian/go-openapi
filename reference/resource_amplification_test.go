@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
-	"github.com/faustbrian/golib/pkg/openapi/reference"
+	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/reference"
 )
 
 func TestReferenceRewritersRejectWideValuesBeforeCopyingChildren(t *testing.T) {

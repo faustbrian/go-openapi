@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/faustbrian/golib/pkg/openapi/internal/modelaccess"
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
-	"github.com/faustbrian/golib/pkg/openapi/model"
-	"github.com/faustbrian/golib/pkg/openapi/specversion"
+	"github.com/faustbrian/go-openapi/internal/modelaccess"
+	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/model"
+	"github.com/faustbrian/go-openapi/specversion"
 )
 
 // ErrInvalidDocument reports a root value that cannot select this OpenAPI dialect.

@@ -4,7 +4,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/jsonschema"
+	"github.com/faustbrian/go-openapi/jsonschema"
 )
 
 func TestNeedsExplicitDialectDistinguishesSchemaResourceUse(t *testing.T) {

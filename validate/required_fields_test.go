@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/validate"
+	"github.com/faustbrian/go-openapi/validate"
 )
 
 func TestDocumentEnforcesRequiredOpenAPIObjectFields(t *testing.T) {

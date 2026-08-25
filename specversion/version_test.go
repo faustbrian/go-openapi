@@ -4,7 +4,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/specversion"
+	"github.com/faustbrian/go-openapi/specversion"
 )
 
 func TestParseCoversEveryPinnedVersionAndSyntaxClass(t *testing.T) {

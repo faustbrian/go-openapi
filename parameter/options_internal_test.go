@@ -3,7 +3,7 @@ package parameter
 import (
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/specversion"
+	"github.com/faustbrian/go-openapi/specversion"
 )
 
 func TestStyleAllowedRejectsUnknownLocations(t *testing.T) {

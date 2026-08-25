@@ -6,10 +6,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
-	"github.com/faustbrian/golib/pkg/openapi/media"
-	"github.com/faustbrian/golib/pkg/openapi/parse"
-	"github.com/faustbrian/golib/pkg/openapi/specversion"
+	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/media"
+	"github.com/faustbrian/go-openapi/parse"
+	"github.com/faustbrian/go-openapi/specversion"
 )
 
 func TestPositionalEncodingsAppliesPrefixThenItemEncoding(t *testing.T) {

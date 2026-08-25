@@ -16,7 +16,7 @@ cp "$root/interoperability/go.sum" "$temporary/go.sum"
 cp "$root/interoperability/runner.go" "$temporary/runner.go"
 cd "$temporary"
 go mod edit -replace \
-    "github.com/faustbrian/golib/pkg/openapi=$root"
+    "github.com/faustbrian/go-openapi=$root"
 go mod verify >/dev/null
 
 report="$temporary/report.tsv"

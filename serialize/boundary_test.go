@@ -9,8 +9,8 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
-	"github.com/faustbrian/golib/pkg/openapi/serialize"
+	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/serialize"
 )
 
 func TestSerializersRejectWideValuesBeforeCopyingChildren(t *testing.T) {

@@ -1,7 +1,7 @@
 // Package openapi defines shared, version-aware OpenAPI document APIs.
 package openapi
 
-import "github.com/faustbrian/golib/pkg/openapi/specversion"
+import "github.com/faustbrian/go-openapi/specversion"
 
 // ErrMalformedVersion reports a version string that is not syntactically an
 // OpenAPI or Swagger version.

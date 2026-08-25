@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/jsonvalue"
 )
 
 // CollectionFormat identifies a Swagger 2.0 array serialization format.

@@ -7,7 +7,7 @@ import (
 	"slices"
 	"strconv"
 
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/jsonvalue"
 )
 
 // Occurrence identifies one $ref member and its exact source pointer.

@@ -4,11 +4,11 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/faustbrian/golib/pkg/openapi/jsonvalue"
-	"github.com/faustbrian/golib/pkg/openapi/oas30"
-	"github.com/faustbrian/golib/pkg/openapi/oas31"
-	"github.com/faustbrian/golib/pkg/openapi/oas32"
-	"github.com/faustbrian/golib/pkg/openapi/swagger20"
+	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/oas30"
+	"github.com/faustbrian/go-openapi/oas31"
+	"github.com/faustbrian/go-openapi/oas32"
+	"github.com/faustbrian/go-openapi/swagger20"
 )
 
 // ErrInvalidDocument reports a value that cannot unambiguously select one
