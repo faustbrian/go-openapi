@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+### Fixed
+
+- Resolve canonical owned-module archives while constructing the temporary
+  historical API baseline so stale unpublished checksums cannot mask actual
+  compatibility results.
+
 ### Changed
 
 - Exclude intentional nested modules from root local-proxy archives so local,

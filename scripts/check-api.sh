@@ -31,6 +31,18 @@ else
         tar -x -C "$baseline_root"
 fi
 
+# Standalone extraction can rebuild an unpublished owned module at the same
+# planned version. Keep the historical OpenAPI source, but let every temporary
+# baseline module resolve the canonical owned archives supplied by CI.
+find "$baseline_root" -name go.sum -type f | while IFS= read -r sum_file; do
+    sed '/^github\.com\/faustbrian\/go-/d' "$sum_file" >"$sum_file.tmp"
+    mv "$sum_file.tmp" "$sum_file"
+done
+(
+    cd "$baseline_root"
+    GOWORK=off go mod tidy
+)
+
 module_path=$(sed -n 's/^module[[:space:]]\{1,\}//p' "$root_dir/go.mod")
 if [ -z "$module_path" ]; then
     echo 'module path is unavailable' >&2
