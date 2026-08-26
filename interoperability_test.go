@@ -25,7 +25,7 @@ func TestInteroperabilityMatrixCoversEveryFixtureAndTool(t *testing.T) {
 	wantFixtures["api.github.com.2022-11-28.json"] = true
 	wantTools := map[string]string{
 		"golib-openapi":      "workspace",
-		"getkin/kin-openapi": "v0.143.0",
+		"getkin/kin-openapi": "v0.147.0",
 		"pb33f/libopenapi":   "v0.38.7",
 		"go-openapi/loads":   "v0.25.0",
 	}
