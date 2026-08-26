@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+### Fixed
+
+- Keep package-specific generation, provenance, and dependency checks on the
+  standalone package makefile instead of recursing into the minimal root
+  orchestration makefile.
+
 ## 1.0.0 - 2026-08-25
 
 ### Fixed

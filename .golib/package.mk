@@ -63,7 +63,7 @@ dependencies:
 	$(GO) mod verify
 	$(GO) mod tidy -diff
 	$(GO) list -deps ./... >/dev/null
-	$(MAKE) dependency-audit
+	$(MAKE) -f .golib/package.mk dependency-audit
 
 dependency-audit:
 	$(GO) test ./internal/quality/cmd/dependencyaudit -count=1
@@ -101,8 +101,8 @@ generated:
 
 conformance:
 	$(GO) test ./internal/specification ./internal/modelgen -count=1
-	$(MAKE) generated
-	$(MAKE) provenance
+	$(MAKE) -f .golib/package.mk generated
+	$(MAKE) -f .golib/package.mk provenance
 
 provenance:
 	$(GO) test ./internal/specification/cmd/provenance -count=1
