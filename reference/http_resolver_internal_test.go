@@ -156,8 +156,6 @@ func TestHTTPPolicyRejectsNonCanonicalAllowedHosts(t *testing.T) {
 }
 
 func TestHTTPResolverInjectsRequestConstructionFailure(t *testing.T) {
-	t.Parallel()
-
 	options := DefaultHTTPResolverOptions()
 	options.AllowedHosts = []string{"example.test"}
 	resolver, err := NewHTTPResolver(options)

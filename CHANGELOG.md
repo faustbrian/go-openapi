@@ -9,6 +9,9 @@
 
 ### Fixed
 
+- Run HTTP resolver error-path assertions serially so failures terminate
+  promptly without waiting on unrelated parallel server fixtures.
+
 - Keep package-specific generation, provenance, and dependency checks on the
   standalone package makefile instead of recursing into the minimal root
   orchestration makefile.
