@@ -153,6 +153,7 @@ callbacks, or make an explicitly trusted remote server safe. Optional resolver
 authority is disabled until configured.
 
 Interoperability observations, fuzz campaigns, performance budgets, and
-cross-platform tests are separate executable evidence linked from
-[`audit-report.md`](audit-report.md). None may be inferred from this threat
-model, aggregate coverage, official-schema success, or self-round trips.
+cross-platform tests remain separate evidence under
+[interoperability](interoperability.md), [performance](performance.md), and
+`specification/conformance/`. None may be inferred from this threat model,
+aggregate coverage, official-schema success, or self round trips.

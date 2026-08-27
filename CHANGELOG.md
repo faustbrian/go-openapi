@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+### Documentation
+
+- Replace the archived monorepo and transient audit entry points with a concise
+  standalone README and organized documentation index.
+
 ### Fixed
 
 - Keep package-specific generation, provenance, and dependency checks on the
@@ -48,8 +53,6 @@
   iteration cannot skip an explicit relation.
 
 ### Documentation
-
-- Link the package README to the repository-wide Golib documentation portal.
 
 ### Changed
 
