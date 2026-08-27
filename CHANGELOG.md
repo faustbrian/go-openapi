@@ -9,6 +9,9 @@
 
 ### Fixed
 
+- Resolve current-source rehearsal archives through task-owned module files so
+  immutable public checksums remain valid during CodeQL builds.
+
 - Run HTTP resolver error-path assertions serially so failures terminate
   promptly without waiting on unrelated parallel server fixtures.
 
