@@ -404,7 +404,15 @@ func TestHTTPResolverUsesOnlyConfiguredConcurrentSlots(t *testing.T) {
 		_, resolveErr := resolver.Resolve(context.Background(), server.URL+"/one.json")
 		results <- resolveErr
 	}()
-	<-entered
+	entryDeadline := time.NewTimer(5 * time.Second)
+	defer entryDeadline.Stop()
+	select {
+	case <-entered:
+	case resolveErr := <-results:
+		t.Fatalf("first request completed before entering handler: %v", resolveErr)
+	case <-entryDeadline.C:
+		t.Fatal("first request did not enter handler")
+	}
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Millisecond)
 	defer cancel()
 	if _, err := resolver.Resolve(ctx, server.URL+"/two.json"); !errors.Is(err, context.DeadlineExceeded) {
