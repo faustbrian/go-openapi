@@ -12,6 +12,9 @@
 - Resolve current-source rehearsal archives through task-owned module files so
   immutable public checksums remain valid during CodeQL builds.
 
+- Keep CodeQL builds directly traceable while applying current-source checksum
+  isolation, preventing analysis from falling back to the full repository gate.
+
 - Run HTTP resolver error-path assertions serially so failures terminate
   promptly without waiting on unrelated parallel server fixtures.
 
