@@ -19,12 +19,35 @@ export GOPROXY="file://${self_proxy},${upstream_proxy}"
 current_no_sum_db="$(go env GONOSUMDB)"
 export GONOSUMDB="github.com/faustbrian/go-*${current_no_sum_db:+,${current_no_sum_db}}"
 
+clean_flags=""
+for flag in ${GOFLAGS:-}; do
+    case "${flag}" in
+        -mod=*|-modfile=*) ;;
+        *) clean_flags="${clean_flags:+${clean_flags} }${flag}" ;;
+    esac
+done
+
 while IFS= read -r module; do
     [[ -n "${module}" ]] || continue
     module_root="${root}"
     if [[ "${module}" != "." ]]; then
         module_root="${root}/${module}"
     fi
+    module_slug="$(printf '%s' "${module}" | tr '/.' '--')"
+    module_state="${task}/modfiles/${module_slug}"
+    modfile="${module_state}/isolated.mod"
+    mkdir -p "${module_state}"
+    cp "${module_root}/go.mod" "${modfile}"
+    if [[ -f "${module_root}/go.sum" ]]; then
+        awk '$1 !~ /^github\.com\/faustbrian\/go-/ { print }' \
+            "${module_root}/go.sum" >"${module_state}/isolated.sum"
+    else
+        : >"${module_state}/isolated.sum"
+    fi
+    module_flags="${clean_flags:+${clean_flags} }-modfile=${modfile}"
+    (cd "${module_root}" && GOWORK=off GOFLAGS="${module_flags}" \
+        go mod download all)
+    build_flags="${module_flags} -mod=readonly"
     while IFS= read -r package; do
         [[ -n "${package}" ]] || continue
         package_tags="$(
@@ -43,13 +66,14 @@ while IFS= read -r module; do
             package_tags=benchmark_disabled
         fi
         if [[ -z "${package_tags}" ]]; then
-            (cd "${module_root}" && GOWORK=off go build -o "${task}/${slug}" "${package}")
+            (cd "${module_root}" && GOWORK=off GOFLAGS="${build_flags}" \
+                go build -o "${task}/${slug}" "${package}")
             continue
         fi
         variant=0
         while IFS= read -r tag; do
             [[ -n "${tag}" ]] || continue
-            (cd "${module_root}" && GOWORK=off go build \
+            (cd "${module_root}" && GOWORK=off GOFLAGS="${build_flags}" go build \
                 -tags="${tag}" -o "${task}/${slug}-${variant}" "${package}")
             variant=$((variant + 1))
         done <<<"${package_tags}"

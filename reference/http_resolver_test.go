@@ -53,8 +53,6 @@ func TestHTTPResolverReadsAuthorizedJSONAndYAML(t *testing.T) {
 }
 
 func TestHTTPResolverRejectsUnauthorizedDestinations(t *testing.T) {
-	t.Parallel()
-
 	server := httptest.NewServer(http.HandlerFunc(func(
 		writer http.ResponseWriter,
 		_ *http.Request,
