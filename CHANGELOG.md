@@ -15,6 +15,9 @@
 
 ### Fixed
 
+- Use deterministic execution-count fuzz budgets so Go runtime deadline
+  scheduling cannot make otherwise successful fuzz campaigns fail in CI.
+
 - Resolve current-source rehearsal archives through task-owned module files so
   immutable public checksums remain valid during CodeQL builds.
 

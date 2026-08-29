@@ -43,137 +43,137 @@ operations:
       - type: go-test
         packages: [./parse]
         fuzz: '^FuzzJSONParserDeterminism$'
-        budget: 2s
+        budget: 1000x
         timeout: 2m
       - type: go-test
         packages: [./parse]
         fuzz: '^FuzzYAMLParserProducesJSONSemantics$'
-        budget: 2s
+        budget: 1000x
         timeout: 2m
       - type: go-test
         packages: [./jsonvalue]
         fuzz: '^FuzzValueMarshalJSONWithLimits$'
-        budget: 2s
+        budget: 1000x
         timeout: 2m
       - type: go-test
         packages: [./jsonschema]
         fuzz: '^FuzzSchemaObjectCompilationAndEvaluation$'
-        budget: 2s
+        budget: 1000x
         timeout: 2m
       - type: go-test
         packages: [./media]
         fuzz: '^FuzzServerSentEventParsingDeterminism$'
-        budget: 2s
+        budget: 1000x
         timeout: 2m
       - type: go-test
         packages: [./internal/quality/cmd/mutationgate]
         fuzz: '^FuzzMutationReportDecoder$'
-        budget: 2s
+        budget: 1000x
         timeout: 2m
       - type: go-test
         packages: [./internal/specification/cmd/provenance]
         fuzz: '^FuzzProvenanceManifestDecoder$'
-        budget: 2s
+        budget: 1000x
         timeout: 2m
       - type: go-test
         packages: [./internal/specification/cmd/specmatrix]
         fuzz: '^FuzzSpecmatrixManifestDecoder$'
-        budget: 2s
+        budget: 1000x
         timeout: 2m
       - type: go-test
         packages: [./internal/modelgen/cmd/modelgen]
         fuzz: '^FuzzModelgenFieldInventoryDecoder$'
-        budget: 2s
+        budget: 1000x
         timeout: 2m
       - type: go-test
         packages: [./reference]
         fuzz: '^FuzzPointerCanonicalRoundTrip$'
-        budget: 2s
+        budget: 1000x
         timeout: 2m
       - type: go-test
         packages: [./reference]
         fuzz: '^FuzzFragmentClassificationIsStable$'
-        budget: 2s
+        budget: 1000x
         timeout: 2m
       - type: go-test
         packages: [./reference]
         fuzz: '^FuzzBundleInternalDocumentsIsIdentity$'
-        budget: 2s
+        budget: 1000x
         timeout: 2m
       - type: go-test
         packages: [./reference]
         fuzz: '^FuzzDereferenceObjectsIsDeterministic$'
-        budget: 2s
+        budget: 1000x
         timeout: 2m
       - type: go-test
         packages: [./reference]
         fuzz: '^FuzzFileResolverIdentifierBoundary$'
-        budget: 2s
+        budget: 1000x
         timeout: 2m
       - type: go-test
         packages: [./reference]
         fuzz: '^FuzzHTTPResolverResponseBoundary$'
-        budget: 2s
+        budget: 1000x
         timeout: 2m
       - type: go-test
         packages: [./expression]
         fuzz: '^FuzzRuntimeExpressionParse$'
-        budget: 2s
+        budget: 1000x
         timeout: 2m
       - type: go-test
         packages: [./expression]
         fuzz: '^FuzzRuntimeExpressionTemplateParse$'
-        budget: 2s
+        budget: 1000x
         timeout: 2m
       - type: go-test
         packages: [./parameter]
         fuzz: '^FuzzOpenAPI32QueryDecode$'
-        budget: 2s
+        budget: 1000x
         timeout: 2m
       - type: go-test
         packages: [./parameter]
         fuzz: '^FuzzSwagger20QueryDecode$'
-        budget: 2s
+        budget: 1000x
         timeout: 2m
       - type: go-test
         packages: [./diff]
         fuzz: '^FuzzOperationDiffDeterminism$'
-        budget: 2s
+        budget: 1000x
         timeout: 2m
       - type: go-test
         packages: [./compose]
         fuzz: '^FuzzFilterOperationsKeepAllIsIdentity$'
-        budget: 2s
+        budget: 1000x
         timeout: 2m
       - type: go-test
         packages: [./compose]
         fuzz: '^FuzzMergeIdenticalDocumentsIsIdentity$'
-        budget: 2s
+        budget: 1000x
         timeout: 2m
       - type: go-test
         packages: [./convert]
         fuzz: '^FuzzConvertPatchAndForwardVersions$'
-        budget: 2s
+        budget: 1000x
         timeout: 2m
       - type: go-test
         packages: [./convert]
         fuzz: '^FuzzConvertOpenAPI31To30$'
-        budget: 2s
+        budget: 1000x
         timeout: 2m
       - type: go-test
         packages: [./convert]
         fuzz: '^FuzzConvertOpenAPI30ToSwagger20$'
-        budget: 2s
+        budget: 1000x
         timeout: 2m
       - type: go-test
         packages: [./serialize]
         fuzz: '^FuzzJSONAndYAMLSemanticRoundTrip$'
-        budget: 2s
+        budget: 1000x
         timeout: 2m
       - type: go-test
         packages: [./validate]
         fuzz: '^FuzzDocumentValidationDeterminism$'
-        budget: 2s
+        budget: 1000x
         timeout: 2m
   - module: .
     gate: benchmark
