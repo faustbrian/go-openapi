@@ -688,17 +688,21 @@ func TestValidateSwagger20SchemaReportsNestedDefaultLocations(t *testing.T) {
 			"allOf":[{"type":"string","default":1}],
 			"items":[{"type":"boolean","default":0}],
 			"additionalProperties":{"type":"object","default":[]},
-			"properties":{"a/b":{"type":"array","default":{}}}
+			"properties":{
+				"a/b":{"type":"array","default":{}},
+				"nested":{"type":"array","items":{"type":"integer","default":1.5}}
+			}
 		}`),
 	)
 	if err != nil {
 		t.Fatal(err)
 	}
 	want := map[string]bool{
-		"/allOf/0/default":              false,
-		"/items/0/default":              false,
-		"/additionalProperties/default": false,
-		"/properties/a~1b/default":      false,
+		"/allOf/0/default":                 false,
+		"/items/0/default":                 false,
+		"/additionalProperties/default":    false,
+		"/properties/a~1b/default":         false,
+		"/properties/nested/items/default": false,
 	}
 	for _, unit := range output.Errors {
 		if _, exists := want[unit.InstanceLocation]; exists {

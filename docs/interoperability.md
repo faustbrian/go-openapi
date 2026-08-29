@@ -121,13 +121,15 @@ generation, or unsupported feature synthesis.
    `scripts/sync-spec.sh`, then run the sync script and verify exact checksums.
 3. Verify each version-specific source, license, release notes, and applicable
    API behavior; update this document and license hashes.
-4. Run `INTEROP_UPDATE=true make interoperability` to verify the pinned graph
+4. Run `INTEROP_UPDATE=true make -f verification/package.mk interoperability`
+   to verify the pinned graph
    and regenerate the observed matrix in a temporary module.
 5. Review every changed cell and diagnostic class against normative text and
    classify it as a true
    incompatibility, an implementation defect or limitation, or deliberate
    package policy.
-6. Run `make interoperability` again without update mode. The checked-in matrix
+6. Run `make -f verification/package.mk interoperability` again without update
+   mode. The checked-in matrix
    must match exactly.
 
 The scheduled CI job performs the final command. Version or behavior drift is a
