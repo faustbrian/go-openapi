@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "repository": "github.com/faustbrian/go-openapi",
+  "module": ".",
+  "package": "convert",
+  "gate": "mutation",
+  "input_digest": "sha256:1dd7e33b4c4327bbc6cdb16aa9a7cb6d3835d3f548f2acd7a1b9275b89e0de68",
+  "verifier_digest": "sha256:9a9499ff68a8dfd49a0be7995590297a8ee563a1aa226bfd8b9361dc53058108",
+  "result": "passed",
+  "report_digest": "sha256:d2af4ddba73b65fb2689095a429ceb3402773a15e7d92bfaa817113a3b0d370f",
+  "environment": {
+    "CGO_ENABLED": "1",
+    "GOARCH": "arm64",
+    "GOOS": "darwin",
+    "GOVERSION": "go1.26.6",
+    "evidence_origin": "approved_legacy_checkpoint"
+  },
+  "completed_at": "2026-08-29T09:57:19.664277Z"
+}

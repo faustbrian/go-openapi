@@ -977,7 +977,8 @@ The reproducible capture method, workload definitions, allocation budgets,
 limitations, and raw evidence are documented in
 [`docs/performance.md`](performance.md).
 
-Run `make interoperability` for the pinned, isolated-module comparison with
+Run `make -f verification/package.mk interoperability` for the pinned,
+isolated-module comparison with
 independent OpenAPI implementations. Its complete dependency graph and
 checksums remain outside the core module. The exact versions, fixture policy,
 classified differences, update procedure, and observed matrix are documented

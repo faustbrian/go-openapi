@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+### Changed
+
+- Use the immutable shared Go library tooling contract while keeping OpenAPI
+  conformance, interoperability, performance, and verification evidence owned
+  by this repository.
+
 ### Documentation
 
 - Replace the archived monorepo and transient audit entry points with a concise

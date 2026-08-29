@@ -1,0 +1,157 @@
+{
+    "go_module": "github.com/faustbrian/golib/pkg/openapi",
+    "files": [
+      {
+        "file_name": "evaluate.go",
+        "mutations": [
+          {
+            "type": "CONDITIONALS_NEGATION",
+            "status": "KILLED",
+            "line": 53,
+            "column": 23
+          },
+          {
+            "type": "CONDITIONALS_BOUNDARY",
+            "status": "KILLED",
+            "line": 53,
+            "column": 23
+          },
+          {
+            "type": "CONDITIONALS_NEGATION",
+            "status": "KILLED",
+            "line": 56,
+            "column": 23
+          },
+          {
+            "type": "INVERT_ASSIGNMENTS",
+            "status": "KILLED",
+            "line": 66,
+            "column": 16
+          },
+          {
+            "type": "CONDITIONALS_BOUNDARY",
+            "status": "KILLED",
+            "line": 67,
+            "column": 19
+          },
+          {
+            "type": "REMOVE_SELF_ASSIGNMENTS",
+            "status": "KILLED",
+            "line": 66,
+            "column": 16
+          },
+          {
+            "type": "CONDITIONALS_NEGATION",
+            "status": "KILLED",
+            "line": 67,
+            "column": 19
+          },
+          {
+            "type": "INVERT_ASSIGNMENTS",
+            "status": "KILLED",
+            "line": 76,
+            "column": 16
+          },
+          {
+            "type": "REMOVE_SELF_ASSIGNMENTS",
+            "status": "KILLED",
+            "line": 76,
+            "column": 16
+          },
+          {
+            "type": "CONDITIONALS_BOUNDARY",
+            "status": "KILLED",
+            "line": 77,
+            "column": 19
+          },
+          {
+            "type": "CONDITIONALS_NEGATION",
+            "status": "KILLED",
+            "line": 77,
+            "column": 19
+          },
+          {
+            "type": "INVERT_LOGICAL",
+            "status": "KILLED",
+            "line": 106,
+            "column": 57
+          },
+          {
+            "type": "INVERT_LOGICAL",
+            "status": "KILLED",
+            "line": 106,
+            "column": 32
+          },
+          {
+            "type": "CONDITIONALS_BOUNDARY",
+            "status": "KILLED",
+            "line": 106,
+            "column": 28
+          },
+          {
+            "type": "CONDITIONALS_NEGATION",
+            "status": "KILLED",
+            "line": 106,
+            "column": 28
+          },
+          {
+            "type": "CONDITIONALS_BOUNDARY",
+            "status": "KILLED",
+            "line": 106,
+            "column": 53
+          },
+          {
+            "type": "CONDITIONALS_NEGATION",
+            "status": "KILLED",
+            "line": 106,
+            "column": 53
+          },
+          {
+            "type": "CONDITIONALS_BOUNDARY",
+            "status": "KILLED",
+            "line": 106,
+            "column": 77
+          },
+          {
+            "type": "CONDITIONALS_NEGATION",
+            "status": "KILLED",
+            "line": 110,
+            "column": 28
+          },
+          {
+            "type": "CONDITIONALS_NEGATION",
+            "status": "KILLED",
+            "line": 106,
+            "column": 77
+          },
+          {
+            "type": "CONDITIONALS_NEGATION",
+            "status": "KILLED",
+            "line": 113,
+            "column": 23
+          },
+          {
+            "type": "CONDITIONALS_NEGATION",
+            "status": "KILLED",
+            "line": 116,
+            "column": 22
+          }
+        ]
+      }
+    ],
+    "test_efficacy": 100,
+    "mutations_coverage": 100,
+    "mutants_total": 22,
+    "mutants_killed": 22,
+    "mutants_lived": 0,
+    "mutants_not_viable": 0,
+    "mutants_not_covered": 0,
+    "elapsed_time": 6.304455667,
+    "mutator_statistics": {
+      "conditionals_negation": 10,
+      "conditionals_boundary": 6,
+      "invert_assignments": 2,
+      "invert_logical": 2,
+      "remove_self_assignments": 2
+    }
+  }

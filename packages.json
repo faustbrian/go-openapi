@@ -183,20 +183,6 @@
       "build_tags": []
     },
     {
-      "module_directory": "interoperability",
-      "directory": ".",
-      "name": "main",
-      "import_path": "github.com/faustbrian/go-openapi/interoperability",
-      "kind": "harness",
-      "production": false,
-      "executable": false,
-      "coverage_required": false,
-      "build_required": true,
-      "build_tags": [
-        "interop"
-      ]
-    },
-    {
       "module_directory": ".",
       "directory": "jsonschema",
       "name": "jsonschema",

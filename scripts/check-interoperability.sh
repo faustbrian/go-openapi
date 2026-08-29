@@ -2,22 +2,32 @@
 set -eu
 
 root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
-temporary=$(mktemp -d)
-trap 'rm -rf "$temporary"' EXIT HUP INT TERM
-
-(
-    cd "$root/interoperability"
-    go mod tidy -diff
-    go mod verify >/dev/null
-)
+temporary=$(mktemp -d "${GOTMPDIR:-${TMPDIR:-/tmp}}/go-openapi-interoperability.XXXXXX")
+cleanup() {
+    chmod -R u+w "$temporary" 2>/dev/null || true
+    [ ! -e "$temporary" ] || find "$temporary" -depth -delete
+}
+trap cleanup EXIT HUP INT TERM
 
 cp "$root/interoperability/go.mod" "$temporary/go.mod"
-cp "$root/interoperability/go.sum" "$temporary/go.sum"
+awk '$1 !~ /^github\.com\/faustbrian\/go-/ { print }' \
+    "$root/interoperability/go.sum" >"$temporary/go.sum"
 cp "$root/interoperability/runner.go" "$temporary/runner.go"
 cd "$temporary"
 go mod edit -replace \
     "github.com/faustbrian/go-openapi=$root"
+go mod tidy
 go mod verify >/dev/null
+
+go mod edit -dropreplace github.com/faustbrian/go-openapi
+diff -u "$root/interoperability/go.mod" "$temporary/go.mod"
+awk '$1 !~ /^github\.com\/faustbrian\/go-/ { print }' \
+    "$root/interoperability/go.sum" >"$temporary/tracked-external.sum"
+awk '$1 !~ /^github\.com\/faustbrian\/go-/ { print }' \
+    "$temporary/go.sum" >"$temporary/resolved-external.sum"
+diff -u "$temporary/tracked-external.sum" "$temporary/resolved-external.sum"
+go mod edit -replace \
+    "github.com/faustbrian/go-openapi=$root"
 
 report="$temporary/report.tsv"
 go run -mod=readonly -tags interop . \
