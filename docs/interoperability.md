@@ -1,7 +1,9 @@
 # Interoperability evidence
 
-The executable matrix is
-[`interoperability/expected.tsv`](../interoperability/expected.tsv). It records
+The decision-attributed review is
+[`specification/interoperability.tsv`](../specification/interoperability.tsv).
+The isolated harness owns the raw executable matrix in
+[`interoperability/expected.tsv`](../interoperability/expected.tsv). Both record
 observed behavior, not normative authority. The OpenAPI specifications and
 their incorporated standards remain authoritative when implementations differ.
 

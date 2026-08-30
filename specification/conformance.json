@@ -5,12 +5,12 @@
       "id": "OPENAPI-DEC-001",
       "authoritative_sources": ["openapi-3.2-source", "openapi-artifacts-source"],
       "executable_evidence": ["TestDocumentCompilerUsesNormativeBaseDialect", "TestSchemaDeclarationOverridesCompilerDefault", "TestCompilerAppliesOpenAPIDialectAndPreservesAnnotations", "TestVerifyAcceptsEveryManifestArtifact"],
-      "fixtures": ["interoperability/fixtures/oas32.json", "interoperability/fixtures/oas32-tag-kind.json"],
+      "fixtures": [],
       "fuzz": ["FuzzSchemaObjectCompilationAndEvaluation"],
       "interoperability_evidence": [],
       "interoperability_classification": "not assessed",
-      "differential_evidence": ["interoperability/expected.tsv"],
-      "differential_classification": "deliberate policy difference",
+      "differential_evidence": [],
+      "differential_classification": "not assessed",
       "public_behavior": ["OpenAPI 3.2 defaults to the corrected dated dialect."]
     },
     {
@@ -40,13 +40,13 @@
     {
       "id": "OPENAPI-DEC-004",
       "authoritative_sources": ["openapi-3.2-source", "swagger-2.0-source", "openapi-3.0-source", "openapi-3.1-source", "openapi-artifacts-source", "json-schema-source", "json-schema-2020-12-source"],
-      "executable_evidence": ["TestDocumentCompilerSelectsSwagger20SchemaSubset", "TestDocumentCompilerSelectsOpenAPI30SchemaSubset", "TestDocumentCompilerUsesNormativeBaseDialect", "TestSchemaProseRemainsAuthoritativeWhenInformationalSchemaPasses", "TestConvertPatchVersionPreservesDocumentValues", "TestConvertOpenAPI31To30ReportsLosses"],
-      "fixtures": ["interoperability/fixtures/swagger20.json", "interoperability/fixtures/oas30.json", "interoperability/fixtures/oas31-boolean-schema.json", "interoperability/fixtures/oas32-tag-kind.json"],
+      "executable_evidence": ["TestDecodeSelectsLosslessVersionSpecificModels", "TestDocumentCompilerSelectsSwagger20SchemaSubset", "TestDocumentCompilerSelectsOpenAPI30SchemaSubset", "TestDocumentCompilerUsesNormativeBaseDialect", "TestSchemaProseRemainsAuthoritativeWhenInformationalSchemaPasses", "TestConvertPatchVersionPreservesDocumentValues", "TestConvertOpenAPI31To30ReportsLosses"],
+      "fixtures": [],
       "fuzz": ["FuzzConvertPatchAndForwardVersions", "FuzzSchemaObjectCompilationAndEvaluation"],
       "interoperability_evidence": ["specification/independent/swagger-petstore/openapi.yaml"],
       "interoperability_classification": "provider agreement",
-      "differential_evidence": ["interoperability/expected.tsv"],
-      "differential_classification": "deliberate policy difference",
+      "differential_evidence": ["specification/interoperability.tsv"],
+      "differential_classification": "peer defect",
       "public_behavior": ["The exact document version selects its model and schema dialect."]
     },
     {
@@ -65,12 +65,12 @@
       "id": "OPENAPI-DEC-006",
       "authoritative_sources": ["openapi-3.2-source", "openapi-artifacts-source"],
       "executable_evidence": ["TestDocumentValidatesPathTemplatesAndParameters", "TestOpenAPI32RejectsRepeatedPathTemplateExpressions", "TestAdditionalOperationRuleDoesNotApplyBeforeOpenAPI32", "TestDocumentRequiresOperationIDsUniqueAcrossWebhooks", "TestDocumentCollectsOperationsFromExternalCallbacks", "TestParseRejectsExpressionsOutsideNormativeGrammar", "TestDocumentAcceptsLegalComponentNamesAndIgnoresExtensions"],
-      "fixtures": ["interoperability/fixtures/oas32.json"],
+      "fixtures": [],
       "fuzz": ["FuzzRuntimeExpressionParse", "FuzzRuntimeExpressionTemplateParse", "FuzzDocumentValidationDeterminism"],
       "interoperability_evidence": [],
       "interoperability_classification": "not assessed",
-      "differential_evidence": ["interoperability/expected.tsv"],
-      "differential_classification": "deliberate policy difference",
+      "differential_evidence": [],
+      "differential_classification": "not assessed",
       "public_behavior": ["Every version-owned operation surface is traversed and extensions remain opaque."]
     },
     {
@@ -113,11 +113,11 @@
       "id": "OPENAPI-DEC-010",
       "authoritative_sources": ["yaml-1.2.2-source", "rfc8259-source", "openapi-3.2-source"],
       "executable_evidence": ["TestYAMLUsesTheJSONSemanticModel", "TestYAMLRejectsAmbiguousOrNonJSONRepresentations", "TestJSONRejectsDuplicateObjectMembers", "TestJSONPreservesSemanticOrderAndExactNumbers", "TestYAMLRoundTripPreservesJSONSemantics"],
-      "fixtures": ["interoperability/fixtures/yaml-alias.yaml", "interoperability/fixtures/duplicate-key.json"],
+      "fixtures": [],
       "fuzz": ["FuzzYAMLParserProducesJSONSemantics", "FuzzJSONParserDeterminism", "FuzzJSONAndYAMLSemanticRoundTrip"],
       "interoperability_evidence": [],
       "interoperability_classification": "not assessed",
-      "differential_evidence": ["interoperability/expected.tsv"],
+      "differential_evidence": ["specification/interoperability.tsv"],
       "differential_classification": "deliberate policy difference",
       "public_behavior": ["Supported YAML maps exactly to the package JSON semantic model."]
     }
