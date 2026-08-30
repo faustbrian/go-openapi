@@ -8,6 +8,22 @@
   conformance, interoperability, performance, and verification evidence owned
   by this repository.
 
+### Specification Decisions
+
+- Publish the [machine-validated decision register](docs/specification-decisions.md),
+  conformance bindings, authority monitoring, and append-only history for the
+  complete initial OpenAPI inventory.
+- OPENAPI-DEC-001 sha256:945adbbdc8784d078c0c92f18e25f09335b55c60f4dabc6c4cd892c4edf8e227
+- OPENAPI-DEC-002 sha256:7a6781bcac02f255551644969f0b53310bddcb9c417eaaf7062ecb0eb421a193
+- OPENAPI-DEC-003 sha256:132533579e14d96eccffbf6c9456d1a9e36d895effb2b977d4deffdfa7e11e22
+- OPENAPI-DEC-004 sha256:3412d17f04d660cadf876062ff3f677531a6e928d81ebf6e98926f74ef9a5525
+- OPENAPI-DEC-005 sha256:457129d9ab2d52e90b4f2dff335b8cc3d0faeee8dc104f0e78820ab8b7d0b2da
+- OPENAPI-DEC-006 sha256:e0f1f7cd1e4806a30399749f079f3700530c70f8ef8bf86e6ef9292457154b70
+- OPENAPI-DEC-007 sha256:514cb9989d61158bfb863b9537ae21a2f8a8682ce5baf3274b220ab500a9fbed
+- OPENAPI-DEC-008 sha256:cc10809f406b12336deb53537ad9146ba71ac98c6962779c229dc203c501e018
+- OPENAPI-DEC-009 sha256:962eee676c2080c6558e03d53fe08911ab6cc2e9de353428f7f4cef6659bc300
+- OPENAPI-DEC-010 sha256:192a09d27fcf47ca576b13c537c30266880ca4298db996e400c41f3ffbec96af
+
 ### Documentation
 
 - Replace the archived monorepo and transient audit entry points with a concise

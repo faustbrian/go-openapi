@@ -25,6 +25,25 @@ in [`../docs/specification-decisions.md`](../docs/specification-decisions.md).
 This keeps released source artifacts byte-identical while making intentional
 post-publication corrections auditable.
 
+## Decision conformance matrix
+
+The machine bindings live in [`decisions.json`](decisions.json),
+[`conformance.json`](conformance.json), [`decision-history.json`](decision-history.json),
+and [`monitoring.json`](monitoring.json).
+
+| Decision | Conformance boundary |
+| --- | --- |
+| OPENAPI-DEC-001 | Corrected OpenAPI 3.2 dialect selection and pinned artifacts |
+| OPENAPI-DEC-002 | HTTP reference representation selection |
+| OPENAPI-DEC-003 | Strict JSON surrogate handling |
+| OPENAPI-DEC-004 | Exact version and Schema Object dialect dispatch |
+| OPENAPI-DEC-005 | Reference siblings, external resources, and cycles |
+| OPENAPI-DEC-006 | Paths, callbacks, webhooks, and extension boundaries |
+| OPENAPI-DEC-007 | Parameter serialization and ambiguity policy |
+| OPENAPI-DEC-008 | Security Requirement composition |
+| OPENAPI-DEC-009 | Server URL template expansion |
+| OPENAPI-DEC-010 | JSON-equivalent YAML input |
+
 `independent/` contains checksum-pinned, license-preserved public descriptions
 used only as interoperability and scale evidence. Their popularity and current
 behavior are not normative authority, and validation findings are classified

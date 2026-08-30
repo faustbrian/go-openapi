@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {"id": "OPENAPI-DEC-001", "digests": ["945adbbdc8784d078c0c92f18e25f09335b55c60f4dabc6c4cd892c4edf8e227"]},
+    {"id": "OPENAPI-DEC-002", "digests": ["7a6781bcac02f255551644969f0b53310bddcb9c417eaaf7062ecb0eb421a193"]},
+    {"id": "OPENAPI-DEC-003", "digests": ["132533579e14d96eccffbf6c9456d1a9e36d895effb2b977d4deffdfa7e11e22"]},
+    {"id": "OPENAPI-DEC-004", "digests": ["3412d17f04d660cadf876062ff3f677531a6e928d81ebf6e98926f74ef9a5525"]},
+    {"id": "OPENAPI-DEC-005", "digests": ["457129d9ab2d52e90b4f2dff335b8cc3d0faeee8dc104f0e78820ab8b7d0b2da"]},
+    {"id": "OPENAPI-DEC-006", "digests": ["e0f1f7cd1e4806a30399749f079f3700530c70f8ef8bf86e6ef9292457154b70"]},
+    {"id": "OPENAPI-DEC-007", "digests": ["514cb9989d61158bfb863b9537ae21a2f8a8682ce5baf3274b220ab500a9fbed"]},
+    {"id": "OPENAPI-DEC-008", "digests": ["cc10809f406b12336deb53537ad9146ba71ac98c6962779c229dc203c501e018"]},
+    {"id": "OPENAPI-DEC-009", "digests": ["962eee676c2080c6558e03d53fe08911ab6cc2e9de353428f7f4cef6659bc300"]},
+    {"id": "OPENAPI-DEC-010", "digests": ["192a09d27fcf47ca576b13c537c30266880ca4298db996e400c41f3ffbec96af"]}
+  ]
+}

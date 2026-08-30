@@ -452,7 +452,12 @@
         "OpenAPI 3.1.0 through 3.1.2",
         "OpenAPI 3.2.0",
         "OpenAPI published schemas and registries",
-        "JSON Schema Draft 4 and 2020-12 dialects"
+        "JSON Schema Draft 4 and 2020-12 dialects",
+        "RFC 3986 URI Generic Syntax",
+        "RFC 6570 URI Template",
+        "RFC 8259 JSON",
+        "RFC 9110 HTTP Semantics",
+        "YAML 1.2.2"
       ],
       "conformance_corpora": [
         "Pinned Swagger 2.0 and OpenAPI 3.0 through 3.2 normative publications",

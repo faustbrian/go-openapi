@@ -12,8 +12,10 @@ Omit topics that do not apply.
 For parsing, validation, serialization, resolution, canonicalization,
 transport, or protocol changes, list:
 
-- affected decision identifiers;
+- each affected decision identifier;
 - changed normative sources, registries, fixtures, or errata;
+- any superseded decision and its replacement;
+- the compatibility impact and changelog entry;
 - selected observable behavior and alternatives considered;
 - compatibility and wire consequences;
 - executable conformance and interoperability evidence.

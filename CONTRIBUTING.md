@@ -19,7 +19,8 @@ New direct dependencies and dependency updates must follow the
 update bots are forbidden; the root policy owns every module and action update.
 
 Specification-backed changes must follow the
-[specification governance contract](AGENTS.md#design), update
+[specification governance contract](AGENTS.md#design) and the
+[specification decision register](docs/specification-decisions.md), update
 the affected stable decision entries, and complete the Specification Decisions
 section of the pull request template. An unresolved interpretation or stale
 source pin is release-blocking; peer behavior cannot silently select policy.
