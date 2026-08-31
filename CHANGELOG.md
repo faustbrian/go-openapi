@@ -48,6 +48,18 @@
 - Use deterministic execution-count fuzz budgets so Go runtime deadline
   scheduling cannot make otherwise successful fuzz campaigns fail in CI.
 
+- Run allocation budgets with the supported Go toolchain so newer local
+  compiler allocation changes do not invalidate release evidence.
+
+- Keep canonical specification decision digest records while excluding their
+  exact non-secret line shape from secret scanning.
+
+- Expose the isolated interoperability runner to standard module gates instead
+  of hiding the complete harness behind an obsolete build constraint.
+
+- Confine interoperability fixture reads to the repository root and reject
+  traversal, symlink escapes, and inputs larger than 16 MiB.
+
 - Resolve current-source rehearsal archives through task-owned module files so
   immutable public checksums remain valid during CodeQL builds.
 

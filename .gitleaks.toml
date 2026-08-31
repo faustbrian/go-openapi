@@ -18,6 +18,14 @@ regexTarget = "line"
 regexes = ['''(?i)^\s*api_?diff_version\s*(?:\?|:)?=\s*v[0-9][0-9A-Za-z.+-]*\s*$''']
 
 [[allowlists]]
+description = "OpenAPI decision records contain SHA-256 digests, not credentials."
+targetRules = ["generic-api-key"]
+condition = "AND"
+regexTarget = "line"
+paths = ['''^CHANGELOG\.md$''']
+regexes = ['''^\s*-\s+OPENAPI-DEC-[0-9]{3}\s+sha256:[0-9a-f]{64}\s*$''']
+
+[[allowlists]]
 description = "The queue command documentation uses a non-secret idempotency example."
 targetRules = ["generic-api-key"]
 condition = "AND"

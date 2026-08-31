@@ -1,5 +1,3 @@
-//go:build interop
-
 package main
 
 import (
@@ -7,6 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
 	"runtime/debug"
@@ -23,6 +22,8 @@ import (
 	"github.com/pb33f/libopenapi"
 )
 
+const maxFixtureBytes int64 = 16 << 20
+
 type result struct {
 	parse     string
 	model     string
@@ -31,16 +32,34 @@ type result struct {
 }
 
 func main() {
+	rootPath := os.Getenv("OPENAPI_INTEROPERABILITY_ROOT")
+	if !filepath.IsAbs(rootPath) {
+		panic("interoperability fixture root must be absolute")
+	}
+	fixtureRoot, err := os.OpenRoot(rootPath)
+	if err != nil {
+		panic("open interoperability fixture root")
+	}
+	defer func() {
+		if err := fixtureRoot.Close(); err != nil {
+			panic("close interoperability fixture root")
+		}
+	}()
+
 	paths := append([]string(nil), os.Args[1:]...)
 	slices.Sort(paths)
 	fmt.Println("fixture\ttool\tversion\tparse\tmodel\tvalidate\troundtrip")
 	for _, path := range paths {
-		raw, err := os.ReadFile(path)
+		relative, err := filepath.Rel(rootPath, path)
+		if err != nil {
+			panic("resolve interoperability fixture path")
+		}
+		raw, err := readFixture(fixtureRoot, relative, maxFixtureBytes)
 		if err != nil {
 			panic("read interoperability fixture")
 		}
-		name := filepath.Base(path)
-		write(name, "golib-openapi", "workspace", runOurs(path, raw))
+		name := filepath.Base(relative)
+		write(name, "golib-openapi", "workspace", runOurs(relative, raw))
 		write(
 			name, "getkin/kin-openapi",
 			moduleVersion("github.com/getkin/kin-openapi"), runKin(name, raw),
@@ -54,6 +73,31 @@ func main() {
 			moduleVersion("github.com/go-openapi/loads"), runLoads(name, raw),
 		)
 	}
+}
+
+func readFixture(root *os.Root, name string, limit int64) ([]byte, error) {
+	if !filepath.IsLocal(name) {
+		return nil, fmt.Errorf("fixture path is outside the authorized root")
+	}
+	if limit < 0 {
+		return nil, fmt.Errorf("fixture byte limit must not be negative")
+	}
+	file, err := root.Open(name)
+	if err != nil {
+		return nil, fmt.Errorf("open fixture: %w", err)
+	}
+	raw, readErr := io.ReadAll(io.LimitReader(file, limit+1))
+	closeErr := file.Close()
+	if readErr != nil {
+		return nil, fmt.Errorf("read fixture: %w", readErr)
+	}
+	if closeErr != nil {
+		return nil, fmt.Errorf("close fixture: %w", closeErr)
+	}
+	if int64(len(raw)) > limit {
+		return nil, fmt.Errorf("fixture exceeds byte limit")
+	}
+	return raw, nil
 }
 
 func moduleVersion(path string) string {

@@ -30,7 +30,7 @@ go mod edit -replace \
     "github.com/faustbrian/go-openapi=$root"
 
 report="$temporary/report.tsv"
-go run -mod=readonly -tags interop . \
+OPENAPI_INTEROPERABILITY_ROOT="$root" go run -mod=readonly . \
     "$root"/interoperability/fixtures/* \
     "$root"/specification/independent/swagger-petstore/openapi.yaml \
     "$root"/specification/independent/github-rest-api/api.github.com.2022-11-28.json \
