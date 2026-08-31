@@ -38,6 +38,10 @@
 
 ### Fixed
 
+- Bind the interoperability harness's OpenAPI self-dependency to its
+  checksum-authenticated public module archive so clean test consumers can
+  resolve the stable release.
+
 - Bind the JSON Schema dependency to its checksum-authenticated public module
   archive so clean consumers can resolve the stable release.
 
