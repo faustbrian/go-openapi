@@ -38,6 +38,9 @@
 
 ### Fixed
 
+- Bind the JSON Schema dependency to its checksum-authenticated public module
+  archive so clean consumers can resolve the stable release.
+
 - Use deterministic execution-count fuzz budgets so Go runtime deadline
   scheduling cannot make otherwise successful fuzz campaigns fail in CI.
 
