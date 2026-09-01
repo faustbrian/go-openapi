@@ -4,7 +4,8 @@
 
 ### Changed
 
-- Use the immutable shared Go library tooling contract while keeping OpenAPI
+- Adopt the checksum-pinned `go-library-tools` v1.2.0 contract and immutable
+  `1f9629e5f27418600460b55a50a5b2fc81697fab` workflow while keeping OpenAPI
   conformance, interoperability, performance, and verification evidence owned
   by this repository.
 
