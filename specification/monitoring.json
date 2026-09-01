@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-08-30",
+  "review_interval_days": 30,
+  "authorities": [
+    {
+      "id": "swagger-2.0-source",
+      "kind": "specification",
+      "version": "2.0",
+      "url": "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/8e166da300c64bb7144938fec518b8e3f4cae715/versions/2.0.md",
+      "sha256": "57bf00dfabdb79634e2886e022f3c6195296682b237ed4a56c7fc631c85b3c91",
+      "specifications": ["Swagger 2.0"]
+    },
+    {
+      "id": "openapi-3.0-source",
+      "kind": "specification",
+      "version": "3.0.0 through 3.0.4",
+      "url": "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/b8953109f2eb4d9eebcc7f702f70456b2e074567/versions/3.0.4.md",
+      "sha256": "77af0760571a228e61ca2126d6f4de9efcf053d5dcfb7f0ad2f84d7ecf622ff6",
+      "specifications": ["OpenAPI 3.0.0 through 3.0.4"]
+    },
+    {
+      "id": "openapi-3.1-source",
+      "kind": "specification",
+      "version": "3.1.0 through 3.1.2",
+      "url": "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/82603363df271c104c8f527f0fe641ea67da93fd/versions/3.1.2.md",
+      "sha256": "7e30126d65acad53523f420e522d34edb3717af225aae727e73a522abc227da7",
+      "specifications": ["OpenAPI 3.1.0 through 3.1.2"]
+    },
+    {
+      "id": "openapi-3.2-source",
+      "kind": "specification",
+      "version": "3.2.0",
+      "url": "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/99710bcb26cbe4be646565eebeb04348f02374b5/versions/3.2.0.md",
+      "sha256": "936c11e5f37fd0cf7cbb3c3a8bf5ef4b2ee5c03fbec0eb900ae546fc0a696503",
+      "specifications": ["OpenAPI 3.2.0"]
+    },
+    {
+      "id": "openapi-artifacts-source",
+      "kind": "registry",
+      "version": "2025-11-23 publication",
+      "url": "https://spec.openapis.org/oas/3.2/schema/2025-11-23",
+      "sha256": "7d48f01f37eeae4799041b371ad5f533f9f533fd2b0caa1011a8ba27c5b48b70",
+      "specifications": ["OpenAPI published schemas and registries"]
+    },
+    {
+      "id": "json-schema-source",
+      "kind": "specification",
+      "version": "Draft 4",
+      "url": "https://json-schema.org/draft-04/schema",
+      "sha256": "e1489d0b4755f02793302591d3fcb8f07b6893a82a94f24895f8e4edf11b82e2",
+      "specifications": ["JSON Schema Draft 4 and 2020-12 dialects"]
+    },
+    {
+      "id": "json-schema-2020-12-source",
+      "kind": "specification",
+      "version": "Draft 2020-12",
+      "url": "https://json-schema.org/draft/2020-12/schema",
+      "sha256": "41da76f5afb7ce062d248f762463a92f7ca47e4e0f905b224ba6afeef91ded0f",
+      "specifications": ["JSON Schema Draft 4 and 2020-12 dialects"]
+    },
+    {
+      "id": "rfc3986-source",
+      "kind": "specification",
+      "version": "RFC 3986",
+      "url": "https://www.rfc-editor.org/rfc/rfc3986.txt",
+      "sha256": "3102dae4b68cebe40337730312fcb612297b8928547267e8b3d1ee6002b2d683",
+      "specifications": ["RFC 3986 URI Generic Syntax"]
+    },
+    {
+      "id": "rfc6570-source",
+      "kind": "specification",
+      "version": "RFC 6570",
+      "url": "https://www.rfc-editor.org/rfc/rfc6570.txt",
+      "sha256": "c7b8c79f432821e867fafb1127080545202994c156405ae89cbae42ec0c66810",
+      "specifications": ["RFC 6570 URI Template"]
+    },
+    {
+      "id": "rfc8259-source",
+      "kind": "specification",
+      "version": "RFC 8259",
+      "url": "https://www.rfc-editor.org/rfc/rfc8259.txt",
+      "sha256": "61a5378f4255c720beb2a4b4a63b29540147c140f36988bf086291989b4cd2d7",
+      "specifications": ["RFC 8259 JSON"]
+    },
+    {
+      "id": "rfc9110-source",
+      "kind": "specification",
+      "version": "RFC 9110",
+      "url": "https://www.rfc-editor.org/rfc/rfc9110.txt",
+      "sha256": "21c1cdce6ab0e5509b04d84a28000836c7a087cf786efe6f04877ebfff47232a",
+      "specifications": ["RFC 9110 HTTP Semantics"]
+    },
+    {
+      "id": "yaml-1.2.2-source",
+      "kind": "specification",
+      "version": "YAML 1.2.2",
+      "url": "https://yaml.org/spec/1.2.2/",
+      "sha256": "2fe1bf40792df22ef8b8a5972a34c48e639969222e0bbae605aa9bb2ca85e9ab",
+      "specifications": ["YAML 1.2.2"]
+    },
+    {
+      "id": "openapi-releases",
+      "kind": "releases",
+      "url": "https://github.com/OAI/OpenAPI-Specification/releases.atom",
+      "sha256": "77bdc479dad2f37b5cd8d8b406ea9e48b165e6a84fca3ae1c0d9302fa98b5e11",
+      "specifications": ["Swagger 2.0", "OpenAPI 3.0.0 through 3.0.4", "OpenAPI 3.1.0 through 3.1.2", "OpenAPI 3.2.0"]
+    },
+    {
+      "id": "openapi-artifact-updates",
+      "kind": "releases",
+      "url": "https://github.com/OAI/spec.openapis.org/commits/main.atom",
+      "sha256": "e023d8e49bb4dc3ff7bcd88105e075435ecb83194b1cf4ec842142db92529fac",
+      "specifications": ["OpenAPI published schemas and registries"]
+    },
+    {
+      "id": "json-schema-releases",
+      "kind": "releases",
+      "url": "https://github.com/json-schema-org/json-schema-spec/releases.atom",
+      "sha256": "f9ca0074470508228a2c44e026f1d9b61443e44a1ed0850b837fec03eef558e6",
+      "specifications": ["JSON Schema Draft 4 and 2020-12 dialects"]
+    },
+    {
+      "id": "rfc3986-errata",
+      "kind": "errata",
+      "url": "https://errata.rfc-editor.org/rfc3986",
+      "sha256": "14c0668758374a5cc14cf248292c31f694e6d420f43e135e0fe02427f145b06a",
+      "specifications": ["RFC 3986 URI Generic Syntax"]
+    },
+    {
+      "id": "rfc6570-errata",
+      "kind": "errata",
+      "url": "https://errata.rfc-editor.org/rfc6570",
+      "sha256": "b088ec408d255fbeab760b89c0e9b166316e3a3dd34f83a5c575e55b3c9c2917",
+      "specifications": ["RFC 6570 URI Template"]
+    },
+    {
+      "id": "rfc8259-errata",
+      "kind": "errata",
+      "url": "https://errata.rfc-editor.org/rfc8259",
+      "sha256": "5819db2e0233addf17ed540db88cf92cbefda5a60c38877e0d4cbf6b876b7cf4",
+      "specifications": ["RFC 8259 JSON"]
+    },
+    {
+      "id": "rfc9110-errata",
+      "kind": "errata",
+      "url": "https://errata.rfc-editor.org/rfc9110",
+      "sha256": "38bd006c96f8963d58573f704c5313a5f81968b90738c03ade0b036ec7bbdf4b",
+      "specifications": ["RFC 9110 HTTP Semantics"]
+    },
+    {
+      "id": "yaml-releases",
+      "kind": "releases",
+      "url": "https://github.com/yaml/yaml-spec/releases.atom",
+      "sha256": "5a323af3fbdc9ce3be58fc55c011f4c1f7d42a4d0c358af6d5489b9705e17642",
+      "specifications": ["YAML 1.2.2"]
+    }
+  ]
+}

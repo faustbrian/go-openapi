@@ -452,7 +452,12 @@
         "OpenAPI 3.1.0 through 3.1.2",
         "OpenAPI 3.2.0",
         "OpenAPI published schemas and registries",
-        "JSON Schema Draft 4 and 2020-12 dialects"
+        "JSON Schema Draft 4 and 2020-12 dialects",
+        "RFC 3986 URI Generic Syntax",
+        "RFC 6570 URI Template",
+        "RFC 8259 JSON",
+        "RFC 9110 HTTP Semantics",
+        "YAML 1.2.2"
       ],
       "conformance_corpora": [
         "Pinned Swagger 2.0 and OpenAPI 3.0 through 3.2 normative publications",
@@ -475,6 +480,67 @@
         "fuzz": true,
         "lint": true,
         "mutation": true,
+        "race": true,
+        "security": true,
+        "tests": true
+      }
+    },
+    {
+      "directory": "interoperability",
+      "module_path": "github.com/faustbrian/go-openapi/interoperability",
+      "go_version": "1.26.6",
+      "packages": [
+        {
+          "module_directory": "interoperability",
+          "directory": ".",
+          "name": "main",
+          "import_path": "github.com/faustbrian/go-openapi/interoperability",
+          "kind": "harness",
+          "production": false,
+          "executable": true,
+          "coverage_required": false,
+          "build_required": true,
+          "build_tags": []
+        }
+      ],
+      "purpose": "This non-releasable harness compares OpenAPI parsing, modeling, validation, and round-trip behavior with pinned maintained peers while keeping competitor dependencies outside the public module.",
+      "lifecycle": "internal",
+      "kind": "interoperability harness",
+      "releasable": false,
+      "version": "unreleased",
+      "tag_prefix": "interoperability/v",
+      "owned_dependencies": [
+        "github.com/faustbrian/go-json-schema",
+        "github.com/faustbrian/go-openapi"
+      ],
+      "reverse_owned_dependencies": [],
+      "external_runtime_dependencies": [
+        "github.com/getkin/kin-openapi",
+        "github.com/go-openapi/loads",
+        "github.com/pb33f/libopenapi",
+        "go.yaml.in/yaml/v3"
+      ],
+      "required_services": [],
+      "build_tags": [],
+      "test_tags": [],
+      "interoperability_tools": [],
+      "specifications": [],
+      "conformance_corpora": [
+        "Pinned version, Schema Object, duplicate-member, YAML-alias, and public-description differential fixtures"
+      ],
+      "provenance": [],
+      "goal_files": [],
+      "goal_status": "not-applicable",
+      "goal_evidence": [],
+      "gates": {
+        "api_compatibility": false,
+        "benchmarks": false,
+        "conformance": false,
+        "coverage": false,
+        "documentation": false,
+        "fuzz": false,
+        "lint": true,
+        "mutation": false,
         "race": true,
         "security": true,
         "tests": true

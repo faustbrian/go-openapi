@@ -4,9 +4,33 @@
 
 ### Changed
 
-- Use the immutable shared Go library tooling contract while keeping OpenAPI
+- Adopt the checksum-pinned `go-library-tools` v1.2.0 contract and immutable
+  `1f9629e5f27418600460b55a50a5b2fc81697fab` workflow while keeping OpenAPI
   conformance, interoperability, performance, and verification evidence owned
   by this repository.
+
+### Specification Decisions
+
+- Publish the [machine-validated decision register](docs/specification-decisions.md),
+  conformance bindings, authority monitoring, and append-only history for the
+  complete initial OpenAPI inventory.
+- OPENAPI-DEC-001 sha256:945adbbdc8784d078c0c92f18e25f09335b55c60f4dabc6c4cd892c4edf8e227
+- OPENAPI-DEC-002 sha256:7a6781bcac02f255551644969f0b53310bddcb9c417eaaf7062ecb0eb421a193
+- OPENAPI-DEC-003 sha256:132533579e14d96eccffbf6c9456d1a9e36d895effb2b977d4deffdfa7e11e22
+- OPENAPI-DEC-004 sha256:3412d17f04d660cadf876062ff3f677531a6e928d81ebf6e98926f74ef9a5525
+- OPENAPI-DEC-005 sha256:457129d9ab2d52e90b4f2dff335b8cc3d0faeee8dc104f0e78820ab8b7d0b2da
+- OPENAPI-DEC-006 sha256:e0f1f7cd1e4806a30399749f079f3700530c70f8ef8bf86e6ef9292457154b70
+- OPENAPI-DEC-007 sha256:514cb9989d61158bfb863b9537ae21a2f8a8682ce5baf3274b220ab500a9fbed
+- OPENAPI-DEC-008 sha256:cc10809f406b12336deb53537ad9146ba71ac98c6962779c229dc203c501e018
+- OPENAPI-DEC-009 sha256:962eee676c2080c6558e03d53fe08911ab6cc2e9de353428f7f4cef6659bc300
+- OPENAPI-DEC-010 sha256:192a09d27fcf47ca576b13c537c30266880ca4298db996e400c41f3ffbec96af
+
+- Keep raw peer fixtures within the catalogued non-specification harness and
+  publish decision-attributed differential evidence from the root module.
+- OPENAPI-DEC-001 sha256:5c40c0ec0ffe030e87f0946157b1670dd6e681cafbd4583386df669894d39882
+- OPENAPI-DEC-004 sha256:c38e2c7b778c8636f4ed8c9b7231a1049cfac29859a655b5c7011d44159bd1e9
+- OPENAPI-DEC-006 sha256:df83163cb3d52899abcdfcfcd95245e3ea9914b41401ef552eb6dc8812ded7bb
+- OPENAPI-DEC-010 sha256:cfd3ed8d4b897ba39715ecd061f875b6d5da62eb87aab1a017de8e9f79fb37a7
 
 ### Documentation
 
@@ -15,8 +39,27 @@
 
 ### Fixed
 
+- Bind the interoperability harness's OpenAPI self-dependency to its
+  checksum-authenticated public module archive so clean test consumers can
+  resolve the stable release.
+
+- Bind the JSON Schema dependency to its checksum-authenticated public module
+  archive so clean consumers can resolve the stable release.
+
 - Use deterministic execution-count fuzz budgets so Go runtime deadline
   scheduling cannot make otherwise successful fuzz campaigns fail in CI.
+
+- Run allocation budgets with the supported Go toolchain so newer local
+  compiler allocation changes do not invalidate release evidence.
+
+- Keep canonical specification decision digest records while excluding their
+  exact non-secret line shape from secret scanning.
+
+- Expose the isolated interoperability runner to standard module gates instead
+  of hiding the complete harness behind an obsolete build constraint.
+
+- Confine interoperability fixture reads to the repository root and reject
+  traversal, symlink escapes, and inputs larger than 16 MiB.
 
 - Resolve current-source rehearsal archives through task-owned module files so
   immutable public checksums remain valid during CodeQL builds.

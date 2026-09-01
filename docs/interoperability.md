@@ -1,7 +1,9 @@
 # Interoperability evidence
 
-The executable matrix is
-[`interoperability/expected.tsv`](../interoperability/expected.tsv). It records
+The decision-attributed review is
+[`specification/interoperability.tsv`](../specification/interoperability.tsv).
+The isolated harness owns the raw executable matrix in
+[`interoperability/expected.tsv`](../interoperability/expected.tsv). Both record
 observed behavior, not normative authority. The OpenAPI specifications and
 their incorporated standards remain authoritative when implementations differ.
 
@@ -9,7 +11,7 @@ their incorporated standards remain authoritative when implementations differ.
 
 | Implementation | Version | License | Version-specific source |
 | --- | --- | --- | --- |
-| `getkin/kin-openapi` | v0.143.0 | MIT | [source](https://github.com/getkin/kin-openapi/tree/v0.143.0), [license](https://github.com/getkin/kin-openapi/blob/v0.143.0/LICENSE) |
+| `getkin/kin-openapi` | v0.147.0 | MIT | [source](https://github.com/getkin/kin-openapi/tree/v0.147.0), [license](https://github.com/getkin/kin-openapi/blob/v0.147.0/LICENSE) |
 | `pb33f/libopenapi` | v0.38.7 | MIT | [source](https://github.com/pb33f/libopenapi/tree/v0.38.7), [license](https://github.com/pb33f/libopenapi/blob/v0.38.7/LICENSE) |
 | `openapi/loads` | v0.25.0 | Apache-2.0 | [source](https://github.com/go-openapi/loads/tree/v0.25.0), [license](https://github.com/go-openapi/loads/blob/v0.25.0/LICENSE) |
 
@@ -81,10 +83,10 @@ Observed facts:
 
 - All applicable implementations accept and rebuild the basic OpenAPI 3.0,
   OpenAPI 3.1, OpenAPI 3.2, and Swagger 2.0 fixtures.
-- `getkin/kin-openapi` v0.143.0 rejects the valid OpenAPI 3.1 boolean Schema
+- `getkin/kin-openapi` v0.147.0 rejects the valid OpenAPI 3.1 boolean Schema
   Object during loading. This is classified as an implementation limitation,
   not evidence against the normative form.
-- `getkin/kin-openapi` v0.143.0 models basic OpenAPI 3.2 but rejects the new Tag
+- `getkin/kin-openapi` v0.147.0 models basic OpenAPI 3.2 but rejects the new Tag
   Object `kind` field during validation. This is classified as incomplete 3.2
   validation in the compared version.
 - `pb33f/libopenapi` v0.38.7 parses and models every valid fixture, including

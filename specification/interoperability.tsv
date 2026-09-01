@@ -1,0 +1,4 @@
+decision_id	peer_or_corpus	observed_behavior	classification	executable_evidence
+OPENAPI-DEC-004	getkin/kin-openapi v0.147.0	The peer rejects the valid OpenAPI 3.1 boolean Schema Object fixture and validation of the OpenAPI 3.2 Tag Object kind field; this package accepts both version-specific forms.	peer defect	TestDecodeSelectsLosslessVersionSpecificModels
+OPENAPI-DEC-010	getkin/kin-openapi v0.147.0 and pb33f/libopenapi v0.38.7	The peers accept YAML aliases that this package rejects under its documented JSON-equivalence policy.	deliberate policy difference	TestYAMLRejectsAmbiguousOrNonJSONRepresentations
+OPENAPI-DEC-010	getkin/kin-openapi v0.147.0 and pb33f/libopenapi v0.38.7	The peers accept duplicate JSON object members that this package rejects under its documented JSON-equivalence policy.	deliberate policy difference	TestJSONRejectsDuplicateObjectMembers
