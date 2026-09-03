@@ -4,6 +4,9 @@
 
 ### Changed
 
+- Advance README and catalog navigation to the immutable v1.4.0 ecosystem
+  index and its Protocols and descriptions family guidance.
+
 - Adopt the checksum-verified `go-library-tools` v1.4.0 CLI and immutable
   reusable workflow so specification monitoring uses the stable descriptive
   request profile and public-first module resolution.
