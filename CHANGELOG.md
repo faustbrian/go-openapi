@@ -4,6 +4,14 @@
 
 ### Changed
 
+- Publish complete schema-v2 cohesion metadata and versioned Golib ecosystem
+  navigation for the public OpenAPI module while retaining the isolated
+  interoperability harness in the engineering inventory.
+
+- Adopt the checksum-verified `go-library-tools` v1.3.0 CLI, add the local
+  `make cohesion` validation entry point, and pin reusable-workflow cohesion
+  enforcement to its final immutable revision.
+
 - Adopt the checksum-pinned `go-library-tools` v1.2.0 contract and immutable
   `1f9629e5f27418600460b55a50a5b2fc81697fab` workflow while keeping OpenAPI
   conformance, interoperability, performance, and verification evidence owned
