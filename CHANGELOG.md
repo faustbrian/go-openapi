@@ -4,6 +4,10 @@
 
 ### Changed
 
+- Adopt the checksum-verified `go-library-tools` v1.4.0 CLI and immutable
+  reusable workflow so specification monitoring uses the stable descriptive
+  request profile and public-first module resolution.
+
 - Publish complete schema-v2 cohesion metadata and versioned Golib ecosystem
   navigation for the public OpenAPI module while retaining the isolated
   interoperability harness in the engineering inventory.
@@ -18,6 +22,9 @@
   by this repository.
 
 ### Specification Decisions
+
+- Record RFC 9110 Erratum 9162 as behavior-neutral for HTTP reference
+  representation selection, with no decision or conformance-binding changes.
 
 - Publish the [machine-validated decision register](docs/specification-decisions.md),
   conformance bindings, authority monitoring, and append-only history for the
