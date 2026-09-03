@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "repository": "github.com/faustbrian/go-openapi",
   "go_version": "1.26.6",
   "modules": [
@@ -425,13 +425,113 @@
       "family_label": "Protocols And Descriptions",
       "family_description": "Standards, envelopes, schemas, descriptions, signatures, and wire interoperability.",
       "family_order": 3,
+      "cohesion": {
+        "family": "protocols-and-descriptions",
+        "secondary_capabilities": [
+          "data-encoding",
+          "http-and-service-edge",
+          "identity-and-access",
+          "protocols-and-schemas",
+          "testing-and-conformance",
+          "transport-and-networking"
+        ],
+        "responsibility": "Provide immutable, lossless, and resource-bounded Swagger 2.0 and OpenAPI 3.0 through 3.2 document modeling, parsing, validation, reference resolution, composition, conversion, compatibility diffing, and serialization.",
+        "non_goals": [
+          "Own HTTP serving, application routing, or business compatibility policy.",
+          "Generate application handlers, clients, or server implementations.",
+          "Perform implicit filesystem or network loading or install process-global registries."
+        ],
+        "public_package_identifier": "openapi",
+        "primary_entry_packages": [
+          "github.com/faustbrian/go-openapi"
+        ],
+        "package_selection": {
+          "github.com/faustbrian/go-openapi": "Use openapi for version-aware document parsing and as the entry point to the package's bounded modeling, validation, reference, composition, conversion, and serialization surfaces."
+        },
+        "lifecycle_status": "active",
+        "maturity": "stable",
+        "construction_styles": [
+          "builder-compile",
+          "functional-options",
+          "new-options",
+          "plain-function",
+          "validated-value"
+        ],
+        "lifecycle_styles": [
+          "close",
+          "stateless"
+        ],
+        "ownership": {
+          "configuration": "caller",
+          "mutable_inputs": [
+            "borrow",
+            "copy"
+          ],
+          "runtime_resources": "package",
+          "background_work": "none"
+        },
+        "optional_owned_dependencies": [],
+        "adapters": [],
+        "companions": [
+          "github.com/faustbrian/go-http-middleware",
+          "github.com/faustbrian/go-jsonrpc",
+          "github.com/faustbrian/go-openrpc"
+        ],
+        "supported_go": {
+          "minimum": "1.26.6",
+          "tested": [
+            "1.26.6"
+          ]
+        },
+        "supported_platforms": [
+          "portable-go"
+        ],
+        "supported_backends": [
+          "filesystem",
+          "http",
+          "memory"
+        ],
+        "supported_protocols": [
+          "json-schema-2020-12",
+          "json-schema-draft-4",
+          "openapi-3-0",
+          "openapi-3-1",
+          "openapi-3-2",
+          "rfc-3986-uri",
+          "rfc-6570-uri-template",
+          "rfc-8259-json",
+          "rfc-9110-http-semantics",
+          "swagger-2-0",
+          "yaml-1-2"
+        ],
+        "documentation": {
+          "readme": "README.md",
+          "api": "docs/reference.md",
+          "adoption": "README.md",
+          "security": "docs/security.md",
+          "compatibility": "docs/reference.md",
+          "performance": "docs/performance.md",
+          "examples": "example_test.go",
+          "faq": null,
+          "changelog": "CHANGELOG.md",
+          "pkg_go_dev": "https://pkg.go.dev/github.com/faustbrian/go-openapi",
+          "ecosystem_index": "https://github.com/faustbrian/go-library-tools/blob/v1.3.0/docs/ecosystem/README.md"
+        },
+        "known_good_compatibility_sets": [],
+        "delivery": {
+          "implementation": "not-started",
+          "hardening": "not-started",
+          "release": "not-started"
+        }
+      },
       "version": "1.0.0",
       "tag_prefix": "v",
       "owned_dependencies": [
         "github.com/faustbrian/go-json-schema"
       ],
       "reverse_owned_dependencies": [
-        "github.com/faustbrian/go-http-middleware/integration/siblings"
+        "github.com/faustbrian/go-http-middleware/integration/siblings",
+        "github.com/faustbrian/go-openapi/interoperability"
       ],
       "external_runtime_dependencies": [
         "go.yaml.in/yaml/v3",
@@ -507,6 +607,10 @@
       "lifecycle": "internal",
       "kind": "interoperability harness",
       "releasable": false,
+      "family": "protocols-and-descriptions",
+      "family_label": "Protocols And Descriptions",
+      "family_description": "Standards, envelopes, schemas, descriptions, signatures, and wire interoperability.",
+      "family_order": 3,
       "version": "unreleased",
       "tag_prefix": "interoperability/v",
       "owned_dependencies": [

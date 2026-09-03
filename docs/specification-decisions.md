@@ -256,6 +256,12 @@ Additional authoritative sources: `{"id":"rfc8259-source","version":"RFC 8259","
 | Upstream record | The strict subset is package policy layered on the OpenAPI JSON data-model requirement and is explicitly compared in `docs/interoperability.md`. |
 | Reconsider when | OpenAPI standardizes portable semantics for a currently rejected YAML feature or the package adds a separate lossless YAML representation with an explicit non-JSON contract. |
 
+## Authority review history
+
+| Reviewed | Authority | Disposition | Decision impact |
+| --- | --- | --- | --- |
+| 2026-09-03 | RFC 9110 Erratum 9162 | Behavior-neutral. The proposed comma-space spelling concerns combining repeated HTTP field lines. The resolver treats `Content-Type` as singleton representation metadata and never combines list-valued field lines as part of representation selection. | `OPENAPI-DEC-002` remains unchanged, including its conformance bindings and explicit-media-type precedence. The prior monitor digest was `38bd006c96f8963d58573f704c5313a5f81968b90738c03ade0b036ec7bbdf4b`; the reviewed response is now bound by `specification/monitoring.json`. |
+
 ## Unresolved decisions
 
 None for the interpretations currently recorded here. New accepted errata,

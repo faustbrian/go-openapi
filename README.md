@@ -91,6 +91,8 @@ specification behavior, security, performance, interoperability, and
 maintainer references. The [specification decision register](docs/specification-decisions.md)
 records intentional behavior where specification text or ecosystem practice
 requires an explicit choice.
+Shared construction, ownership, lifecycle, and composition expectations are in
+the versioned [Golib ecosystem index](https://github.com/faustbrian/go-library-tools/blob/v1.3.0/docs/ecosystem/README.md).
 
 ## Development
 
