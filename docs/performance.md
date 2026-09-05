@@ -13,10 +13,15 @@ candidate revision with the supported toolchain.
 
 ## Method
 
-`./scripts/capture-benchmark.sh
-docs/benchmarks/YYYY-MM-DD-GOOS-GOARCH.txt` requires a clean tracked `openapi`
-tree and records the exact revision, UTC capture time, command, Go version,
-operating system, architecture, and CPU. The capture uses
+```sh
+GOTOOLCHAIN=go1.26.6 ./scripts/capture-benchmark.sh \
+  docs/benchmarks/YYYY-MM-DD-GOOS-GOARCH.txt
+```
+
+The command requires a clean committed `openapi` candidate checkout. Before
+capture, remove untracked Go sources, tests, fixtures, or generated inputs that
+could affect the run. It records the exact revision, UTC capture time, command,
+Go version, operating system, architecture, and CPU. The capture uses
 one logical Go processor, a 250 ms target per benchmark, three independent
 samples, and `-benchmem`. A second one-iteration run under the platform
 `/usr/bin/time` records peak process memory for the complete workload set.

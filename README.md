@@ -31,10 +31,11 @@ Future versions are rejected rather than interpreted as the latest known
 version. Unknown fields and `x-` extensions remain available through the
 lossless semantic representation.
 
-The module is portable across platforms supported by Go 1.26.6. Its supported
-reference backends are in-memory values, explicitly authorized filesystems,
-and explicitly authorized HTTP endpoints; it does not require an external
-service.
+The core document APIs are portable Go. Supported reference backends are
+in-memory values, explicitly authorized HTTP endpoints, and explicitly
+authorized filesystems. The filesystem resolver additionally requires a
+platform where Go's `os.Root` guarantees containment and is not supported on
+`js`; the module otherwise requires no external service.
 
 ## Installation
 
