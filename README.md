@@ -15,6 +15,11 @@ immutable lossless semantic values, bounded JSON and YAML parsing, generated
 typed views, normative validation, explicit reference resolution, composition,
 conversion, compatibility diffing, and deterministic serialization.
 
+The module is active, stable, and requires Go 1.26.6 or newer. It owns OpenAPI
+document semantics; applications continue to own HTTP serving, routing,
+business compatibility policy, and any authority granted to external resource
+resolvers.
+
 ## Supported specifications
 
 - Swagger 2.0
@@ -26,6 +31,12 @@ Future versions are rejected rather than interpreted as the latest known
 version. Unknown fields and `x-` extensions remain available through the
 lossless semantic representation.
 
+The core document APIs are portable Go. Supported reference backends are
+in-memory values, explicitly authorized HTTP endpoints, and explicitly
+authorized filesystems. The filesystem resolver additionally requires a
+platform where Go's `os.Root` guarantees containment and is not supported on
+`js`; the module otherwise requires no external service.
+
 ## Installation
 
 ```sh
@@ -34,35 +45,37 @@ go get github.com/faustbrian/go-openapi
 
 ## Quick start
 
-Parsing requires an explicit context and finite limits. It performs no implicit
-network or filesystem access.
+Start with the tested [`ExampleParseJSON`](example_test.go) program. It parses
+an in-memory description with an explicit context and finite limits, validates
+the immutable document, and prints `3.2.0 true`. The same executable example
+file also demonstrates YAML parsing, canonical serialization, and document
+merging, and is compiled and run by `go test`.
 
-```go
-limits := parse.DefaultLimits()
-document, err := openapi.ParseYAML(ctx, reader, limits)
-if err != nil {
-	return err
-}
-
-validator := validate.NewValidator()
-report, err := validator.Document(ctx, document)
-if err != nil {
-	return err
-}
-
-for _, diagnostic := range report.Diagnostics() {
-	fmt.Printf("%s %s: %s\n",
-		diagnostic.Severity,
-		diagnostic.InstanceLocation,
-		diagnostic.Code,
-	)
-}
-```
+Parsing performs no implicit network or filesystem access.
 
 Strict YAML accepts only JSON-compatible scalar tags and string mapping keys.
 Strict JSON rejects duplicate members and unpaired UTF-16 surrogate escapes.
 Reference loading, external access, and resource budgets are caller-owned and
 explicit.
+
+## Package map
+
+- `openapi`, `parse`, `specversion`, `jsonvalue`, `model`, `swagger20`, and
+  `oas30` through `oas32` select and expose immutable document models.
+- `validate`, `jsonschema`, `security`, `expression`, and `discriminator` apply
+  document, Schema Object, security-requirement, runtime-expression, and schema
+  selection semantics.
+- `reference` and `implicit` resolve explicitly authorized references and
+  connections under caller-selected bounds.
+- `media`, `parameter`, `response`, `server`, and `xmlvalue` implement focused
+  protocol value handling without owning an HTTP server.
+- `compose`, `convert`, `diff`, and `serialize` transform, compare, and emit
+  documents with explicit loss, conflict, and resource policies.
+- `specification` exposes the embedded, provenance-checked specification
+  resources used by the module.
+
+The [API reference](https://pkg.go.dev/github.com/faustbrian/go-openapi) lists
+every public package and exported identifier.
 
 ## Capabilities
 
@@ -84,6 +97,25 @@ The package does not fetch references implicitly, choose an HTTP client,
 generate application handlers, or infer business compatibility from syntax
 alone.
 
+## Construction, errors, and lifecycle
+
+Plain functions handle stateless value operations. Constructors validate
+coherent options before returning immutable values or concurrency-safe
+resolvers and validators; named `Default*` functions expose finite defaults.
+Operations that accept a context honor cancellation; pure bounded value
+operations remain context-free. Stable error categories support `errors.Is`.
+The package does not orchestrate retries, although its standard-library HTTP
+transport may retry eligible idempotent requests after a reused-connection
+failure.
+
+Parsed values own their immutable data. Callers own supplied readers, writers,
+callbacks, and explicit resolver implementations. A file resolver owns its
+opened roots and must be closed; a built-in HTTP resolver owns its private
+transport and retains idle connections, which the caller releases with
+`CloseIdleConnections`. The package starts no background lifecycle. See the
+[feature reference](docs/reference.md) and
+[security and ownership model](docs/security.md) for the complete contracts.
+
 ## Documentation
 
 Start with the [documentation index](docs/README.md). It separates usage,
@@ -94,6 +126,14 @@ requires an explicit choice.
 Shared construction, ownership, lifecycle, and composition expectations are in
 the versioned [Golib ecosystem index](https://github.com/faustbrian/go-library-tools/blob/v1.4.0/docs/ecosystem/README.md)
 and its [Protocols and descriptions family](https://github.com/faustbrian/go-library-tools/blob/v1.4.0/docs/ecosystem/design-language.md#package-families-and-selection).
+
+For adoption and maintenance, see the [executable examples](example_test.go),
+[FAQ and troubleshooting](docs/faq.md), [compatibility policy](COMPATIBILITY.md),
+[deprecation and migration policy](DEPRECATION.md),
+[performance evidence](docs/performance.md), [support policy](SUPPORT.md),
+[security guidance](docs/security.md), and
+[private vulnerability-reporting process](SECURITY.md). Release changes are in
+the [changelog](CHANGELOG.md).
 
 ## Development
 

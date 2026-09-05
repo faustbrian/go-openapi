@@ -4,6 +4,16 @@
 
 ### Changed
 
+- Complete the consumer documentation entry point with lifecycle, package,
+  construction, ownership, error, cancellation, resource, support, and
+  troubleshooting navigation.
+
+- Mark the Go 1.26.5 benchmark capture as historical evidence and correct the
+  root-versus-nested module tag policy without changing runtime behavior.
+
+- Publish truthful in-progress cohesion delivery metadata and a direct
+  non-releasable interoperability-harness entry point.
+
 - Advance README and catalog navigation to the immutable v1.4.0 ecosystem
   index and its Protocols and descriptions family guidance.
 
