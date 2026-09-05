@@ -509,7 +509,7 @@
           "api": "docs/reference.md",
           "adoption": "README.md",
           "security": "docs/security.md",
-          "compatibility": "docs/reference.md",
+          "compatibility": "COMPATIBILITY.md",
           "performance": "docs/performance.md",
           "examples": "example_test.go",
           "faq": "docs/faq.md",

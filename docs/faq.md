@@ -45,14 +45,15 @@ Close each `reference.FileResolver` after its bounded operation to release its
 opened roots. Call `CloseIdleConnections` on a `reference.HTTPResolver` when its
 operation no longer needs retained keep-alive connections. The module starts no
 background lifecycle, and callers continue to own supplied readers, writers,
-callbacks, and transports.
+callbacks, and explicit resolver implementations. The built-in HTTP resolver
+owns its private transport.
 
 ## Does the module provide public testing helpers?
 
 The module does not provide a separate public testing-helper package. Public
-constructors accept ordinary readers, writers, contexts, callbacks, and
-resolver interfaces, so applications can provide deterministic local fixtures
-directly. The
+functions and option types accept ordinary readers, writers, contexts,
+callbacks, and resolver interfaces, so applications can provide deterministic
+local fixtures directly. The
 [executable examples](../example_test.go) demonstrate supported entry points.
 The `interoperability` module and specification corpora are maintainer evidence,
 not production dependencies or a public testing API.

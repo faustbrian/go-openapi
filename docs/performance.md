@@ -13,10 +13,10 @@ candidate revision with the supported toolchain.
 
 ## Method
 
-`make benchmark-evidence
-BENCHMARK_OUTPUT=docs/benchmarks/YYYY-MM-DD-GOOS-GOARCH.txt` requires a clean
-tracked `openapi` tree and records the exact revision, UTC capture time,
-command, Go version, operating system, architecture, and CPU. The capture uses
+`./scripts/capture-benchmark.sh
+docs/benchmarks/YYYY-MM-DD-GOOS-GOARCH.txt` requires a clean tracked `openapi`
+tree and records the exact revision, UTC capture time, command, Go version,
+operating system, architecture, and CPU. The capture uses
 one logical Go processor, a 250 ms target per benchmark, three independent
 samples, and `-benchmem`. A second one-iteration run under the platform
 `/usr/bin/time` records peak process memory for the complete workload set.

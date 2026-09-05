@@ -31,6 +31,11 @@ Future versions are rejected rather than interpreted as the latest known
 version. Unknown fields and `x-` extensions remain available through the
 lossless semantic representation.
 
+The module is portable across platforms supported by Go 1.26.6. Its supported
+reference backends are in-memory values, explicitly authorized filesystems,
+and explicitly authorized HTTP endpoints; it does not require an external
+service.
+
 ## Installation
 
 ```sh
@@ -39,50 +44,13 @@ go get github.com/faustbrian/go-openapi
 
 ## Quick start
 
-Parsing requires an explicit context and finite limits. It performs no implicit
-network or filesystem access.
+Start with the tested [`ExampleParseJSON`](example_test.go) program. It parses
+an in-memory description with an explicit context and finite limits, validates
+the immutable document, and prints `3.2.0 true`. The same executable example
+file also demonstrates YAML parsing, canonical serialization, and document
+merging, and is compiled and run by `go test`.
 
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"strings"
-
-	openapi "github.com/faustbrian/go-openapi"
-	"github.com/faustbrian/go-openapi/parse"
-	"github.com/faustbrian/go-openapi/validate"
-)
-
-func main() {
-	document, err := openapi.ParseYAML(
-		context.Background(),
-		strings.NewReader(`
-openapi: 3.2.0
-info:
-  title: Example
-  version: "1"
-paths: {}
-`),
-		parse.DefaultLimits(),
-	)
-	if err != nil {
-		panic(err)
-	}
-
-	report, err := validate.Document(context.Background(), document)
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Println(document.SpecificationVersion(), report.Valid())
-}
-```
-
-This prints `3.2.0 true`. The tested
-[package examples](example_test.go) also demonstrate canonical serialization
-and document merging.
+Parsing performs no implicit network or filesystem access.
 
 Strict YAML accepts only JSON-compatible scalar tags and string mapping keys.
 Strict JSON rejects duplicate members and unpaired UTF-16 surrogate escapes.
@@ -133,15 +101,18 @@ alone.
 Plain functions handle stateless value operations. Constructors validate
 coherent options before returning immutable values or concurrency-safe
 resolvers and validators; named `Default*` functions expose finite defaults.
-Operations that may read, resolve, validate, or traverse caller-controlled data
-accept a context and honor cancellation. Stable error categories support
-`errors.Is`; the package does not retry automatically.
+Operations that accept a context honor cancellation; pure bounded value
+operations remain context-free. Stable error categories support `errors.Is`.
+The package does not orchestrate retries, although its standard-library HTTP
+transport may retry eligible idempotent requests after a reused-connection
+failure.
 
 Parsed values own their immutable data. Callers own supplied readers, writers,
-transports, callbacks, and resolver authority. A file resolver owns its opened
-roots and must be closed; an HTTP resolver retains only idle connections, which
-the caller releases with `CloseIdleConnections`. The package starts no
-background lifecycle. See the [feature reference](docs/reference.md) and
+callbacks, and explicit resolver implementations. A file resolver owns its
+opened roots and must be closed; a built-in HTTP resolver owns its private
+transport and retains idle connections, which the caller releases with
+`CloseIdleConnections`. The package starts no background lifecycle. See the
+[feature reference](docs/reference.md) and
 [security and ownership model](docs/security.md) for the complete contracts.
 
 ## Documentation
