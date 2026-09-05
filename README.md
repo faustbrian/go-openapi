@@ -15,6 +15,11 @@ immutable lossless semantic values, bounded JSON and YAML parsing, generated
 typed views, normative validation, explicit reference resolution, composition,
 conversion, compatibility diffing, and deterministic serialization.
 
+The module is active, stable, and requires Go 1.26.6 or newer. It owns OpenAPI
+document semantics; applications continue to own HTTP serving, routing,
+business compatibility policy, and any authority granted to external resource
+resolvers.
+
 ## Supported specifications
 
 - Swagger 2.0
@@ -38,31 +43,70 @@ Parsing requires an explicit context and finite limits. It performs no implicit
 network or filesystem access.
 
 ```go
-limits := parse.DefaultLimits()
-document, err := openapi.ParseYAML(ctx, reader, limits)
-if err != nil {
-	return err
-}
+package main
 
-validator := validate.NewValidator()
-report, err := validator.Document(ctx, document)
-if err != nil {
-	return err
-}
+import (
+	"context"
+	"fmt"
+	"strings"
 
-for _, diagnostic := range report.Diagnostics() {
-	fmt.Printf("%s %s: %s\n",
-		diagnostic.Severity,
-		diagnostic.InstanceLocation,
-		diagnostic.Code,
+	openapi "github.com/faustbrian/go-openapi"
+	"github.com/faustbrian/go-openapi/parse"
+	"github.com/faustbrian/go-openapi/validate"
+)
+
+func main() {
+	document, err := openapi.ParseYAML(
+		context.Background(),
+		strings.NewReader(`
+openapi: 3.2.0
+info:
+  title: Example
+  version: "1"
+paths: {}
+`),
+		parse.DefaultLimits(),
 	)
+	if err != nil {
+		panic(err)
+	}
+
+	report, err := validate.Document(context.Background(), document)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(document.SpecificationVersion(), report.Valid())
 }
 ```
+
+This prints `3.2.0 true`. The tested
+[package examples](example_test.go) also demonstrate canonical serialization
+and document merging.
 
 Strict YAML accepts only JSON-compatible scalar tags and string mapping keys.
 Strict JSON rejects duplicate members and unpaired UTF-16 surrogate escapes.
 Reference loading, external access, and resource budgets are caller-owned and
 explicit.
+
+## Package map
+
+- `openapi`, `parse`, `specversion`, `jsonvalue`, `model`, `swagger20`, and
+  `oas30` through `oas32` select and expose immutable document models.
+- `validate`, `jsonschema`, `security`, `expression`, and `discriminator` apply
+  document, Schema Object, security-requirement, runtime-expression, and schema
+  selection semantics.
+- `reference` and `implicit` resolve explicitly authorized references and
+  connections under caller-selected bounds.
+- `media`, `parameter`, `response`, `server`, and `xmlvalue` implement focused
+  protocol value handling without owning an HTTP server.
+- `compose`, `convert`, `diff`, and `serialize` transform, compare, and emit
+  documents with explicit loss, conflict, and resource policies.
+- `specification` exposes the embedded, provenance-checked specification
+  resources used by the module.
+
+The [API reference](https://pkg.go.dev/github.com/faustbrian/go-openapi) lists
+every public package and exported identifier.
 
 ## Capabilities
 
@@ -84,6 +128,22 @@ The package does not fetch references implicitly, choose an HTTP client,
 generate application handlers, or infer business compatibility from syntax
 alone.
 
+## Construction, errors, and lifecycle
+
+Plain functions handle stateless value operations. Constructors validate
+coherent options before returning immutable values or concurrency-safe
+resolvers and validators; named `Default*` functions expose finite defaults.
+Operations that may read, resolve, validate, or traverse caller-controlled data
+accept a context and honor cancellation. Stable error categories support
+`errors.Is`; the package does not retry automatically.
+
+Parsed values own their immutable data. Callers own supplied readers, writers,
+transports, callbacks, and resolver authority. A file resolver owns its opened
+roots and must be closed; an HTTP resolver retains only idle connections, which
+the caller releases with `CloseIdleConnections`. The package starts no
+background lifecycle. See the [feature reference](docs/reference.md) and
+[security and ownership model](docs/security.md) for the complete contracts.
+
 ## Documentation
 
 Start with the [documentation index](docs/README.md). It separates usage,
@@ -94,6 +154,14 @@ requires an explicit choice.
 Shared construction, ownership, lifecycle, and composition expectations are in
 the versioned [Golib ecosystem index](https://github.com/faustbrian/go-library-tools/blob/v1.4.0/docs/ecosystem/README.md)
 and its [Protocols and descriptions family](https://github.com/faustbrian/go-library-tools/blob/v1.4.0/docs/ecosystem/design-language.md#package-families-and-selection).
+
+For adoption and maintenance, see the [executable examples](example_test.go),
+[FAQ and troubleshooting](docs/faq.md), [compatibility policy](COMPATIBILITY.md),
+[deprecation and migration policy](DEPRECATION.md),
+[performance evidence](docs/performance.md), [support policy](SUPPORT.md),
+[security guidance](docs/security.md), and
+[private vulnerability-reporting process](SECURITY.md). Release changes are in
+the [changelog](CHANGELOG.md).
 
 ## Development
 

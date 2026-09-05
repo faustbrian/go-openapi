@@ -1,10 +1,15 @@
 # Performance and complexity evidence
 
 This document defines the benchmark methodology and release regression policy.
-The current raw run is
+The latest retained historical run is
 [`2026-07-22-darwin-arm64.txt`](benchmarks/2026-07-22-darwin-arm64.txt).
 It records source revision `08dbc126c2b170ed988fae6309ca9d89ab26a98b`,
 Go 1.26.5, Darwin arm64, and an Apple M4 Max.
+
+That run predates the current Go 1.26.6 minimum and is historical evidence only.
+It does not establish current-toolchain performance or release readiness. A
+release relying on benchmark evidence must capture a fresh run from the exact
+candidate revision with the supported toolchain.
 
 ## Method
 
@@ -49,7 +54,7 @@ not real network latency. File results include the local filesystem cache. Cold
 validation constructs a new validator each iteration; warm validation reuses
 one after an untimed priming validation.
 
-## Current evidence
+## Historical evidence
 
 The 2026-07-22 run completed all samples and the peak-memory probe. The
 one-iteration probe reported a peak memory footprint of 23,118,448 bytes.

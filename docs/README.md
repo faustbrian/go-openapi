@@ -8,6 +8,8 @@ below for deeper contracts.
 
 - [Go package reference](https://pkg.go.dev/github.com/faustbrian/go-openapi)
 - [Detailed feature reference](reference.md)
+- [Executable package examples](../example_test.go)
+- [FAQ and troubleshooting](faq.md)
 - [Specification decisions](specification-decisions.md)
 - [Interoperability](interoperability.md)
 
@@ -20,6 +22,10 @@ authoritative API reference.
 
 - [Security and trust boundaries](security.md)
 - [Performance and complexity](performance.md)
+- [Compatibility](../COMPATIBILITY.md)
+- [Deprecation and migration](../DEPRECATION.md)
+- [Support](../SUPPORT.md)
+- [Report a vulnerability privately](../SECURITY.md)
 
 ## Maintainers
 
@@ -28,6 +34,7 @@ authoritative API reference.
 - [Conformance evidence](../specification/conformance/)
 - [Contributing](../CONTRIBUTING.md)
 - [Release history](../CHANGELOG.md)
+- [License](../LICENSE)
 
 Historical audit snapshots are retained in Git history rather than published
 as current release documentation.
