@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+### Security
+
+- Provide direct private vulnerability-reporting and public support routes,
+  with GitHub Discussions enabled for adoption questions.
+
 ### Changed
 
 - Complete the consumer documentation entry point with lifecycle, package,
