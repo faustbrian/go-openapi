@@ -4,7 +4,7 @@ set -eu
 report=$(mktemp)
 trap 'rm -f "$report"' EXIT HUP INT TERM
 
-GOTOOLCHAIN=go1.26.6 GOMAXPROCS=1 go test . -run '^$' -bench . -benchmem \
+GOTOOLCHAIN=go1.27.0 GOMAXPROCS=1 go test . -run '^$' -bench . -benchmem \
     -benchtime=100ms -count=1 -cpu=1 >"$report"
 
 if ! awk '
