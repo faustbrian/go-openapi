@@ -5,7 +5,7 @@ go 1.27.0
 require (
 	github.com/faustbrian/go-json-schema v1.0.0
 	github.com/faustbrian/go-openapi v1.0.0
-	github.com/getkin/kin-openapi v0.147.0
+	github.com/getkin/kin-openapi v0.149.0
 	github.com/go-openapi/loads v0.25.0
 	github.com/pb33f/libopenapi v0.38.7
 )
@@ -36,7 +36,7 @@ require (
 	github.com/pb33f/jsonpath v0.8.2 // indirect
 	github.com/pb33f/ordered-map/v2 v2.3.1 // indirect
 	github.com/rogpeppe/go-internal v1.15.0 // indirect
-	github.com/santhosh-tekuri/jsonschema/v6 v6.0.2 // indirect
+	github.com/santhosh-tekuri/jsonschema/v6 v6.0.3 // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
 	go.yaml.in/yaml/v4 v4.0.0-rc.6 // indirect
 	golang.org/x/net v0.58.0 // indirect
