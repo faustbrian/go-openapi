@@ -6,7 +6,7 @@ The latest retained historical run is
 It records source revision `08dbc126c2b170ed988fae6309ca9d89ab26a98b`,
 Go 1.26.5, Darwin arm64, and an Apple M4 Max.
 
-That run predates the current Go 1.26.6 minimum and is historical evidence only.
+That run predates the current Go 1.27.0 minimum and is historical evidence only.
 It does not establish current-toolchain performance or release readiness. A
 release relying on benchmark evidence must capture a fresh run from the exact
 candidate revision with the supported toolchain.
@@ -14,7 +14,7 @@ candidate revision with the supported toolchain.
 ## Method
 
 ```sh
-GOTOOLCHAIN=go1.26.6 ./scripts/capture-benchmark.sh \
+GOTOOLCHAIN=go1.27.0 ./scripts/capture-benchmark.sh \
   docs/benchmarks/YYYY-MM-DD-GOOS-GOARCH.txt
 ```
 

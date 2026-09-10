@@ -7,7 +7,7 @@
 [![Documentation](https://img.shields.io/badge/docs-checked_in_CI-blue)](docs/)
 [![Go Reference](https://pkg.go.dev/badge/github.com/faustbrian/go-openapi.svg)](https://pkg.go.dev/github.com/faustbrian/go-openapi)
 [![Release](https://img.shields.io/github/v/release/faustbrian/go-openapi?sort=semver)](https://github.com/faustbrian/go-openapi/releases)
-[![Go](https://img.shields.io/badge/go-1.26.6-00ADD8?logo=go)](https://go.dev/)
+[![Go](https://img.shields.io/badge/go-1.27.0-00ADD8?logo=go)](https://go.dev/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 `openapi` is a version-aware OpenAPI document toolkit for Go. It provides
@@ -15,7 +15,7 @@ immutable lossless semantic values, bounded JSON and YAML parsing, generated
 typed views, normative validation, explicit reference resolution, composition,
 conversion, compatibility diffing, and deterministic serialization.
 
-The module is active, stable, and requires Go 1.26.6 or newer. It owns OpenAPI
+The module is active, stable, and requires Go 1.27.0 or newer. It owns OpenAPI
 document semantics; applications continue to own HTTP serving, routing,
 business compatibility policy, and any authority granted to external resource
 resolvers.

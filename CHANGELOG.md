@@ -9,6 +9,8 @@
 
 ### Changed
 
+- Require Go 1.27.0 and use it for development, CI, and benchmark verification.
+
 - Complete the consumer documentation entry point with lifecycle, package,
   construction, ownership, error, cancellation, resource, support, and
   troubleshooting navigation.
