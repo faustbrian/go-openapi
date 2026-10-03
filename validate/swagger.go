@@ -7,9 +7,9 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	openapi "github.com/faustbrian/go-openapi"
-	"github.com/faustbrian/go-openapi/jsonvalue"
-	"github.com/faustbrian/go-openapi/specversion"
+	openapi "github.com/faustbrian/go-openapi/v2"
+	"github.com/faustbrian/go-openapi/v2/jsonvalue"
+	"github.com/faustbrian/go-openapi/v2/specversion"
 )
 
 var swaggerSchemes = map[string]struct{}{

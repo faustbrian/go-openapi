@@ -4,7 +4,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/faustbrian/go-openapi/model"
+	"github.com/faustbrian/go-openapi/v2/model"
 )
 
 func TestListOwnsInputAndReturnedSlices(t *testing.T) {

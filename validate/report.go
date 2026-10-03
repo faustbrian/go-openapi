@@ -6,10 +6,10 @@ import (
 	"context"
 	"errors"
 
-	openapi "github.com/faustbrian/go-openapi"
-	openapischema "github.com/faustbrian/go-openapi/jsonschema"
-	"github.com/faustbrian/go-openapi/jsonvalue"
-	"github.com/faustbrian/go-openapi/reference"
+	openapi "github.com/faustbrian/go-openapi/v2"
+	openapischema "github.com/faustbrian/go-openapi/v2/jsonschema"
+	"github.com/faustbrian/go-openapi/v2/jsonvalue"
+	"github.com/faustbrian/go-openapi/v2/reference"
 )
 
 // ErrLimitExceeded reports a validation input or work bound exhaustion.

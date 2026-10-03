@@ -5,10 +5,10 @@ import (
 	"context"
 	"testing"
 
-	openapi "github.com/faustbrian/go-openapi"
-	"github.com/faustbrian/go-openapi/convert"
-	"github.com/faustbrian/go-openapi/parse"
-	"github.com/faustbrian/go-openapi/validate"
+	openapi "github.com/faustbrian/go-openapi/v2"
+	"github.com/faustbrian/go-openapi/v2/convert"
+	"github.com/faustbrian/go-openapi/v2/parse"
+	"github.com/faustbrian/go-openapi/v2/validate"
 )
 
 func FuzzConvertPatchAndForwardVersions(f *testing.F) {

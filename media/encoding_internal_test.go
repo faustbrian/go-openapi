@@ -3,7 +3,7 @@ package media
 import (
 	"testing"
 
-	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/v2/jsonvalue"
 )
 
 func TestScaledEncodingMaximumSaturatesAtTheIntegerLimit(t *testing.T) {

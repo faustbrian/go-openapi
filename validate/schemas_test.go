@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	openapischema "github.com/faustbrian/go-openapi/jsonschema"
-	"github.com/faustbrian/go-openapi/validate"
+	openapischema "github.com/faustbrian/go-openapi/v2/jsonschema"
+	"github.com/faustbrian/go-openapi/v2/validate"
 )
 
 func TestDocumentValidatesEmbeddedSchemaObjects(t *testing.T) {

@@ -3,8 +3,8 @@ package parameter
 import (
 	"fmt"
 
-	"github.com/faustbrian/go-openapi/jsonvalue"
-	"github.com/faustbrian/go-openapi/specversion"
+	"github.com/faustbrian/go-openapi/v2/jsonvalue"
+	"github.com/faustbrian/go-openapi/v2/specversion"
 )
 
 // OptionsFor derives parameter codec options from an OpenAPI Parameter Object,

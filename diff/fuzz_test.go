@@ -6,9 +6,9 @@ import (
 	"strings"
 	"testing"
 
-	openapi "github.com/faustbrian/go-openapi"
-	"github.com/faustbrian/go-openapi/diff"
-	"github.com/faustbrian/go-openapi/parse"
+	openapi "github.com/faustbrian/go-openapi/v2"
+	"github.com/faustbrian/go-openapi/v2/diff"
+	"github.com/faustbrian/go-openapi/v2/parse"
 )
 
 func FuzzOperationDiffDeterminism(f *testing.F) {

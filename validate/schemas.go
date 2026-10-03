@@ -9,10 +9,10 @@ import (
 	"strconv"
 	"strings"
 
-	openapi "github.com/faustbrian/go-openapi"
-	openapischema "github.com/faustbrian/go-openapi/jsonschema"
-	"github.com/faustbrian/go-openapi/jsonvalue"
-	"github.com/faustbrian/go-openapi/specversion"
+	openapi "github.com/faustbrian/go-openapi/v2"
+	openapischema "github.com/faustbrian/go-openapi/v2/jsonschema"
+	"github.com/faustbrian/go-openapi/v2/jsonvalue"
+	"github.com/faustbrian/go-openapi/v2/specversion"
 )
 
 type schemaLocation struct {

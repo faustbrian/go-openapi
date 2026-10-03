@@ -8,8 +8,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/faustbrian/go-openapi/parse"
-	"github.com/faustbrian/go-openapi/serialize"
+	"github.com/faustbrian/go-openapi/v2/parse"
+	"github.com/faustbrian/go-openapi/v2/serialize"
 )
 
 func TestYAMLRoundTripPreservesJSONSemantics(t *testing.T) {

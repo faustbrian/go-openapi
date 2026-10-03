@@ -5,8 +5,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/faustbrian/go-openapi/jsonvalue"
-	"github.com/faustbrian/go-openapi/media"
+	"github.com/faustbrian/go-openapi/v2/jsonvalue"
+	"github.com/faustbrian/go-openapi/v2/media"
 )
 
 func FuzzServerSentEventParsingDeterminism(f *testing.F) {

@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/faustbrian/go-openapi/reference"
-	"github.com/faustbrian/go-openapi/validate"
+	"github.com/faustbrian/go-openapi/v2/reference"
+	"github.com/faustbrian/go-openapi/v2/validate"
 )
 
 func TestDocumentValidatesSecurityRequirementConnections(t *testing.T) {

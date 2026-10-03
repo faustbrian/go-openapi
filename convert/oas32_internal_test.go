@@ -4,8 +4,8 @@ import (
 	"context"
 	"testing"
 
-	openapi "github.com/faustbrian/go-openapi"
-	"github.com/faustbrian/go-openapi/jsonvalue"
+	openapi "github.com/faustbrian/go-openapi/v2"
+	"github.com/faustbrian/go-openapi/v2/jsonvalue"
 )
 
 func TestConvertOpenAPI32DocumentFieldsTo31(t *testing.T) {

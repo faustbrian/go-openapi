@@ -12,7 +12,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/v2/jsonvalue"
 )
 
 // ErrLimitExceeded reports an output byte or nesting limit.

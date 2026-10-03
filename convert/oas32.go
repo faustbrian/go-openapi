@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/v2/jsonvalue"
 )
 
 const oas32BaseDialect = "https://spec.openapis.org/oas/3.2/dialect/2025-09-17"

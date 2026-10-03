@@ -5,6 +5,12 @@ versioning. The root module uses `v<version>` tags. A releasable nested module
 uses `<module-directory>/v<version>` tags. The current `interoperability`
 module is an internal, non-releasable harness and has no release tag.
 
+The next root release is v2 and uses `github.com/faustbrian/go-openapi/v2`.
+Move root and subpackage imports to that path and use Go 1.27.0 or newer.
+There are no version-specific source directories or branches. The nominal
+migration preserves document semantics and exported declarations; existing
+v1 consumers can remain on the published v1 module with Go 1.26.6.
+
 Before `v1`, minor releases MAY contain reviewed breaking changes, but every
 break MUST be documented with migration guidance. Patch releases MUST remain
 backward compatible. At and after `v1`, incompatible exported API or documented
