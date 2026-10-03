@@ -17,20 +17,35 @@ trap cleanup EXIT HUP INT TERM
 cp "$root/interoperability/go.mod" "$temporary/go.mod"
 awk '$1 !~ /^github\.com\/faustbrian\/go-/ { print }' \
     "$root/interoperability/go.sum" >"$temporary/go.sum"
-cp "$root/interoperability/runner.go" "$temporary/runner.go"
+sed 's|"github.com/faustbrian/go-openapi\(["/]\)|"github.com/faustbrian/go-openapi/v2\1|g' \
+    "$root/interoperability/runner.go" >"$temporary/runner.go"
 cd "$temporary"
 export GOWORK=off
 module=github.com/faustbrian/go-openapi/v2
+if [ "$mode" = public ]; then
+    if awk '$1 == "replace" { found=1 } END { exit !found }' go.mod; then
+        echo 'public interoperability forbids module replacements' >&2
+        exit 1
+    fi
+    version=${OPENAPI_INTEROPERABILITY_VERSION:-}
+    case "$version" in
+        v2.*) ;;
+        *) echo 'public interoperability requires an explicit published v2 version' >&2; exit 1 ;;
+    esac
+    if [ "$version" = v2.0.0-00010101000000-000000000000 ]; then
+        echo 'public interoperability rejects the unpublished candidate placeholder' >&2
+        exit 1
+    fi
+else
+    version=v2.0.0-00010101000000-000000000000
+fi
+go mod edit -droprequire github.com/faustbrian/go-openapi \
+    -require "$module@$version"
+awk '$1 != "github.com/faustbrian/go-openapi" { print }' \
+    "$root/interoperability/go.mod" >expected-go.mod
 if [ "$mode" = candidate ]; then
     go mod edit -replace "$module=$root"
 else
-    if [ -n "${OPENAPI_INTEROPERABILITY_VERSION:-}" ]; then
-        go mod edit -require "$module=$OPENAPI_INTEROPERABILITY_VERSION"
-    fi
-    if awk '$1 == "github.com/faustbrian/go-openapi/v2" && $2 == "v2.0.0-00010101000000-000000000000" { found=1 } END { exit !found }' go.mod; then
-        echo 'public interoperability requires a published v2 version; the tracked version is a candidate placeholder' >&2
-        exit 1
-    fi
     export GOPROXY=https://proxy.golang.org GOSUMDB=sum.golang.org GOPRIVATE= GONOSUMDB= GONOPROXY=
 fi
 go mod tidy
@@ -38,8 +53,10 @@ go mod verify >/dev/null
 
 if [ "$mode" = candidate ]; then
     go mod edit -dropreplace "$module"
-    diff -u "$root/interoperability/go.mod" "$temporary/go.mod"
 fi
+awk '$1 != "github.com/faustbrian/go-openapi/v2" { print }' \
+    go.mod >resolved-go.mod
+diff -u expected-go.mod resolved-go.mod
 awk '$1 !~ /^github\.com\/faustbrian\/go-/ { print }' \
     "$root/interoperability/go.sum" >"$temporary/tracked-external.sum"
 awk '$1 !~ /^github\.com\/faustbrian\/go-/ { print }' \

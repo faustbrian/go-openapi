@@ -529,10 +529,7 @@
       "owned_dependencies": [
         "github.com/faustbrian/go-json-schema"
       ],
-      "reverse_owned_dependencies": [
-        "github.com/faustbrian/go-http-middleware/integration/siblings",
-        "github.com/faustbrian/go-openapi/interoperability"
-      ],
+      "reverse_owned_dependencies": [],
       "external_runtime_dependencies": [
         "go.yaml.in/yaml/v3",
         "golang.org/x/net"
@@ -615,7 +612,7 @@
       "tag_prefix": "interoperability/v",
       "owned_dependencies": [
         "github.com/faustbrian/go-json-schema",
-        "github.com/faustbrian/go-openapi/v2"
+        "github.com/faustbrian/go-openapi"
       ],
       "reverse_owned_dependencies": [],
       "external_runtime_dependencies": [

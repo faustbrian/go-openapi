@@ -4,7 +4,7 @@ go 1.27.0
 
 require (
 	github.com/faustbrian/go-json-schema v1.0.0
-	github.com/faustbrian/go-openapi/v2 v2.0.0-00010101000000-000000000000
+	github.com/faustbrian/go-openapi v1.0.0
 	github.com/getkin/kin-openapi v0.147.0
 	github.com/go-openapi/loads v0.25.0
 	github.com/pb33f/libopenapi v0.38.7
