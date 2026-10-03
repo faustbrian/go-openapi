@@ -3,7 +3,7 @@ package validate
 import (
 	"testing"
 
-	"github.com/faustbrian/go-openapi/specversion"
+	"github.com/faustbrian/go-openapi/v2/specversion"
 )
 
 func TestValidSecuritySchemeTypeDistinguishesDialects(t *testing.T) {

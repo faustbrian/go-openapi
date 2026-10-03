@@ -5,8 +5,8 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/faustbrian/go-openapi/jsonvalue"
-	"github.com/faustbrian/go-openapi/specversion"
+	"github.com/faustbrian/go-openapi/v2/jsonvalue"
+	"github.com/faustbrian/go-openapi/v2/specversion"
 )
 
 type cancelAfterFirstReferenceCheck struct {

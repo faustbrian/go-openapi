@@ -13,8 +13,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/faustbrian/go-openapi/parse"
-	"github.com/faustbrian/go-openapi/reference"
+	"github.com/faustbrian/go-openapi/v2/parse"
+	"github.com/faustbrian/go-openapi/v2/reference"
 )
 
 func TestHTTPResolverReadsAuthorizedJSONAndYAML(t *testing.T) {

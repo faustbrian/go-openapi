@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/faustbrian/go-openapi/jsonvalue"
-	"github.com/faustbrian/go-openapi/reference"
+	"github.com/faustbrian/go-openapi/v2/jsonvalue"
+	"github.com/faustbrian/go-openapi/v2/reference"
 )
 
 type staticResolver struct {

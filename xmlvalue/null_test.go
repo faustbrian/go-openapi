@@ -6,10 +6,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/faustbrian/go-openapi/jsonschema"
-	"github.com/faustbrian/go-openapi/jsonvalue"
-	"github.com/faustbrian/go-openapi/parse"
-	"github.com/faustbrian/go-openapi/xmlvalue"
+	"github.com/faustbrian/go-openapi/v2/jsonschema"
+	"github.com/faustbrian/go-openapi/v2/jsonvalue"
+	"github.com/faustbrian/go-openapi/v2/parse"
+	"github.com/faustbrian/go-openapi/v2/xmlvalue"
 )
 
 func TestPlanNullUsesXSIForElementsAndOmitsAttributes(t *testing.T) {

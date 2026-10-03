@@ -6,7 +6,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/v2/jsonvalue"
 )
 
 // ErrMalformedEncoding reports text outside the selected parameter grammar.

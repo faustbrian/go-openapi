@@ -4,8 +4,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/faustbrian/go-openapi/reference"
-	"github.com/faustbrian/go-openapi/specversion"
+	"github.com/faustbrian/go-openapi/v2/reference"
+	"github.com/faustbrian/go-openapi/v2/specversion"
 )
 
 func TestExternalOperationCollectorDeduplicatesAnchorTargets(t *testing.T) {

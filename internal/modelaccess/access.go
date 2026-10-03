@@ -5,8 +5,8 @@ package modelaccess
 import (
 	"strings"
 
-	"github.com/faustbrian/go-openapi/jsonvalue"
-	sharedmodel "github.com/faustbrian/go-openapi/model"
+	"github.com/faustbrian/go-openapi/v2/jsonvalue"
+	sharedmodel "github.com/faustbrian/go-openapi/v2/model"
 )
 
 // Decoder converts one non-null JSON value to a typed immutable value.

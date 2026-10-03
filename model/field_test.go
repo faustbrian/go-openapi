@@ -3,8 +3,8 @@ package model_test
 import (
 	"testing"
 
-	"github.com/faustbrian/go-openapi/jsonvalue"
-	"github.com/faustbrian/go-openapi/model"
+	"github.com/faustbrian/go-openapi/v2/jsonvalue"
+	"github.com/faustbrian/go-openapi/v2/model"
 )
 
 func TestFieldDistinguishesAbsentNullZeroAndEmpty(t *testing.T) {

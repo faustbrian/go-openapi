@@ -8,7 +8,7 @@ import (
 	"testing"
 	"testing/iotest"
 
-	"github.com/faustbrian/go-openapi/media"
+	"github.com/faustbrian/go-openapi/v2/media"
 )
 
 type cancelingReader struct {

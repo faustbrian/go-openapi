@@ -5,7 +5,7 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/v2/jsonvalue"
 )
 
 // Object is an immutable, syntactically valid OpenAPI Reference Object. It

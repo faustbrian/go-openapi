@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/v2/jsonvalue"
 )
 
 func TestGeneratedModelSurface(t *testing.T) {

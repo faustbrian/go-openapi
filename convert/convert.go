@@ -7,8 +7,8 @@ import (
 	"errors"
 	"fmt"
 
-	openapi "github.com/faustbrian/go-openapi"
-	"github.com/faustbrian/go-openapi/jsonvalue"
+	openapi "github.com/faustbrian/go-openapi/v2"
+	"github.com/faustbrian/go-openapi/v2/jsonvalue"
 )
 
 var (

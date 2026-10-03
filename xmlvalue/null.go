@@ -8,8 +8,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/faustbrian/go-openapi/jsonschema"
-	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/v2/jsonschema"
+	"github.com/faustbrian/go-openapi/v2/jsonvalue"
 )
 
 // XMLSchemaInstanceNamespace is the namespace of xsi:nil.

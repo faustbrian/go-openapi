@@ -9,12 +9,12 @@ import (
 	"strings"
 	"testing"
 
-	openapi "github.com/faustbrian/go-openapi"
-	"github.com/faustbrian/go-openapi/convert"
-	openapischema "github.com/faustbrian/go-openapi/jsonschema"
-	"github.com/faustbrian/go-openapi/jsonvalue"
-	"github.com/faustbrian/go-openapi/parse"
-	"github.com/faustbrian/go-openapi/validate"
+	openapi "github.com/faustbrian/go-openapi/v2"
+	"github.com/faustbrian/go-openapi/v2/convert"
+	openapischema "github.com/faustbrian/go-openapi/v2/jsonschema"
+	"github.com/faustbrian/go-openapi/v2/jsonvalue"
+	"github.com/faustbrian/go-openapi/v2/parse"
+	"github.com/faustbrian/go-openapi/v2/validate"
 )
 
 func TestConvertRejectsWideRootBeforeCopyingMembers(t *testing.T) {

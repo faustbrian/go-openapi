@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/faustbrian/go-openapi/reference"
+	"github.com/faustbrian/go-openapi/v2/reference"
 )
 
 func TestLinksetMediaTypeSchemaRejectsIncompleteShapes(t *testing.T) {

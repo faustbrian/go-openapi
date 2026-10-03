@@ -6,7 +6,7 @@ below for deeper contracts.
 
 ## Using the package
 
-- [Go package reference](https://pkg.go.dev/github.com/faustbrian/go-openapi)
+- [Go package reference](https://pkg.go.dev/github.com/faustbrian/go-openapi/v2)
 - [Detailed feature reference](reference.md)
 - [Executable package examples](../example_test.go)
 - [FAQ and troubleshooting](faq.md)

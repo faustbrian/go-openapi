@@ -9,6 +9,10 @@
 
 ### Changed
 
+- Prepare the v2 module path `github.com/faustbrian/go-openapi/v2` for the
+  Go 1.27.0 minimum. Migrate root and subpackage imports to `/v2`; document
+  semantics and exported declarations remain unchanged by this migration.
+
 - Reduce JSON serialization allocations for member names and string values
   while preserving standard JSON escaping, output order, and resource limits.
 
