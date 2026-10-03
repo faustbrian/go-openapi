@@ -3,14 +3,86 @@ package serialize_test
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"errors"
+	"reflect"
+	"slices"
 	"strings"
 	"testing"
 
 	openapi "github.com/faustbrian/go-openapi"
+	"github.com/faustbrian/go-openapi/jsonvalue"
 	"github.com/faustbrian/go-openapi/parse"
 	"github.com/faustbrian/go-openapi/serialize"
 )
+
+func TestJSONStringEscapingMatchesEncodingJSON(t *testing.T) {
+	t.Parallel()
+
+	for _, text := range []string{
+		"", "plain", "quoted\"\\value", "\x00\b\f\n\r\t\x1f",
+		"<tag>&value", "café 世界 😀", "line\u2028paragraph\u2029",
+	} {
+		value, err := jsonvalue.String(text)
+		if err != nil {
+			t.Fatal(err)
+		}
+		raw, err := json.Marshal(text)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var scalar bytes.Buffer
+		if err := serialize.JSON(context.Background(), &scalar, value, serialize.DefaultOptions()); err != nil {
+			t.Fatal(err)
+		}
+		if !bytes.Equal(scalar.Bytes(), raw) {
+			t.Fatalf("string %q = %q, want %q", text, scalar.Bytes(), raw)
+		}
+
+		tail, _ := jsonvalue.String("tail")
+		members := []jsonvalue.Member{{Name: text, Value: value}, {Name: "tail", Value: tail}}
+		object, err := jsonvalue.Object(members)
+		if err != nil {
+			t.Fatal(err)
+		}
+		before, _ := object.Members()
+		for _, mode := range []serialize.Mode{serialize.Preserve, serialize.Canonical, serialize.Preserve} {
+			options := serialize.DefaultOptions()
+			options.Mode = mode
+			ordered := slices.Clone(members)
+			if mode == serialize.Canonical {
+				slices.SortFunc(ordered, func(left, right jsonvalue.Member) int {
+					return strings.Compare(left.Name, right.Name)
+				})
+			}
+			var want bytes.Buffer
+			want.WriteByte('{')
+			for index, member := range ordered {
+				if index != 0 {
+					want.WriteByte(',')
+				}
+				key, _ := json.Marshal(member.Name)
+				memberText, _ := member.Value.Text()
+				encoded, _ := json.Marshal(memberText)
+				want.Write(key)
+				want.WriteByte(':')
+				want.Write(encoded)
+			}
+			want.WriteByte('}')
+			var output bytes.Buffer
+			if err := serialize.JSON(context.Background(), &output, object, options); err != nil {
+				t.Fatal(err)
+			}
+			if !bytes.Equal(output.Bytes(), want.Bytes()) {
+				t.Fatalf("mode %d key/value %q = %q, want %q", mode, text, output.Bytes(), want.Bytes())
+			}
+			after, _ := object.Members()
+			if !reflect.DeepEqual(before, after) {
+				t.Fatal("serialization changed source members")
+			}
+		}
+	}
+}
 
 func TestJSONPreservesOrderAndExactNumbers(t *testing.T) {
 	t.Parallel()
