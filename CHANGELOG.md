@@ -9,6 +9,9 @@
 
 ### Changed
 
+- Reduce JSON serialization allocations for member names and string values
+  while preserving standard JSON escaping, output order, and resource limits.
+
 - Require Go 1.27.0 and use it for development, CI, and benchmark verification.
 
 - Complete the consumer documentation entry point with lifecycle, package,
