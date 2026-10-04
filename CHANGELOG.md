@@ -4,6 +4,13 @@
 
 ### Security
 
+- Bound requirement and credential scheme/scope label bytes at independent
+  inclusive 1 MiB totals and apply scheme/scope counts independently to each
+  input domain. Admit collection lengths before copying, validate all
+  requirements before success, and reuse one call-local credential index.
+  Anonymous requirements skip irrelevant credentials; oversized credential
+  sets and labels now fail closed with `security.ErrLimitExceeded`.
+
 - Provide direct private vulnerability-reporting and public support routes,
   with GitHub Discussions enabled for adoption questions.
 

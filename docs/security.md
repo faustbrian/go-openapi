@@ -105,6 +105,23 @@ deadlines for every untrusted operation.
 process safety still depends on callers bounding the number of simultaneous
 top-level operations and the lifetime of objects they retain.
 
+`security.Satisfied` checks array, requirement-object, and scope-array lengths
+before copying their collections. Scheme and scope counts apply independently
+to requirements and supplied credentials, with zero fields selecting defaults
+and positive overrides retaining caller-selected finite limits. Requirement
+scheme names and required scopes share an inclusive fixed 1 MiB raw-byte
+budget; credential scheme names and granted scopes share a separate 1 MiB
+budget. Every occurrence counts before deduplication, using remaining-budget
+subtraction rather than overflow-prone addition. All requirements are admitted
+and validated before any successful result; valid anonymous alternatives skip
+credential admission because those credentials cannot affect the result.
+Other evaluations admit all credentials before building one call-local index
+reused across alternatives. Limit errors disclose no labels. Callers must
+inventory formerly accepted oversized sets/labels before adopting this v2
+behavior, and must not mutate borrowed credential maps/slices during the
+synchronous call. Allocation of caller-owned semantic values/credentials and
+the number of concurrent calls remain application responsibilities.
+
 ## Concurrency and ownership
 
 **Observed fact:** Parsed semantic values and generated models are immutable.
