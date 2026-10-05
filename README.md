@@ -5,7 +5,7 @@
 [![Coverage](https://img.shields.io/badge/coverage-100%25_required-blue)](CONTRIBUTING.md#verification)
 [![Mutation](https://img.shields.io/badge/mutation-100%25_required-blue)](CONTRIBUTING.md#verification)
 [![Documentation](https://img.shields.io/badge/docs-checked_in_CI-blue)](docs/)
-[![Go Reference](https://pkg.go.dev/badge/github.com/faustbrian/go-openapi.svg)](https://pkg.go.dev/github.com/faustbrian/go-openapi)
+[![Go Reference](https://pkg.go.dev/badge/github.com/faustbrian/go-openapi/v2.svg)](https://pkg.go.dev/github.com/faustbrian/go-openapi/v2)
 [![Release](https://img.shields.io/github/v/release/faustbrian/go-openapi?sort=semver)](https://github.com/faustbrian/go-openapi/releases)
 [![Go](https://img.shields.io/badge/go-1.27.0-00ADD8?logo=go)](https://go.dev/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
@@ -39,8 +39,12 @@ platform where Go's `os.Root` guarantees containment and is not supported on
 
 ## Installation
 
+Main prepares the v2 module and requires Go 1.27.0. Until v2 is published,
+existing applications can continue using the released v1 module. After
+publication, install v2 and migrate root and subpackage imports to `/v2`:
+
 ```sh
-go get github.com/faustbrian/go-openapi
+go get github.com/faustbrian/go-openapi/v2
 ```
 
 ## Quick start
@@ -74,7 +78,7 @@ explicit.
 - `specification` exposes the embedded, provenance-checked specification
   resources used by the module.
 
-The [API reference](https://pkg.go.dev/github.com/faustbrian/go-openapi) lists
+The [API reference](https://pkg.go.dev/github.com/faustbrian/go-openapi/v2) lists
 every public package and exported identifier.
 
 ## Capabilities

@@ -6,12 +6,12 @@ import (
 	"strings"
 	"testing"
 
-	openapi "github.com/faustbrian/go-openapi"
-	openapischema "github.com/faustbrian/go-openapi/jsonschema"
-	"github.com/faustbrian/go-openapi/jsonvalue"
-	"github.com/faustbrian/go-openapi/parameter"
-	"github.com/faustbrian/go-openapi/parse"
-	"github.com/faustbrian/go-openapi/reference"
+	openapi "github.com/faustbrian/go-openapi/v2"
+	openapischema "github.com/faustbrian/go-openapi/v2/jsonschema"
+	"github.com/faustbrian/go-openapi/v2/jsonvalue"
+	"github.com/faustbrian/go-openapi/v2/parameter"
+	"github.com/faustbrian/go-openapi/v2/parse"
+	"github.com/faustbrian/go-openapi/v2/reference"
 )
 
 func TestEqualJSONValuesCoversExactJSONAlgebra(t *testing.T) {

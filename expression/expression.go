@@ -8,7 +8,7 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"github.com/faustbrian/go-openapi/reference"
+	"github.com/faustbrian/go-openapi/v2/reference"
 )
 
 // ErrInvalid reports text outside the normative runtime-expression grammar.

@@ -5,8 +5,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/faustbrian/go-openapi/jsonschema"
-	"github.com/faustbrian/go-openapi/parse"
+	"github.com/faustbrian/go-openapi/v2/jsonschema"
+	"github.com/faustbrian/go-openapi/v2/parse"
 )
 
 func FuzzSchemaObjectCompilationAndEvaluation(f *testing.F) {

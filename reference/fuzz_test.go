@@ -7,9 +7,9 @@ import (
 	"strings"
 	"testing"
 
-	openapi "github.com/faustbrian/go-openapi"
-	"github.com/faustbrian/go-openapi/parse"
-	"github.com/faustbrian/go-openapi/reference"
+	openapi "github.com/faustbrian/go-openapi/v2"
+	"github.com/faustbrian/go-openapi/v2/parse"
+	"github.com/faustbrian/go-openapi/v2/reference"
 )
 
 func FuzzPointerCanonicalRoundTrip(f *testing.F) {

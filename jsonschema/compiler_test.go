@@ -8,10 +8,11 @@ import (
 	"strings"
 	"testing"
 
-	openapischema "github.com/faustbrian/go-openapi/jsonschema"
-	"github.com/faustbrian/go-openapi/jsonvalue"
-	"github.com/faustbrian/go-openapi/parse"
-	"github.com/faustbrian/go-openapi/specversion"
+	canonical "github.com/faustbrian/go-json-schema"
+	openapischema "github.com/faustbrian/go-openapi/v2/jsonschema"
+	"github.com/faustbrian/go-openapi/v2/jsonvalue"
+	"github.com/faustbrian/go-openapi/v2/parse"
+	"github.com/faustbrian/go-openapi/v2/specversion"
 )
 
 func TestCompilerRejectsWideSchemaBeforeCopyingChildren(t *testing.T) {
@@ -45,6 +46,68 @@ func TestCompilerRejectsWideSchemaBeforeCopyingChildren(t *testing.T) {
 	allocated := (after.TotalAlloc - before.TotalAlloc) / repetitions
 	if allocated > 64<<10 {
 		t.Fatalf("wide rejected schema allocated %d bytes per operation", allocated)
+	}
+}
+
+func TestCompilerPreservesLegacyVocabularyIdentities(t *testing.T) {
+	for _, test := range []struct {
+		name       string
+		dialect    openapischema.Dialect
+		identifier string
+	}{
+		{"OpenAPI30", openapischema.DialectOAS30, "oas/3.0"},
+		{"Swagger20", openapischema.DialectSwagger20, "swagger/2.0"},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			schema := mustValue(t, `{"type":"string"}`)
+			for _, operation := range []string{"Compile", "ValidateSchema"} {
+				t.Run(operation, func(t *testing.T) {
+					for _, registration := range []struct {
+						name       string
+						identifier string
+						collision  bool
+					}{
+						{"CallerVocabulary", "https://github.com/faustbrian/go-openapi/v2/jsonschema/" + test.identifier, false},
+						{"BuiltInCollision", "https://github.com/faustbrian/go-openapi/jsonschema/" + test.identifier, true},
+					} {
+						t.Run(registration.name, func(t *testing.T) {
+							compiler, err := openapischema.NewCompiler(test.dialect,
+								openapischema.WithVocabulary(registration.identifier, nil))
+							if err != nil {
+								t.Fatalf("register vocabulary: %v", err)
+							}
+							if operation == "Compile" {
+								compiled, compileErr := compiler.Compile(context.Background(), schema)
+								if registration.collision {
+									if !errors.Is(compileErr, canonical.ErrInvalidSchema) {
+										t.Fatalf("built-in collision error = %v", compileErr)
+									}
+									return
+								}
+								if compileErr != nil {
+									t.Fatalf("compile ordinary string schema: %v", compileErr)
+								}
+								result, validateErr := compiled.Validate(context.Background(), []byte(`"value"`))
+								if validateErr != nil || !result.Valid {
+									t.Fatalf("validate string instance: valid=%t error=%v", result.Valid, validateErr)
+								}
+							} else {
+								output, validateErr := compiler.ValidateSchema(context.Background(), schema)
+								if registration.collision {
+									if !errors.Is(validateErr, canonical.ErrInvalidSchema) {
+										t.Fatalf("built-in collision error = %v", validateErr)
+									}
+									return
+								}
+								if validateErr != nil || !output.Valid {
+									t.Fatalf("validate ordinary string schema: valid=%t error=%v", output.Valid, validateErr)
+								}
+							}
+						})
+					}
+				})
+			}
+		})
 	}
 }
 

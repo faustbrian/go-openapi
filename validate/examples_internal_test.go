@@ -5,10 +5,10 @@ import (
 	"errors"
 	"testing"
 
-	openapi "github.com/faustbrian/go-openapi"
-	openapischema "github.com/faustbrian/go-openapi/jsonschema"
-	"github.com/faustbrian/go-openapi/jsonvalue"
-	"github.com/faustbrian/go-openapi/reference"
+	openapi "github.com/faustbrian/go-openapi/v2"
+	openapischema "github.com/faustbrian/go-openapi/v2/jsonschema"
+	"github.com/faustbrian/go-openapi/v2/jsonvalue"
+	"github.com/faustbrian/go-openapi/v2/reference"
 )
 
 type internalExampleCodec struct {

@@ -2,7 +2,7 @@
 // model packages.
 package model
 
-import "github.com/faustbrian/go-openapi/jsonvalue"
+import "github.com/faustbrian/go-openapi/v2/jsonvalue"
 
 type fieldState uint8
 

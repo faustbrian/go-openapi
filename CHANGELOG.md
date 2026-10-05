@@ -4,10 +4,24 @@
 
 ### Security
 
+- Bound requirement and credential scheme/scope label bytes at independent
+  inclusive 1 MiB totals and apply scheme/scope counts independently to each
+  input domain. Admit collection lengths before copying, validate all
+  requirements before success, and reuse one call-local credential index.
+  Anonymous requirements skip irrelevant credentials; oversized credential
+  sets and labels now fail closed with `security.ErrLimitExceeded`.
+
 - Provide direct private vulnerability-reporting and public support routes,
   with GitHub Discussions enabled for adoption questions.
 
 ### Changed
+
+- Prepare the v2 module path `github.com/faustbrian/go-openapi/v2` for the
+  Go 1.27.0 minimum. Migrate root and subpackage imports to `/v2`; document
+  semantics and exported declarations remain unchanged by this migration.
+
+- Reduce JSON serialization allocations for member names and string values
+  while preserving standard JSON escaping, output order, and resource limits.
 
 - Require Go 1.27.0 and use it for development, CI, and benchmark verification.
 

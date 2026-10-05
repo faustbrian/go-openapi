@@ -4,8 +4,8 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/faustbrian/go-openapi/expression"
-	"github.com/faustbrian/go-openapi/reference"
+	"github.com/faustbrian/go-openapi/v2/expression"
+	"github.com/faustbrian/go-openapi/v2/reference"
 )
 
 func TestParseRuntimeExpressionKinds(t *testing.T) {

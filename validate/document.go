@@ -8,10 +8,10 @@ import (
 	"sync"
 
 	canonical "github.com/faustbrian/go-json-schema"
-	openapi "github.com/faustbrian/go-openapi"
-	"github.com/faustbrian/go-openapi/jsonvalue"
-	"github.com/faustbrian/go-openapi/specification"
-	"github.com/faustbrian/go-openapi/specversion"
+	openapi "github.com/faustbrian/go-openapi/v2"
+	"github.com/faustbrian/go-openapi/v2/jsonvalue"
+	"github.com/faustbrian/go-openapi/v2/specification"
+	"github.com/faustbrian/go-openapi/v2/specversion"
 )
 
 // Document validates one selected OpenAPI description against the pinned

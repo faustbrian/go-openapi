@@ -11,7 +11,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/faustbrian/go-openapi/internal/specification"
+	"github.com/faustbrian/go-openapi/v2/internal/specification"
 )
 
 const (

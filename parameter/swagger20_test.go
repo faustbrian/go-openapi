@@ -5,8 +5,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/faustbrian/go-openapi/jsonvalue"
-	"github.com/faustbrian/go-openapi/parameter"
+	"github.com/faustbrian/go-openapi/v2/jsonvalue"
+	"github.com/faustbrian/go-openapi/v2/parameter"
 )
 
 func TestSwagger20CollectionFormatsRoundTrip(t *testing.T) {

@@ -12,9 +12,9 @@ import (
 	"sort"
 	"strings"
 
-	openapi "github.com/faustbrian/go-openapi"
-	"github.com/faustbrian/go-openapi/jsonvalue"
-	"github.com/faustbrian/go-openapi/reference"
+	openapi "github.com/faustbrian/go-openapi/v2"
+	"github.com/faustbrian/go-openapi/v2/jsonvalue"
+	"github.com/faustbrian/go-openapi/v2/reference"
 )
 
 // ErrInvalidInput reports nil comparison context or documents.

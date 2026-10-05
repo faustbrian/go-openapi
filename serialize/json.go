@@ -12,7 +12,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/v2/jsonvalue"
 )
 
 // ErrLimitExceeded reports an output byte or nesting limit.
@@ -106,6 +106,7 @@ type jsonEmitter struct {
 	maxDepth       int
 	mode           Mode
 	remainingNodes int
+	quotedText     string
 }
 
 func (emitter *jsonEmitter) value(value jsonvalue.Value, depth int) error {
@@ -136,8 +137,7 @@ func (emitter *jsonEmitter) value(value jsonvalue.Value, depth int) error {
 		return emitter.writeString(number)
 	case jsonvalue.StringKind:
 		text, _ := value.Text()
-		raw, _ := json.Marshal(text)
-		return emitter.write(raw)
+		return emitter.writeQuotedString(text)
 	case jsonvalue.ArrayKind:
 		return emitter.array(value, depth)
 	case jsonvalue.ObjectKind:
@@ -196,8 +196,7 @@ func (emitter *jsonEmitter) object(value jsonvalue.Value, depth int) error {
 				return err
 			}
 		}
-		name, _ := json.Marshal(member.Name)
-		if err := emitter.write(name); err != nil {
+		if err := emitter.writeQuotedString(member.Name); err != nil {
 			return err
 		}
 		if err := emitter.writeString(":"); err != nil {
@@ -208,6 +207,16 @@ func (emitter *jsonEmitter) object(value jsonvalue.Value, depth int) error {
 		}
 	}
 	return emitter.writeString("}")
+}
+
+func (emitter *jsonEmitter) writeQuotedString(value string) error {
+	// Reusing an emitter-owned string address avoids boxing each key and value
+	// while retaining encoding/json's exact escaping policy.
+	emitter.quotedText = value
+	raw, _ := json.Marshal(&emitter.quotedText)
+	// Do not retain source text across a caller's writer callback or error.
+	emitter.quotedText = ""
+	return emitter.write(raw)
 }
 
 func (emitter *jsonEmitter) writeString(value string) error {

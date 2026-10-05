@@ -10,10 +10,10 @@ import (
 	"time"
 
 	canonical "github.com/faustbrian/go-json-schema"
-	openapi "github.com/faustbrian/go-openapi"
-	"github.com/faustbrian/go-openapi/parse"
-	"github.com/faustbrian/go-openapi/serialize"
-	"github.com/faustbrian/go-openapi/validate"
+	openapi "github.com/faustbrian/go-openapi/v2"
+	"github.com/faustbrian/go-openapi/v2/parse"
+	"github.com/faustbrian/go-openapi/v2/serialize"
+	"github.com/faustbrian/go-openapi/v2/validate"
 )
 
 func TestPinnedPublicDescriptions(t *testing.T) {

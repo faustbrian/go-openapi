@@ -22,7 +22,7 @@ conformance:
 	$(GO) run ./internal/specification/cmd/provenance -root .
 
 interoperability:
-	./scripts/check-interoperability.sh
+	OPENAPI_INTEROPERABILITY_MODE=candidate ./scripts/check-interoperability.sh
 	$(GO) test -tags publicinterop . -run '^TestPinnedPublicDescriptions$$' \
 		-count=1 -timeout=5m
 

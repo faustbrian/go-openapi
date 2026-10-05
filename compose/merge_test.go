@@ -6,8 +6,8 @@ import (
 	"errors"
 	"testing"
 
-	openapi "github.com/faustbrian/go-openapi"
-	"github.com/faustbrian/go-openapi/compose"
+	openapi "github.com/faustbrian/go-openapi/v2"
+	"github.com/faustbrian/go-openapi/v2/compose"
 )
 
 func TestMergeCombinesRegistriesInStableSourceOrder(t *testing.T) {

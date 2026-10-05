@@ -3,8 +3,8 @@ package parameter_test
 import (
 	"testing"
 
-	"github.com/faustbrian/go-openapi/jsonvalue"
-	"github.com/faustbrian/go-openapi/parameter"
+	"github.com/faustbrian/go-openapi/v2/jsonvalue"
+	"github.com/faustbrian/go-openapi/v2/parameter"
 )
 
 func TestDecodeOpenAPI32StyleExamples(t *testing.T) {

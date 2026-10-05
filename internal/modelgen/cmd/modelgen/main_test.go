@@ -9,8 +9,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/faustbrian/go-openapi/internal/modelgen"
-	"github.com/faustbrian/go-openapi/internal/specification"
+	"github.com/faustbrian/go-openapi/v2/internal/modelgen"
+	"github.com/faustbrian/go-openapi/v2/internal/specification"
 )
 
 func FuzzModelgenFieldInventoryDecoder(f *testing.F) {

@@ -4,8 +4,8 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/faustbrian/go-openapi/discriminator"
-	"github.com/faustbrian/go-openapi/jsonvalue"
+	"github.com/faustbrian/go-openapi/v2/discriminator"
+	"github.com/faustbrian/go-openapi/v2/jsonvalue"
 )
 
 func TestSelectAppliesExplicitImplicitAndDefaultMappings(t *testing.T) {

@@ -2,7 +2,7 @@
 
 ## Which package should an application import first?
 
-Start with `github.com/faustbrian/go-openapi`. Its `ParseJSON` and `ParseYAML`
+Start with `github.com/faustbrian/go-openapi/v2`. Its `ParseJSON` and `ParseYAML`
 functions select the declared Swagger or OpenAPI version and return an immutable
 document. Import a focused subpackage only for a specific operation such as
 validation, reference resolution, composition, conversion, or serialization.

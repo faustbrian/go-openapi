@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/faustbrian/go-openapi/parse"
+	"github.com/faustbrian/go-openapi/v2/parse"
 )
 
 func TestYAMLUsesTheJSONSemanticModel(t *testing.T) {

@@ -1,4 +1,4 @@
-module github.com/faustbrian/go-openapi
+module github.com/faustbrian/go-openapi/v2
 
 go 1.27.0
 
