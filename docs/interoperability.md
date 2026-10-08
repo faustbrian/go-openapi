@@ -11,7 +11,7 @@ their incorporated standards remain authoritative when implementations differ.
 
 | Implementation | Version | License | Version-specific source |
 | --- | --- | --- | --- |
-| `getkin/kin-openapi` | v0.147.0 | MIT | [source](https://github.com/getkin/kin-openapi/tree/v0.147.0), [license](https://github.com/getkin/kin-openapi/blob/v0.147.0/LICENSE) |
+| `getkin/kin-openapi` | v0.149.0 | MIT | [source](https://github.com/getkin/kin-openapi/tree/v0.149.0), [license](https://github.com/getkin/kin-openapi/blob/v0.149.0/LICENSE) |
 | `pb33f/libopenapi` | v0.41.2 | MIT | [source](https://github.com/pb33f/libopenapi/tree/v0.41.2), [license](https://github.com/pb33f/libopenapi/blob/v0.41.2/LICENSE) |
 | `openapi/loads` | v0.25.3 | Apache-2.0 | [source](https://github.com/go-openapi/loads/tree/v0.25.3), [license](https://github.com/go-openapi/loads/blob/v0.25.3/LICENSE) |
 
@@ -102,6 +102,26 @@ uses document bytes, model construction, and rendering instead of those node
 APIs. The peer migration does not change the root runtime dependency graph or
 public parser API. Separate JSON/YAML semantic checks exercise retained
 operation, response, schema-reference, boolean-schema, and quoted-string data.
+
+## Kin 0.149.0 adoption
+
+The current harness selects Kin 0.149.0 and its jsonschema/v6 6.0.3
+validation dependency. The complete 0.147.0-to-0.149.0 interval includes
+OpenAPI 3.1 format handling, rational `multipleOf` evaluation, positional
+`prefixItems`, boolean schemas, and schema-cycle guards. These supplier
+changes do not alter the root runtime graph or establish general specification
+conformance beyond the exercised surfaces.
+
+The refreshed matrix changes one outcome row: the valid OpenAPI 3.1 boolean
+schema fixture now loads, validates, and round-trips successfully. Other
+outcomes are unchanged, including the OpenAPI 3.2 tag-kind validation limit.
+Separate JSON/YAML checks retain operation, response, local-reference,
+required-property, extension, and quoted-string data through reload. Boolean
+schema checks preserve both `true` and `false`; malformed input and external
+references remain rejected by the selected runner boundary.
+
+The dated findings below retain their original supplier versions. They are
+historical observations, not descriptions of Kin 0.149.0.
 
 ## Findings on 2026-07-22
 

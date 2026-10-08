@@ -16,6 +16,12 @@
 
 ### Changed
 
+- Adopt Kin 0.149.0 in the isolated interoperability harness, including its
+  OpenAPI 3.1 boolean-schema support and jsonschema/v6 6.0.3 dependency.
+  Refresh the observed matrix and retain rich JSON/YAML document semantics,
+  boolean values, and external-reference isolation through reload. Keep
+  historical observations attributed and the root runtime graph unchanged.
+
 - Adopt Loads 0.25.3 in the isolated interoperability harness and YAML 3.0.5
   in the root parser/serializer graph. Preserve observed peer outcomes and
   rich Swagger data through reload; remove the obsolete root YAML dependency
