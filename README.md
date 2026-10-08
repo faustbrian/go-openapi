@@ -2,8 +2,6 @@
 
 [![CI](https://github.com/faustbrian/go-openapi/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/faustbrian/go-openapi/actions/workflows/ci.yml)
 [![CodeQL](https://img.shields.io/badge/CodeQL-required-blue)](https://github.com/faustbrian/go-openapi/actions/workflows/ci.yml)
-[![Coverage](https://img.shields.io/badge/coverage-100%25_required-blue)](CONTRIBUTING.md#verification)
-[![Mutation](https://img.shields.io/badge/mutation-100%25_required-blue)](CONTRIBUTING.md#verification)
 [![Documentation](https://img.shields.io/badge/docs-checked_in_CI-blue)](docs/)
 [![Go Reference](https://pkg.go.dev/badge/github.com/faustbrian/go-openapi/v2.svg)](https://pkg.go.dev/github.com/faustbrian/go-openapi/v2)
 [![Release](https://img.shields.io/github/v/release/faustbrian/go-openapi?sort=semver)](https://github.com/faustbrian/go-openapi/releases)
@@ -39,9 +37,10 @@ platform where Go's `os.Root` guarantees containment and is not supported on
 
 ## Installation
 
-Main prepares the v2 module and requires Go 1.27.0. Until v2 is published,
-existing applications can continue using the released v1 module. After
-publication, install v2 and migrate root and subpackage imports to `/v2`:
+The v2 module requires Go 1.27.0 or newer. Existing applications can remain
+on the released v1 module with Go 1.26.6. See the
+[migration policy](COMPATIBILITY.md) for JSON Schema type identities and changed
+input acceptance. To install v2, migrate root and subpackage imports to `/v2`:
 
 ```sh
 go get github.com/faustbrian/go-openapi/v2

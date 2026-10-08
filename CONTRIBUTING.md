@@ -46,8 +46,13 @@ Before submitting a repository-wide change:
 make ci
 ```
 
-The full scheduled and release gate is `make ci`. Report every unavailable or
-failing command; do not describe partial results as release-ready.
+`make ci` runs repository validation and the selected shared module contract.
+It does not alone establish release readiness. Use `golib release check
+--module .` and `golib release dry-run --module .` at the release boundary,
+then verify the applicable consumer and publication claims separately. The
+[current gate guide](docs/reference.md#development-gates) lists package-owned
+operations and explicit CLI checks. Report every unavailable or failing
+required command; do not describe partial results as release-ready.
 
 ## Adding A Module
 

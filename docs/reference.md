@@ -921,65 +921,61 @@ Deliberate boundaries remain:
 
 ## Development gates
 
-Run the complete local gate with:
+The root Makefile delegates repository validation and module checks to the
+shared Golib CLI pinned in `.golib.yaml`:
 
 ```sh
+make inventory
 make check
+make ci
 ```
 
-It verifies formatting, module tidiness, `go vet`, tests, race tests,
-specification extraction, model generation, and generated-file drift. Pinned
-specification revisions and checksums are recorded in
-[`specification/manifest.json`](../specification/manifest.json).
-Interpretations and accepted errata are recorded in
-[`docs/specification-decisions.md`](specification-decisions.md).
-The implemented trust boundaries, attacker model, controls, and residual caller
-responsibilities are recorded in [`docs/security.md`](security.md).
+`make ci` adds repository validation to the selected module contract. Selection
+follows the shared tooling and module policies; read the attributable gate
+results rather than treating a successful baseline run as proof that every
+release, race, fuzz, mutation, or performance check ran. The proportional
+assurance policy in [`AGENTS.md`](../AGENTS.md) controls which checks apply.
 
-Run `make coverage` for the required complete statement-coverage report and
-`make fuzz`
-for short local fuzz campaigns across parsers, Schema Object compilation and
-evaluation, validation, serialization, server-sent events, the mutation-report
-CLI decoder, references, component bundling, runtime expressions, parameter
-decoders, operation filtering, semantic operation diffing, reference
-dereferencing, and forward and lossy version conversion.
-`FUZZ_TIME` controls each fuzz target's duration. The scheduled CI job runs the
-same targets for five minutes each.
-Coverage fails below 100% for any production package or for the repository in
-aggregate. `MIN_PACKAGE_COVERAGE` and `MIN_TOTAL_COVERAGE` cannot lower those
-release floors.
+Use the current CLI for explicit checks:
 
-`make provenance` verifies every artifact listed in
-[`specification/manifest.json`](../specification/manifest.json) against its pinned
-SHA-256 checksum. It rejects missing, changed, duplicate, escaping, symlinked,
-or non-regular artifact paths and performs no network access. `make
-conformance` includes this offline provenance check.
+```sh
+golib coverage --module .
+golib mutation --module .
+golib api check --module .
+golib docs check --module .
+golib release check --module .
+golib release dry-run --module .
+```
 
-`make api` compares the current exported module API with `HEAD^` and fails on
-source-incompatible changes. Set `API_BASE_REF` to a release tag or target
-branch when checking a wider change set. The pinned checker compares exported
-Go declarations; behavioral compatibility remains covered by tests and the
-semantic diff package.
+The API check uses `api/v2.txt`, as configured in `.golib.yaml`; it is not a
+comparison against `HEAD^` or proof of compatibility with published v1.
+Coverage and mutation checks follow the pinned tooling and module policy;
+there are no root Make targets or environment overrides for their thresholds.
+Release rehearsal exercises the selected release contract and task-owned
+module-proxy resolution. Separate migrated-consumer compilation and public
+publication verification remain necessary for those claims.
 
-`make mutation` invokes the same canonical content-addressed mutation runner as
-CI for the complete module. It shards production packages internally and
-requires strict 100% efficacy and mutator coverage in every shard. Package,
-operator, timeout, and exclusion overrides are intentionally unavailable.
+Package-owned operations remain available through their explicit Makefile:
 
-Run `make benchmark` for allocation-reporting comparisons of representative
-100-path parsing, warm validation, canonical JSON serialization, internal
-reference resolution, external component bundling, semantic operation
-diffing, operation filtering, document merging, and OpenAPI 3.0-to-3.1 and
-3.1-to-3.2 conversion.
-Benchmarks perform no internet access. Explicit resolver cases use one temporary
-local file and an in-process loopback HTTP server.
-The reproducible capture method, workload definitions, allocation budgets,
-limitations, and raw evidence are documented in
-[`docs/performance.md`](performance.md).
+```sh
+make -f verification/package.mk conformance
+make -f verification/package.mk interoperability
+make -f verification/package.mk performance
+```
 
-Run `make -f verification/package.mk interoperability` for the pinned,
-isolated-module comparison with
-independent OpenAPI implementations. Its complete dependency graph and
-checksums remain outside the core module. The exact versions, fixture policy,
-classified differences, update procedure, and observed matrix are documented
-in [`docs/interoperability.md`](interoperability.md).
+Conformance checks specification extraction, model generation, generated-file
+drift and offline provenance. Pinned revisions and checksums are recorded in
+[`specification/manifest.json`](../specification/manifest.json), and
+interpretations and accepted errata in the
+[specification decision register](specification-decisions.md).
+
+Fuzz targets and deterministic execution-count budgets are configured in
+`.golib.yaml`; the shared contract executes those operations when selected.
+There is no `FUZZ_TIME` root override. Performance workloads, allocation
+budgets, limitations and capture instructions are documented in
+[performance evidence](performance.md).
+
+The isolated interoperability comparison and its independent dependency graph,
+fixture policy and classified observations are documented in
+[interoperability evidence](interoperability.md). Candidate composition is not
+proof that the root version is publicly available.

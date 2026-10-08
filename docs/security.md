@@ -39,7 +39,7 @@ belong to the caller's trust domain.
 | External references | Only the caller's explicit `Resolver` | URI and JSON Pointer validation, bounded graph traversal, cycle termination, cache identity, cancellation, and redacted resolver failures | `reference` tests, fuzzers, race tests, and mutation gate |
 | JSON Schema compiler | Only explicitly configured dialect and resource loaders | Dialect separation, bounded traversal, single-flight construction, cancellable waiters, and redacted loader and compilation failures | `jsonschema` conformance, concurrency, fuzz, race, and mutation evidence |
 | Writers and generated evidence | Caller-supplied writer or repository-local destination | Byte, node, and depth limits; deterministic ordering; atomic temporary-file replacement; bounded, single-value internal decoders | `serialize` and internal command tests and fuzzers |
-| Official artifacts | Repository checkout only | Pinned source revision or retrieval date, SPDX license, HTTPS license source, SHA-256, regular-file and symlink checks, and offline verification | `specification/manifest.json` and `make provenance` |
+| Official artifacts | Repository checkout only | Pinned source revision or retrieval date, SPDX license, HTTPS license source, SHA-256, regular-file and symlink checks, and offline verification | `specification/manifest.json` and `make -f verification/package.mk conformance` |
 
 ## Parser policy
 
@@ -150,11 +150,12 @@ should not be logged blindly.
 
 ## Supply chain and update procedure
 
-The complete selected Go build list, including graph-only modules, is recorded
-in [`dependencies.tsv`](dependencies.tsv). `make dependencies` rejects version
-drift, verifies module checksums, confirms a tidy graph, and runs the inventory
-audit. `make license` scans built packages, and `make vuln` analyzes reachable
-vulnerabilities. Official evidence updates follow
+The historical dependency review, including graph-only modules, is recorded
+in [`dependencies.tsv`](dependencies.tsv); current selected versions and
+checksums are authoritative in `go.mod` and `go.sum`. Follow the current
+[dependency update procedure](dependencies.md), verify the resolved graph, and
+inspect the selected shared-tooling security results for vulnerability,
+secret, license and SBOM checks. Official evidence updates follow
 [`specification/README.md`](../specification/README.md) and must preserve exact
 source bytes.
 

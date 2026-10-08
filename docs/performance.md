@@ -32,7 +32,7 @@ probe includes the Go tool, test binary, runtime, fixtures, and the largest
 one-iteration workload, so it is a conservative whole-process measurement and
 not an attribution to one operation.
 
-`make performance` runs every benchmark for 100 ms with one logical processor
+`make -f verification/package.mk performance` runs every benchmark for 100 ms with one logical processor
 and enforces named allocation-count ceilings. Allocation counts are used for
 the blocking budget because wall-clock thresholds are unreliable across CI
 hosts. Latency and bytes remain recorded evidence and must be reviewed when a
