@@ -16,6 +16,11 @@
 
 ### Changed
 
+- Adopt Loads 0.25.3 in the isolated interoperability harness and YAML 3.0.5
+  in the root parser/serializer graph. Preserve observed peer outcomes and
+  rich Swagger data through reload; remove the obsolete root YAML dependency
+  test graph while retaining the separately maintained published-v1 harness.
+
 - Update the isolated interoperability peer to libopenapi 0.41.2 and its
   Apache-2.0 YAML implementation. Refresh the current observed matrix and
   characterize JSON/YAML semantic round trips without changing the root
