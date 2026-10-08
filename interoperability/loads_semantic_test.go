@@ -25,21 +25,21 @@ func TestLoadsRetainsSwaggerSemanticsAcrossReload(t *testing.T) {
 					OperationID string `json:"operationId"`
 					Sentinel    string `json:"x-sentinel"`
 					Responses   map[string]struct {
-						Description string
+						Description string `json:"description"`
 						Schema      struct {
 							Ref string `json:"$ref"`
-						}
-					}
-				}
-			}
+						} `json:"schema"`
+					} `json:"responses"`
+				} `json:"get"`
+			} `json:"paths"`
 			Definitions map[string]struct {
-				Type       string
-				Required   []string
+				Type       string   `json:"type"`
+				Required   []string `json:"required"`
 				Properties map[string]struct {
-					Type    string
-					Default any
-				}
-			}
+					Type    string `json:"type"`
+					Default any    `json:"default"`
+				} `json:"properties"`
+			} `json:"definitions"`
 		}
 		if err := json.Unmarshal(rendered, &got); err != nil {
 			t.Fatal(err)
