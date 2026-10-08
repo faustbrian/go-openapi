@@ -122,6 +122,33 @@ behavior, and must not mutate borrowed credential maps/slices during the
 synchronous call. Allocation of caller-owned semantic values/credentials and
 the number of concurrent calls remain application responsibilities.
 
+## Historical v1 mitigation
+
+Public v1.0.0 does not bound credential scheme/scope counts or scheme/scope
+label bytes, and can rebuild granted-scope indexes across alternatives. Its
+requirement limits alone do not bound that credential work. This matters when
+applications expose attacker-influenced requirements or granted credentials
+to `security.Satisfied` without equivalent upstream admission. No credential
+authentication bypass or measured process exhaustion is established.
+
+Upgrade to `github.com/faustbrian/go-openapi/v2` v2.0.0 or newer for package-owned
+admission. No fixed version of the historical v1 module is published for this
+issue. While migrating, applications retaining v1 must admit both input domains
+before calling the evaluator: bound alternative, scheme and scope occurrence
+counts, and total raw bytes of all scheme/scope labels. Count duplicate and
+unused entries, not only matching entries; use finite service-appropriate
+ceilings and reject rather than truncate inputs. Check byte allowances using
+remaining-budget subtraction to avoid integer overflow. Bound upstream input
+construction and concurrent calls separately.
+
+Validate the shape of every requirement alternative and scope before allowing
+any successful result. Do not rely on an earlier anonymous or matching
+alternative to validate later malformed values. These are caller-owned
+mitigations, not evidence that v1 has acquired the v2 guarantees. The maintainer
+owns report triage and migration guidance; applications own any temporary
+upstream admission. Review the workaround whenever accepted input shapes,
+resource ceilings or the selected evaluator version change.
+
 ## Concurrency and ownership
 
 **Observed fact:** Parsed semantic values and generated models are immutable.

@@ -18,6 +18,14 @@ not end security support for the latest stable `v1` release line.
 Support windows are documented per module and in
 [`COMPATIBILITY.md`](COMPATIBILITY.md).
 
+The published v1.0.0 security evaluator lacks credential count and label-byte
+admission. It is not fixed by changing only its requirement limits. Upgrade
+to `github.com/faustbrian/go-openapi/v2` v2.0.0 or newer. If migration is
+temporarily unavailable, apply the caller-owned admission and validation
+workaround in [the security model](docs/security.md#historical-v1-mitigation)
+before evaluating untrusted requirements or credentials. Continued v1 report
+triage does not imply that a patched v1 version has been published.
+
 ## Security Gates
 
 Releases require isolated tests, race and hostile-input checks, exact coverage

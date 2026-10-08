@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+### Security
+
+- Clarify the affected v1.0.0 security evaluator, the fixed v2.0.0 import path
+  and temporary caller-owned resource admission and full-validation mitigation.
+  Continued v1 report triage does not claim a published v1 fix.
+
 ## 2.0.0 - 2026-10-08
 
 ### Security
