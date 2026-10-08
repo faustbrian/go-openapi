@@ -12,7 +12,7 @@ their incorporated standards remain authoritative when implementations differ.
 | Implementation | Version | License | Version-specific source |
 | --- | --- | --- | --- |
 | `getkin/kin-openapi` | v0.147.0 | MIT | [source](https://github.com/getkin/kin-openapi/tree/v0.147.0), [license](https://github.com/getkin/kin-openapi/blob/v0.147.0/LICENSE) |
-| `pb33f/libopenapi` | v0.38.7 | MIT | [source](https://github.com/pb33f/libopenapi/tree/v0.38.7), [license](https://github.com/pb33f/libopenapi/blob/v0.38.7/LICENSE) |
+| `pb33f/libopenapi` | v0.41.2 | MIT | [source](https://github.com/pb33f/libopenapi/tree/v0.41.2), [license](https://github.com/pb33f/libopenapi/blob/v0.41.2/LICENSE) |
 | `openapi/loads` | v0.25.0 | Apache-2.0 | [source](https://github.com/go-openapi/loads/tree/v0.25.0), [license](https://github.com/go-openapi/loads/blob/v0.25.0/LICENSE) |
 
 The reviewed license-file SHA-256 values are, respectively,
@@ -43,8 +43,11 @@ The runner is compiled from the isolated module in
 graph and download checksums are committed, `go mod tidy -diff` and
 `go mod verify` run before execution, and `go run -mod=readonly` prevents graph
 updates. Exact direct versions are discovered again from Go build information
-at runtime and emitted into the matrix. The gate copies the pinned module to a
-temporary directory and changes only the local `openapi` replacement.
+at runtime and emitted into the matrix. Candidate mode copies the pinned module to a temporary directory, adapts
+the historical owned imports and dependencies to `/v2`, and reconciles shared
+suppliers with the root graph. Its local root replacement qualifies only the
+current candidate, not the separately maintained published-v1 harness or a
+published-v2 release.
 Competitor packages never enter `openapi`'s `go.mod`, production binary, or
 core dependency graph. All tools run with external reference loading disabled
 or with fixtures that contain no external reference.
@@ -76,6 +79,23 @@ constructing a typed model, and enforcing normative rules are distinct claims.
 only where that implementation exposes an applicable renderer. `na` means the
 selected library has no applicable surface in this comparison and is never
 treated as success.
+
+## Current comparison on 2026-10-08
+
+The candidate-v2 comparison uses `pb33f/libopenapi` v0.41.2. All ten fixture
+rows retain their previous parse, model, validation, and round-trip outcomes;
+only the peer version cells changed. Validation remains `na` on this peer
+surface, and Swagger 2.0 rendering/reloading remains a recorded limitation.
+The July findings below retain their original version attribution.
+
+The peer now uses `pb33f/go-yaml` v0.1.1 (Apache-2.0) internally. Its pinned
+[license](https://github.com/pb33f/go-yaml/blob/v0.1.1/LICENSE) has SHA-256
+`4a4e095045f46875715234a884741acd2b61b88959d6f47a243ae03ef95c4e76`.
+Upstream YAML node identities and low-level node APIs changed; this harness
+uses document bytes, model construction, and rendering instead of those node
+APIs. The peer migration does not change the root runtime dependency graph or
+public parser API. Separate JSON/YAML semantic checks exercise retained
+operation, response, schema-reference, boolean-schema, and quoted-string data.
 
 ## Findings on 2026-07-22
 

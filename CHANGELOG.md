@@ -16,6 +16,14 @@
 
 ### Changed
 
+- Update the isolated interoperability peer to libopenapi 0.41.2 and its
+  Apache-2.0 YAML implementation. Refresh the current observed matrix and
+  characterize JSON/YAML semantic round trips without changing the root
+  runtime parser API. Keep historical observations version-attributed and
+  the published-v1 harness separate from candidate-v2 verification.
+- Advance the root YAML dependency-test graph to the reviewed 2020 check.v1
+  pin and its graph-only support packages; runtime suppliers are unchanged.
+
 - Adopt public JSON Schema v2.0.0 in the planned OpenAPI v2 release. Schema,
   result, resource-loader, keyword-compiler and document-limit types now use
   the JSON Schema `/v2` identities. Standard Unicode property expressions
