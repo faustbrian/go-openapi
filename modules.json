@@ -540,7 +540,7 @@
       "interoperability_tools": [
         "getkin/kin-openapi v0.147.0",
         "go-openapi/loads v0.25.0",
-        "pb33f/libopenapi v0.38.7",
+        "pb33f/libopenapi v0.41.2",
         "santhosh-tekuri/jsonschema v6.0.2"
       ],
       "specifications": [
