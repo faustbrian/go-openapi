@@ -1,9 +1,9 @@
 # Dependency audit
 
-The machine-readable [dependency inventory](dependencies.tsv) records every
-module in the selected Go build list, including modules that are present only
-because an upstream `go.mod` declares them. The inventory was reviewed on
-2026-07-22.
+The machine-readable [dependency inventory](dependencies.tsv) records the
+2026-07-22 historical review, including graph-only modules. It is not proof of
+the current selected build list; use `go.mod`, `go.sum` and resolved module
+evidence for the candidate version.
 
 `runtime` means at least one package from the module occurs in `go list -deps
 ./...`. `graph-only` means no package from the module occurs in that package
@@ -21,13 +21,17 @@ The license gate independently scans the packages that are actually built.
 
 1. Change dependencies with `go get` or `go mod tidy`, never by editing
    `go.sum`.
-2. Run `make dependency-audit`. It rejects missing, unexpected, duplicate,
-   incomplete, or version-drifted inventory rows.
+2. Compare the resolved module graph with the historical inventory and update
+   affected source, license, necessity and classification evidence. The root
+   Makefile has no `dependency-audit` target.
 3. Re-run `go mod why -m` and `go list -deps ./...` to confirm necessity and
    classification.
 4. Review the pinned source and license, ownership, release activity,
    vulnerability advisories, transitive graph, and replacement strategy.
-5. Run `make vuln dependencies license` before committing.
+5. Run the affected module contract and selected security checks through the
+   pinned shared tooling. Inspect attributable vulnerability, secret, license
+   and SBOM results; `make ci` is not proof that unselected gates ran. See the
+   [current gate guide](reference.md#development-gates).
 
 YAML 3.0.5 removes the upstream dependency-test graph. The root module no
 longer selects `gopkg.in/check.v1` or its `kr/*` support modules; the

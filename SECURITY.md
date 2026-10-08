@@ -13,8 +13,8 @@ timelines depend on severity and verification.
 
 ## Supported Versions
 
-The latest stable `v1` release line receives security fixes. The v2 module
-migration on main is not a published release and does not end v1 support.
+The current stable release line receives security fixes. Publishing v2 does
+not end security support for the latest stable `v1` release line.
 Support windows are documented per module and in
 [`COMPATIBILITY.md`](COMPATIBILITY.md).
 
