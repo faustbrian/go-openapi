@@ -17,9 +17,7 @@ trap cleanup EXIT HUP INT TERM
 cp "$root/interoperability/go.mod" "$temporary/go.mod"
 awk '$1 !~ /^github\.com\/faustbrian\/go-/ { print }' \
     "$root/interoperability/go.sum" >"$temporary/go.sum"
-sed -e 's|"github.com/faustbrian/go-openapi\(["/]\)|"github.com/faustbrian/go-openapi/v2\1|g' \
-    -e 's|"github.com/faustbrian/go-json-schema"|"github.com/faustbrian/go-json-schema/v2"|g' \
-    "$root/interoperability/runner.go" >"$temporary/runner.go"
+cp "$root/interoperability/runner.go" "$temporary/runner.go"
 cd "$temporary"
 export GOWORK=off
 module=github.com/faustbrian/go-openapi/v2
@@ -40,9 +38,7 @@ if [ "$mode" = public ]; then
 else
     version=v2.0.0-00010101000000-000000000000
 fi
-go mod edit -droprequire github.com/faustbrian/go-openapi \
-    -droprequire github.com/faustbrian/go-json-schema \
-    -require "github.com/faustbrian/go-json-schema/v2@$(awk '$1 == "github.com/faustbrian/go-json-schema/v2" { print $2 }' "$root/go.mod")" \
+go mod edit -require "github.com/faustbrian/go-json-schema/v2@$(awk '$1 == "github.com/faustbrian/go-json-schema/v2" { print $2 }' "$root/go.mod")" \
     -require "$module@$version"
 # The v2 producer's public JSON Schema dependency legitimately advances its
 # supplier graph. Retain every peer pin; update only already-selected shared

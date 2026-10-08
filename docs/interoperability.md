@@ -43,11 +43,11 @@ The runner is compiled from the isolated module in
 graph and download checksums are committed, `go mod tidy -diff` and
 `go mod verify` run before execution, and `go run -mod=readonly` prevents graph
 updates. Exact direct versions are discovered again from Go build information
-at runtime and emitted into the matrix. Candidate mode copies the pinned module to a temporary directory, adapts
-the historical owned imports and dependencies to `/v2`, and reconciles shared
-suppliers with the root graph. Its local root replacement qualifies only the
-current candidate, not the separately maintained published-v1 harness or a
-published-v2 release.
+at runtime and emitted into the matrix. The maintained harness selects public
+OpenAPI v2.0.0 and JSON Schema v2.0.0. Candidate mode copies the pinned module
+to a temporary directory and reconciles shared suppliers with the root graph.
+Its local root replacement qualifies only the current candidate, not a
+published-v2 release. Historical observations below retain their attribution.
 Competitor packages never enter `openapi`'s `go.mod`, production binary, or
 core dependency graph. All tools run with external reference loading disabled
 or with fixtures that contain no external reference.

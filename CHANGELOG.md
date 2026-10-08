@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+### Changed
+
+- Adopt published OpenAPI v2.0.0 and JSON Schema v2.0.0 in the maintained
+  interoperability harness. Keep peer versions and historical observations
+  unchanged; candidate checks no longer rewrite owned import paths.
+
 ### Security
 
 - Clarify the affected v1.0.0 security evaluator, the fixed v2.0.0 import path

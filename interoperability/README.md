@@ -1,16 +1,15 @@
 # OpenAPI interoperability harness
 
 This directory is a non-releasable engineering harness. Its maintained module
-uses the published `github.com/faustbrian/go-openapi` v1.0.0 dependency so
-ordinary module builds do not require an unpublished v2 producer. It compares
-OpenAPI implementations while keeping peer dependencies outside the public
-module. Permanent harness adoption of v2 remains pending its publication.
+uses the published OpenAPI `/v2` v2.0.0 and JSON Schema `/v2` v2.0.0
+dependencies. It compares OpenAPI implementations while keeping peer
+dependencies outside the public module.
 Applications must not import this module as a production library.
 
-The repository interoperability target adapts the maintained runner's imports
-and owned dependencies to the OpenAPI `/v2` and public JSON Schema `/v2`
-cohort only inside a disposable copy. Shared supplier versions follow the
-candidate root graph; peer pins and historical observations remain unchanged.
+The repository interoperability target copies the maintained v2 runner and
+selects its owned dependencies only inside a disposable copy. Shared supplier
+versions follow the candidate root graph; peer pins and historical observations
+remain unchanged.
 Candidate mode
 uses a zero pseudo-version placeholder with a local replacement; it does not
 qualify a public release:

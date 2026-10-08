@@ -7,9 +7,9 @@ import (
 	"reflect"
 	"testing"
 
-	openapi "github.com/faustbrian/go-openapi"
-	"github.com/faustbrian/go-openapi/parse"
-	"github.com/faustbrian/go-openapi/serialize"
+	openapi "github.com/faustbrian/go-openapi/v2"
+	"github.com/faustbrian/go-openapi/v2/parse"
+	"github.com/faustbrian/go-openapi/v2/serialize"
 	"github.com/pb33f/libopenapi"
 )
 
