@@ -17,7 +17,8 @@ trap cleanup EXIT HUP INT TERM
 cp "$root/interoperability/go.mod" "$temporary/go.mod"
 awk '$1 !~ /^github\.com\/faustbrian\/go-/ { print }' \
     "$root/interoperability/go.sum" >"$temporary/go.sum"
-sed 's|"github.com/faustbrian/go-openapi\(["/]\)|"github.com/faustbrian/go-openapi/v2\1|g' \
+sed -e 's|"github.com/faustbrian/go-openapi\(["/]\)|"github.com/faustbrian/go-openapi/v2\1|g' \
+    -e 's|"github.com/faustbrian/go-json-schema"|"github.com/faustbrian/go-json-schema/v2"|g' \
     "$root/interoperability/runner.go" >"$temporary/runner.go"
 cd "$temporary"
 export GOWORK=off
@@ -40,9 +41,23 @@ else
     version=v2.0.0-00010101000000-000000000000
 fi
 go mod edit -droprequire github.com/faustbrian/go-openapi \
+    -droprequire github.com/faustbrian/go-json-schema \
+    -require "github.com/faustbrian/go-json-schema/v2@$(awk '$1 == "github.com/faustbrian/go-json-schema/v2" { print $2 }' "$root/go.mod")" \
     -require "$module@$version"
-awk '$1 != "github.com/faustbrian/go-openapi" { print }' \
-    "$root/interoperability/go.mod" >expected-go.mod
+# The v2 producer's public JSON Schema dependency legitimately advances its
+# supplier graph. Retain every peer pin; update only already-selected shared
+# dependencies to the versions in the producer's resolved graph.
+(cd "$root" && go list -m -f '{{if not .Main}}{{.Path}} {{.Version}}{{end}}' all) >producer-modules.txt
+while read -r dependency dependency_version; do
+    [ -n "$dependency" ] || continue
+    if awk -v dependency="$dependency" '$1 == dependency { found=1 } END { exit !found }' go.mod; then
+        go mod edit -require "$dependency@$dependency_version"
+    fi
+done <producer-modules.txt
+# Require-block grouping is formatting: edit may insert the new direct module
+# into an existing indirect block, and tidy moves it without changing its pin.
+awk 'NF && $1 != "github.com/faustbrian/go-openapi/v2" && $1 != ")" && !($1 == "require" && $2 == "(") { sub(/^[ \t]+/, ""); print }' \
+    go.mod | LC_ALL=C sort >expected-go.mod
 if [ "$mode" = candidate ]; then
     go mod edit -replace "$module=$root"
 else
@@ -54,13 +69,15 @@ go mod verify >/dev/null
 if [ "$mode" = candidate ]; then
     go mod edit -dropreplace "$module"
 fi
-awk '$1 != "github.com/faustbrian/go-openapi/v2" { print }' \
-    go.mod >resolved-go.mod
+awk 'NF && $1 != "github.com/faustbrian/go-openapi/v2" && $1 != ")" && !($1 == "require" && $2 == "(") { sub(/^[ \t]+/, ""); print }' \
+    go.mod | LC_ALL=C sort >resolved-go.mod
 diff -u expected-go.mod resolved-go.mod
-awk '$1 !~ /^github\.com\/faustbrian\/go-/ { print }' \
-    "$root/interoperability/go.sum" >"$temporary/tracked-external.sum"
-awk '$1 !~ /^github\.com\/faustbrian\/go-/ { print }' \
-    "$temporary/go.sum" >"$temporary/resolved-external.sum"
+# Public supplier sums are authenticated by tidy/verify above. Preserve exact
+# historical sums for the remaining peer graph rather than rewriting evidence.
+awk 'NR == FNR { producer[$1]=1; next } $1 !~ /^github\.com\/faustbrian\/go-/ && !producer[$1] { print }' \
+    producer-modules.txt "$root/interoperability/go.sum" >"$temporary/tracked-external.sum"
+awk 'NR == FNR { producer[$1]=1; next } $1 !~ /^github\.com\/faustbrian\/go-/ && !producer[$1] { print }' \
+    producer-modules.txt "$temporary/go.sum" >"$temporary/resolved-external.sum"
 diff -u "$temporary/tracked-external.sum" "$temporary/resolved-external.sum"
 if [ "$mode" = candidate ]; then
     go mod edit -replace "$module=$root"

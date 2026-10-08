@@ -527,7 +527,7 @@
       "version": "2.0.0",
       "tag_prefix": "v",
       "owned_dependencies": [
-        "github.com/faustbrian/go-json-schema"
+        "github.com/faustbrian/go-json-schema/v2"
       ],
       "reverse_owned_dependencies": [],
       "external_runtime_dependencies": [

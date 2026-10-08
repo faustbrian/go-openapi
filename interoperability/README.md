@@ -8,7 +8,10 @@ module. Permanent harness adoption of v2 remains pending its publication.
 Applications must not import this module as a production library.
 
 The repository interoperability target adapts the maintained runner's imports
-and owned root dependency to v2 only inside a disposable copy. Candidate mode
+and owned dependencies to the OpenAPI `/v2` and public JSON Schema `/v2`
+cohort only inside a disposable copy. Shared supplier versions follow the
+candidate root graph; peer pins and historical observations remain unchanged.
+Candidate mode
 uses a zero pseudo-version placeholder with a local replacement; it does not
 qualify a public release:
 

@@ -16,6 +16,14 @@
 
 ### Changed
 
+- Adopt public JSON Schema v2.0.0 in the planned OpenAPI v2 release. Schema,
+  result, resource-loader, keyword-compiler and document-limit types now use
+  the JSON Schema `/v2` identities. Standard Unicode property expressions
+  are supported and nonstandard expressions are rejected; review stored
+  patterns when migrating. Explicit format assertions use the corrected
+  URI-template modifier grammar. The historical interoperability harness
+  remains on public v1 until OpenAPI v2 is published.
+
 - Prepare the v2 module path `github.com/faustbrian/go-openapi/v2` for the
   Go 1.27.0 minimum. Migrate root and subpackage imports to `/v2`; document
   semantics and exported declarations remain unchanged by this migration.

@@ -15,7 +15,7 @@ import (
 	"strings"
 	"sync"
 
-	canonical "github.com/faustbrian/go-json-schema"
+	canonical "github.com/faustbrian/go-json-schema/v2"
 	"github.com/faustbrian/go-openapi/v2/jsonvalue"
 	"github.com/faustbrian/go-openapi/v2/parse"
 	"github.com/faustbrian/go-openapi/v2/specification"
