@@ -13,7 +13,7 @@ their incorporated standards remain authoritative when implementations differ.
 | --- | --- | --- | --- |
 | `getkin/kin-openapi` | v0.147.0 | MIT | [source](https://github.com/getkin/kin-openapi/tree/v0.147.0), [license](https://github.com/getkin/kin-openapi/blob/v0.147.0/LICENSE) |
 | `pb33f/libopenapi` | v0.41.2 | MIT | [source](https://github.com/pb33f/libopenapi/tree/v0.41.2), [license](https://github.com/pb33f/libopenapi/blob/v0.41.2/LICENSE) |
-| `openapi/loads` | v0.25.0 | Apache-2.0 | [source](https://github.com/go-openapi/loads/tree/v0.25.0), [license](https://github.com/go-openapi/loads/blob/v0.25.0/LICENSE) |
+| `openapi/loads` | v0.25.3 | Apache-2.0 | [source](https://github.com/go-openapi/loads/tree/v0.25.3), [license](https://github.com/go-openapi/loads/blob/v0.25.3/LICENSE) |
 
 The reviewed license-file SHA-256 values are, respectively,
 `612a11e78c07e12765d9cf3866e3edc5f8212c541602721b14e465311afb3aa6`,
@@ -81,6 +81,12 @@ selected library has no applicable surface in this comparison and is never
 treated as success.
 
 ## Current comparison on 2026-10-08
+
+The candidate comparison also uses `go-openapi/loads` v0.25.3. Its ten
+fixture rows retain their previous outcomes: the Swagger 2.0 row parses,
+models, and round-trips; other rows remain `na` on this peer surface. A
+separate non-empty Swagger case verifies operation, response, local-schema
+reference, quoted-default, and extension data through load and reanalysis.
 
 The candidate-v2 comparison uses `pb33f/libopenapi` v0.41.2. All ten fixture
 rows retain their previous parse, model, validation, and round-trip outcomes;

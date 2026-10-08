@@ -27,7 +27,7 @@ func TestInteroperabilityMatrixCoversEveryFixtureAndTool(t *testing.T) {
 		"golib-openapi":      "workspace",
 		"getkin/kin-openapi": "v0.147.0",
 		"pb33f/libopenapi":   "v0.41.2",
-		"go-openapi/loads":   "v0.25.0",
+		"go-openapi/loads":   "v0.25.3",
 	}
 
 	file, err := os.Open(filepath.Join("interoperability", "expected.tsv"))

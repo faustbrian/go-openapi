@@ -29,9 +29,9 @@ The license gate independently scans the packages that are actually built.
    vulnerability advisories, transitive graph, and replacement strategy.
 5. Run `make vuln dependencies license` before committing.
 
-The only inactive project is `gopkg.in/check.v1`. It is a graph-only test edge
-declared by `go.yaml.in/yaml/v3`; no package from it is compiled into or tested
-through `openapi`. Its removal is controlled by the upstream YAML module.
+YAML 3.0.5 removes the upstream dependency-test graph. The root module no
+longer selects `gopkg.in/check.v1` or its `kr/*` support modules; the
+interoperability harness retains its independently resolved peer graph.
 
 `github.com/dlclark/regexp2/v2` permits backtracking expressions. It is used by
 the sibling JSON Schema implementation for ECMAScript compatibility, so schema
