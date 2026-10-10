@@ -36,7 +36,7 @@ var exitProcess = os.Exit
 var openInput = openReport
 
 func openReport(path string) (inputFile, error) {
-	// #nosec G304 G703 -- Explicit operator-selected CLI report, decoded under maximumReportBytes; see docs/security.md.
+	// #nosec G304,G703 -- Explicit operator-selected CLI report, decoded under maximumReportBytes; see docs/security.md.
 	return os.Open(path)
 }
 
