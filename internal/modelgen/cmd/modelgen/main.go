@@ -62,6 +62,7 @@ func runWith(root string, generateTests generateTestsFunc) error {
 			return fmt.Errorf("modelgen: generate %s: %w", config.Package, err)
 		}
 		directory := filepath.Join(root, config.Package)
+		// #nosec G301 -- Public generated Go source requires readable, traversable directories; no secrets, see docs/security.md.
 		if err := os.MkdirAll(directory, 0o755); err != nil {
 			return fmt.Errorf("modelgen: create %s: %w", config.Package, err)
 		}
@@ -83,6 +84,7 @@ func runWith(root string, generateTests generateTestsFunc) error {
 }
 
 func readFields(path string) (map[string][]specification.ObjectField, error) {
+	// #nosec G304 -- Fixed inventory name under the operator-selected checkout, with bounded decoding; see docs/security.md.
 	file, err := os.Open(path)
 	if err != nil {
 		return nil, fmt.Errorf("modelgen: open field inventory: %w", err)

@@ -89,6 +89,32 @@ caller responsibilities.
 
 ## Resource and lifecycle policy
 
+### Repository automation authority
+
+The internal provenance, specification-matrix, model-generation and dependency
+audit commands run only when a developer explicitly selects a repository root.
+The mutation-report command likewise reads an explicit operator-selected report,
+which may be outside that checkout. These are maintainer tools, not public API
+resolvers or sandboxes for hostile checkouts. Repository roots, manifest path
+metadata and output locations belong to the invoking developer's trust domain;
+parsed API payloads do not select those paths. Run them only in a reviewed,
+stable checkout, without an untrusted process concurrently replacing files.
+
+Manifest, field-inventory, dependency-evidence and mutation-report decoding
+retains its existing byte limits. Provenance additionally rejects non-local
+artifact paths, symlink components and non-regular files before checking pinned
+digests. Generated specification inventories and Go source are public artifacts,
+so their directories deliberately use mode 0755, subject to the process umask;
+these output locations must not contain credentials or private payloads.
+
+The maintainer owns this accepted tooling-authority boundary. The rationale is
+that explicitly invoked code-generation and verification tools need checkout
+access; narrowing the standalone report reader to that root would break valid
+temporary-report use. Reviewed metadata, stable checkouts, bounded decoders and
+provenance checks mitigate misuse. Reassess the narrow scanner annotations if
+these commands become service entry points, receive untrusted path metadata,
+operate in concurrently hostile directories or generate confidential output.
+
 **Observed fact:** Independent limits exist for input and output bytes, syntax
 tokens, semantic values, scalar size, object and array width, depth, references,
 documents, redirects, addresses, concurrency, diagnostics, and operation-

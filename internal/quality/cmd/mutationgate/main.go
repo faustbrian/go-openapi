@@ -35,7 +35,10 @@ type inputFile interface {
 var exitProcess = os.Exit
 var openInput = openReport
 
-func openReport(path string) (inputFile, error) { return os.Open(path) }
+func openReport(path string) (inputFile, error) {
+	// #nosec G304 G703 -- Explicit operator-selected CLI report, decoded under maximumReportBytes; see docs/security.md.
+	return os.Open(path)
+}
 
 func main() {
 	exitProcess(execute(os.Args[1:], os.Stderr, openInput))

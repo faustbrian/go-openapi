@@ -48,6 +48,7 @@ func execute(args []string, stderr io.Writer) int {
 
 func verify(root string) error {
 	specificationRoot := filepath.Join(root, "specification")
+	// #nosec G304 -- Fixed manifest name under the operator-selected checkout; bounded decoding below, see docs/security.md.
 	manifestFile, err := os.Open(filepath.Join(specificationRoot, "manifest.json"))
 	if err != nil {
 		return fmt.Errorf("provenance: open manifest: %w", err)
@@ -80,6 +81,7 @@ func verify(root string) error {
 		if err != nil {
 			return err
 		}
+		// #nosec G304 -- secureArtifactPath rejects traversal, symlinks and non-regular files in the trusted checkout; see docs/security.md.
 		body, err := os.ReadFile(path)
 		if err != nil {
 			return fmt.Errorf("provenance: read %q: %w", item.Path, err)

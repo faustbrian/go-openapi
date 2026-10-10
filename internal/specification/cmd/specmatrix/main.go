@@ -68,7 +68,10 @@ type inputFile interface {
 type openInputFile func(string) (inputFile, error)
 type writeOutputFile func(string, func(io.Writer) error) error
 
-func openInput(path string) (inputFile, error) { return os.Open(path) }
+func openInput(path string) (inputFile, error) {
+	// #nosec G304 -- Operator-selected checkout and reviewed manifest paths, not parsed API payload paths; see docs/security.md.
+	return os.Open(path)
+}
 
 func runWith(
 	root string,
@@ -128,6 +131,7 @@ func runWith(
 	}
 
 	conformanceRoot := filepath.Join(specificationRoot, "conformance")
+	// #nosec G301 -- Public generated specification inventories require readable, traversable directories; no secrets, see docs/security.md.
 	if err := os.MkdirAll(conformanceRoot, 0o755); err != nil {
 		return fmt.Errorf("specmatrix: create conformance directory: %w", err)
 	}

@@ -48,7 +48,10 @@ var exitProcess = os.Exit
 var loadModules = listModules
 var openEvidence = openEvidenceFile
 
-func openEvidenceFile(path string) (evidenceFile, error) { return os.Open(path) }
+func openEvidenceFile(path string) (evidenceFile, error) {
+	// #nosec G304 -- Fixed evidence name under the operator-selected checkout, with bounded decoding; see docs/security.md.
+	return os.Open(path)
+}
 
 func main() {
 	exitProcess(execute(os.Args[1:], os.Stderr))
