@@ -180,6 +180,8 @@ generation, or unsupported feature synthesis.
    mode. The checked-in matrix
    must match exactly.
 
-The scheduled CI job performs the final command. Version or behavior drift is a
-failure requiring review; the expected matrix must never be loosened merely to
-accept a new independent result.
+The explicit `make check-full` route retains the final command through the
+configured interoperability operation. Ordinary scheduled shared CI runs bounded
+checks, not this full comparison. Version or behavior drift is a failure
+requiring review; the expected matrix must never be loosened merely to accept
+a new independent result.

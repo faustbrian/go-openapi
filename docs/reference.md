@@ -917,7 +917,8 @@ Deliberate boundaries remain:
   containment assertions, and Windows still runs all other package tests.
 - Finite fuzz and differential runs establish reproducible observations, not a
   proof that no future input or independent implementation can expose another
-  defect. Scheduled campaigns preserve that continuing detection role.
+  defect. Explicit full campaigns preserve that continuing detection role;
+  ordinary scheduled shared CI is bounded, not a full campaign.
 
 ## Development gates
 
@@ -930,8 +931,14 @@ make check
 make ci
 ```
 
-`make ci` adds repository validation to the selected module contract. Selection
-follows the shared tooling and module policies; read the attributable gate
+`make check` and `make ci` use the bounded local route; `make ci` adds repository
+and offline specification/decision validation. Selected compiler and HTTP-slot
+races run once with a combined three-minute bound. Standalone tests, seeds,
+focused active fuzzing and optional package-local mutation are documented in
+[CONTRIBUTING.md](../CONTRIBUTING.md#verification). PR, main and scheduled
+shared CI remain bounded. Select full campaigns with `make check-full` or the
+explicit `release_dry_run: true` workflow input, and upstream authority with
+`make specification-check-online`. Read the attributable gate
 results rather than treating a successful baseline run as proof that every
 release, race, fuzz, mutation, or performance check ran. The proportional
 assurance policy in [`AGENTS.md`](../AGENTS.md) controls which checks apply.
@@ -969,8 +976,9 @@ drift and offline provenance. Pinned revisions and checksums are recorded in
 interpretations and accepted errata in the
 [specification decision register](specification-decisions.md).
 
-Fuzz targets and deterministic execution-count budgets are configured in
-`.golib.yaml`; the shared contract executes those operations when selected.
+All 27 native fuzz targets and their 1,000-execution/two-minute budgets remain
+configured in `.golib.yaml` for explicit full qualification; changed-source CI
+selects bounded causal smoke instead of replaying every full budget.
 There is no `FUZZ_TIME` root override. Performance workloads, allocation
 budgets, limitations and capture instructions are documented in
 [performance evidence](performance.md).

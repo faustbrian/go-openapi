@@ -140,9 +140,13 @@ the [changelog](CHANGELOG.md).
 
 ## Development
 
-`make check` runs the repository contract. Conformance evidence lives under
-`specification/conformance/`; see [CONTRIBUTING.md](CONTRIBUTING.md) before
-changing generated views, normative requirements, or compatibility behavior.
+`GOWORK=off go test ./...` runs standalone untagged tests and fuzz seeds in the
+selected module. `make check` and `make ci` use the public verifier's bounded
+local route with selected compiler/resolver races; `make check-full` retains
+full fuzz, conformance, interoperability and performance campaigns. See
+[CONTRIBUTING.md](CONTRIBUTING.md#verification) for focused active fuzzing,
+optional local mutation and explicit online/release boundaries before changing
+generated views, normative requirements or compatibility behavior.
 
 ## Related packages
 
