@@ -28,7 +28,7 @@ source pin is release-blocking; peer behavior cannot silently select policy.
 Explicit full and release mutation gates must finish with zero surviving viable
 mutants. Local mutation is optional, not a universal contribution prerequisite.
 
-Do not add package-local workflows, permanent replacements, machine-specific
+Do not fork shared verification workflows, add permanent replacements, machine-specific
 paths, bypass flags, broad mutation exclusions, or aggregate quality metrics
 that hide a failing package.
 
@@ -87,6 +87,30 @@ then verify the applicable consumer and publication claims separately. The
 [current gate guide](docs/reference.md#development-gates) lists package-owned
 operations and explicit CLI checks. Report every unavailable or failing
 required command; do not describe partial results as release-ready.
+
+## Selected Monthly Assurance
+
+The owner-level [selected-assurance caller](.github/workflows/assurance.yml) is
+configured for main only, on day 9 of each month at 04:31 UTC. It selects one
+of the 27 current declared root-module fuzz targets using the shared UTC-week
+rotation, with 30 seconds of active exploration. The selected risks are:
+parser/value determinism and limits, reference resolution, transformations,
+parameter decoding and owned manifest decoders.
+HTTP resolver fuzzing uses an in-process fake transport and file resolution
+uses owned temporary inputs; this is not live HTTP, public-description or
+independent-consumer certification. The owned interoperability module remains
+separate.
+
+Base-free ordinary checks execute deterministic seeds, not active exploration;
+committed-range CI selects affected active smoke. Manual assurance requires an
+exact anchored selector from the root fuzz operation in `.golib.yaml`, for
+example `^FuzzJSONParserDeterminism$`.
+Empty, unknown and malformed selections refuse. The shared job bounds setup
+and execution to ten minutes, active workers and CPU to two, owned memory to
+2 GiB, native output to 1 MiB and private-cache lifetime. Failure, cancellation,
+exhausted budgets and cleanup refusal remain attributable failures. This lane
+does not run mutation or replace Required, original full fuzz budgets,
+explicit `make check-full`, or relevant release qualification.
 
 ## Adding A Module
 
