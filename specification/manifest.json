@@ -13,7 +13,8 @@
     "license": "BSD-3-Clause OR AFL-3.0",
     "licenseSource": "https://github.com/json-schema-org/json-schema-spec/blob/0c46441fe869d670a01eb489cf075e7bd7ca0235/LICENSE",
     "files": [
-      {"source":"http://json-schema.org/draft-04/schema","path":"schemas/json-schema/draft-04.json","sha256":"e1489d0b4755f02793302591d3fcb8f07b6893a82a94f24895f8e4edf11b82e2"}
+      {"source":"http://json-schema.org/draft-04/schema","path":"schemas/json-schema/draft-04.json","sha256":"e1489d0b4755f02793302591d3fcb8f07b6893a82a94f24895f8e4edf11b82e2"},
+      {"source":"https://raw.githubusercontent.com/json-schema-org/json-schema-spec/0c46441fe869d670a01eb489cf075e7bd7ca0235/LICENSE","path":"licenses/JSON-Schema-LICENSE","sha256":"909b25a80d4945b21d3adb2fb17f90bf592e0274bdf117c069c088a8e44dc7b6"}
     ]
   },
   "ianaArtifacts": {

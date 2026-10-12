@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+### Fixed
+
+- Retain the full upstream license and attribution for the imported JSON Schema
+  draft-04 artifact. Schema contents and runtime behavior are unchanged;
+  redistributors must preserve the applicable upstream notice alongside source
+  or binaries containing the schema, rather than relying on the root MIT license.
+
 ### Changed
 
 - Adopt published OpenAPI v2.0.0 and JSON Schema v2.0.0 in the maintained

@@ -6,6 +6,24 @@ source paths, destinations, and SHA-256 checksums.
 Each artifact group also records an SPDX license expression, an authoritative
 license source, and either an immutable repository revision or retrieval date.
 
+## JSON Schema attribution
+
+`schemas/json-schema/draft-04.json` is an imported JSON Schema artifact under
+`BSD-3-Clause OR AFL-3.0`, with copyright (c) 2022 JSON Schema Specification
+Authors. Its [full upstream license](licenses/JSON-Schema-LICENSE) is retained
+unchanged from revision `0c46441fe869d670a01eb489cf075e7bd7ca0235`. These terms
+apply to the imported artifact; the repository's MIT license does not replace
+them. Source and binary redistributors must preserve the applicable upstream
+copyright, conditions and disclaimer with distributions containing this schema.
+
+To reproduce the retained license, retrieve the immutable HTTPS source recorded
+in `jsonSchemaArtifacts.files` in `manifest.json` and verify its SHA-256 before
+replacing it. This license copy is separate from the existing
+`scripts/sync-spec.sh` synchronization scope. The schema source and checksum
+remain unchanged when restoring its attribution.
+
+## Pinned specification inputs
+
 The IANA HTTP Status Code, HTTP Authentication Scheme, and IPv4 and IPv6
 Special-Purpose Address registries are pinned as the exact CSV snapshots used
 by validation and resolver security tests, with their retrieval date and
