@@ -7,7 +7,7 @@ require (
 	github.com/faustbrian/go-openapi/v2 v2.0.0
 	github.com/getkin/kin-openapi v0.149.0
 	github.com/go-openapi/loads v0.25.3
-	github.com/pb33f/libopenapi v0.41.2
+	github.com/pb33f/libopenapi v0.41.5
 )
 
 require (
