@@ -5,7 +5,7 @@ go 1.27.0
 require (
 	github.com/faustbrian/go-json-schema/v2 v2.0.0
 	go.yaml.in/yaml/v3 v3.0.5
-	golang.org/x/net v0.59.0
+	golang.org/x/net v0.60.0
 )
 
 require (
