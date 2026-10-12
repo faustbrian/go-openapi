@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-10-04",
+  "reviewed_at": "2026-10-12",
   "review_interval_days": 30,
   "authorities": [
     {
@@ -110,7 +110,7 @@
       "id": "openapi-artifact-updates",
       "kind": "releases",
       "url": "https://github.com/OAI/spec.openapis.org/commits/main.atom",
-      "sha256": "b46cc47656c407fd6a5e744ee83432809e0343213a6ba97dd7857d2626ecab80",
+      "sha256": "b0e11f7ba14eb29901b460a569849909a39ae055c661ad7c964c87ec415b8080",
       "specifications": ["OpenAPI published schemas and registries"]
     },
     {
