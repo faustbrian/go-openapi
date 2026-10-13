@@ -24,6 +24,10 @@ func referenceTraversalIdentity(resource reference.Resource, rawReference string
 	return strings.Join([]string{identity, rawReference}, "\x00")
 }
 
+// This wrapper is created per validation call, not shared in Validator's cache.
+// It deduplicates successful external retrieval by requested identity so later
+// semantic passes see the same immutable resource. Provider effects and admission
+// budgets remain provider-owned; there is no cross-call resource retention.
 type validationReferenceResolver struct {
 	resolver  reference.Resolver
 	resources map[string]reference.Resource

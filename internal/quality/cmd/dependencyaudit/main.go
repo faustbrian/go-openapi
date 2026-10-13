@@ -1,3 +1,7 @@
+// Command dependencyaudit compares the selected checkout's resolved module graph
+// with maintained dependency evidence. It runs a bounded go list subprocess and
+// reads docs/dependencies.tsv; it neither upgrades dependencies nor authenticates
+// release artifacts. The -root flag defaults to the current directory.
 package main
 
 import (

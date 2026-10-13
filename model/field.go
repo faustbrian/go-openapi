@@ -1,5 +1,11 @@
-// Package model provides immutable containers shared by versioned OpenAPI
-// model packages.
+// Package model preserves absent, null, typed, and invalid field states and
+// insertion-ordered collections for generated OpenAPI views. Field.Valid checks
+// representation, not specification legality or requiredness.
+//
+// Generic values are copied shallowly: container structure is immutable, but
+// mutable pointers, maps, or slices inside T remain caller-owned. Concurrent use
+// requires immutable elements or caller synchronization. Built-in generated
+// models use immutable JSON values and typed views as elements.
 package model
 
 import "github.com/faustbrian/go-openapi/v2/jsonvalue"
@@ -31,7 +37,8 @@ func Null[T any]() Field[T] {
 	return Field[T]{state: fieldNull}
 }
 
-// Present constructs a concrete field value without applying defaults.
+// Present stores a shallow copy of value without applying defaults or cloning
+// reference-valued contents. The caller retains responsibility for mutable T.
 func Present[T any](value T) Field[T] {
 	return Field[T]{state: fieldPresent, value: value}
 }
@@ -59,7 +66,8 @@ func (field Field[T]) Valid() bool {
 	return field.state != fieldInvalid
 }
 
-// Value returns the concrete value only for a present, non-null field.
+// Value returns a shallow copy and true only for a present, non-null typed field.
+// Absent, null, and invalid fields return the zero T and false.
 func (field Field[T]) Value() (T, bool) {
 	return field.value, field.state == fieldPresent
 }

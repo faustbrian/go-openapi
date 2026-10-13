@@ -1,3 +1,7 @@
+// Command mutationgate evaluates an operator-selected bounded JSON mutation
+// report. It rejects live, uncovered, timed-out, skipped, or incomplete outcomes;
+// it does not run a mutation campaign or establish equivalence for survivors.
+// Input files are owned and closed by the command.
 package main
 
 import (

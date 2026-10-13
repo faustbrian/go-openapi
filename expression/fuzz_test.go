@@ -7,6 +7,8 @@ import (
 	"github.com/faustbrian/go-openapi/v2/expression"
 )
 
+// FuzzRuntimeExpressionParse checks repeat parsing has stable acceptance,
+// immutable representation and exact original text on success.
 func FuzzRuntimeExpressionParse(f *testing.F) {
 	for _, seed := range []string{
 		"$url", "$method", "$statusCode", "$request.header.accept",
@@ -26,6 +28,8 @@ func FuzzRuntimeExpressionParse(f *testing.F) {
 	})
 }
 
+// FuzzRuntimeExpressionTemplateParse checks accepted templates return stable
+// part copies; it does not evaluate runtime data.
 func FuzzRuntimeExpressionTemplateParse(f *testing.F) {
 	for _, seed := range []string{
 		"literal", "{$url}", "prefix/{$request.path.id}", "{", "{}", "literal}",

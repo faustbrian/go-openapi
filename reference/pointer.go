@@ -1,5 +1,15 @@
 // Package reference implements bounded OpenAPI URI-reference and JSON Pointer
-// resolution without implicit external input/output.
+// resolution without implicit external input/output. Resolve selects one target;
+// ResolveChain records cycles, while DereferenceObjects rejects cycles that
+// cannot be expanded into a finite tree. BundleComponents preserves local
+// references and localizes supported external reusable objects.
+//
+// Built-in resolvers require explicit authority and own closeable roots or idle
+// transport connections. Custom resolvers and scan predicates are borrowed,
+// synchronous caller code with caller-owned cancellation and concurrency policy.
+// Pointer/fragment parsing and direct Pointer.Evaluate have no Limits argument;
+// use bounded Resolve/Scan for untrusted traversal rather than assuming every
+// convenience operation applies the graph budgets.
 package reference
 
 import (

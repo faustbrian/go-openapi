@@ -1,3 +1,6 @@
+// These benchmarks compare selected deterministic workloads, not universal
+// complexity bounds. Keep corpus, policy, warm/cold state, Go toolchain and
+// platform identical when comparing results; assertion work remains timed.
 package openapi_test
 
 import (
@@ -25,6 +28,8 @@ import (
 	"github.com/faustbrian/go-openapi/v2/validate"
 )
 
+// BenchmarkParseJSON times parsing a prebuilt 100-path JSON description with
+// default limits; corpus construction is excluded.
 func BenchmarkParseJSON(b *testing.B) {
 	raw := benchmarkDescription(100)
 	limits := parse.DefaultLimits()
@@ -38,6 +43,8 @@ func BenchmarkParseJSON(b *testing.B) {
 	}
 }
 
+// BenchmarkParseJSONScaling compares native parsing of deterministic 1, 100 and
+// 1,000-path descriptions under identical default limits.
 func BenchmarkParseJSONScaling(b *testing.B) {
 	for _, paths := range []int{1, 100, 1_000} {
 		raw := benchmarkDescription(paths)
@@ -56,6 +63,8 @@ func BenchmarkParseJSONScaling(b *testing.B) {
 	}
 }
 
+// BenchmarkParseInvalidJSON times rejection of a truncated 100-path
+// description, requiring ErrInvalidJSON; setup is not explicitly reset.
 func BenchmarkParseInvalidJSON(b *testing.B) {
 	raw := benchmarkDescription(100)
 	raw = raw[:len(raw)-1]
@@ -71,6 +80,8 @@ func BenchmarkParseInvalidJSON(b *testing.B) {
 	}
 }
 
+// BenchmarkParseRejectedDepth times rejection beyond the default nesting bound,
+// requiring ErrLimitExceeded; setup is not explicitly reset.
 func BenchmarkParseRejectedDepth(b *testing.B) {
 	limits := parse.DefaultLimits()
 	raw := []byte(strings.Repeat("[", limits.MaxDepth+1) + "0" +
@@ -86,6 +97,8 @@ func BenchmarkParseRejectedDepth(b *testing.B) {
 	}
 }
 
+// BenchmarkValidateDocument times warm-cache validation of a parsed 100-path
+// description; parsing and initial schema construction are excluded.
 func BenchmarkValidateDocument(b *testing.B) {
 	document := benchmarkParsedDocument(b, benchmarkDescription(100))
 	validator := validate.NewValidator()
@@ -107,6 +120,8 @@ func BenchmarkValidateDocument(b *testing.B) {
 	}
 }
 
+// BenchmarkValidateDocumentCold constructs a new Validator per iteration for
+// the same parsed 100-path corpus, including official-schema compilation.
 func BenchmarkValidateDocumentCold(b *testing.B) {
 	document := benchmarkParsedDocument(b, benchmarkDescription(100))
 	b.ReportAllocs()
@@ -124,6 +139,8 @@ func BenchmarkValidateDocumentCold(b *testing.B) {
 	}
 }
 
+// BenchmarkValidateSchemaHeavyDocument times a warmed validator on a prebuilt
+// 250-property schema corpus, asserting report validity.
 func BenchmarkValidateSchemaHeavyDocument(b *testing.B) {
 	document := benchmarkParsedDocument(b, benchmarkSchemaHeavyDescription(250))
 	validator := validate.NewValidator()
@@ -142,6 +159,8 @@ func BenchmarkValidateSchemaHeavyDocument(b *testing.B) {
 	}
 }
 
+// BenchmarkSerializeJSON times canonical emission of a parsed 100-path
+// description to io.Discard; output allocation/traversal remains measured.
 func BenchmarkSerializeJSON(b *testing.B) {
 	document := benchmarkParsedDocument(b, benchmarkDescription(100))
 	options := serialize.DefaultOptions()
@@ -155,6 +174,8 @@ func BenchmarkSerializeJSON(b *testing.B) {
 	}
 }
 
+// BenchmarkResolveInternalReference times local component pointer resolution in
+// a parsed 100-path corpus, without external retrieval.
 func BenchmarkResolveInternalReference(b *testing.B) {
 	document := benchmarkParsedDocument(b, benchmarkDescription(100))
 	resource := reference.Resource{Root: document.Raw()}
@@ -175,6 +196,9 @@ func BenchmarkResolveInternalReference(b *testing.B) {
 	}
 }
 
+// BenchmarkResolveFileResource times real local file retrieval/parsing with one
+// pre-opened resolver; setup and cleanup are excluded and the cumulative call
+// budget is b.N.
 func BenchmarkResolveFileResource(b *testing.B) {
 	root := b.TempDir()
 	resourcePath := filepath.Join(root, "schema.json")
@@ -209,6 +233,9 @@ func BenchmarkResolveFileResource(b *testing.B) {
 	}
 }
 
+// BenchmarkResolveHTTPResource times loopback HTTP retrieval/parsing with one
+// resolver and server, including transport reuse. It is not remote network
+// performance evidence.
 func BenchmarkResolveHTTPResource(b *testing.B) {
 	raw := []byte(`{"type":"object","properties":{"id":{"type":"string"}}}`)
 	server := httptest.NewServer(http.HandlerFunc(func(
@@ -252,6 +279,8 @@ func BenchmarkResolveHTTPResource(b *testing.B) {
 	}
 }
 
+// BenchmarkBundleComponents times 100 external component occurrences using an
+// in-memory resolver, asserting 100 rewrite entries; no transport is measured.
 func BenchmarkBundleComponents(b *testing.B) {
 	raw := bytes.ReplaceAll(
 		benchmarkDescription(100),
@@ -296,6 +325,8 @@ func BenchmarkBundleComponents(b *testing.B) {
 	}
 }
 
+// BenchmarkDereferenceObjects times expansion of 100 internal Response
+// references, asserting the rewrite count; parsing/setup are excluded.
 func BenchmarkDereferenceObjects(b *testing.B) {
 	var responses strings.Builder
 	for index := range 100 {
@@ -331,6 +362,8 @@ func BenchmarkDereferenceObjects(b *testing.B) {
 	}
 }
 
+// BenchmarkDereferenceCycle times rejection of a two-response cycle, requiring
+// ErrDereferenceCycle rather than a partial result.
 func BenchmarkDereferenceCycle(b *testing.B) {
 	document := benchmarkParsedDocument(b, []byte(`{
 		"openapi":"3.1.2","info":{"title":"API","version":"1"},
@@ -350,6 +383,8 @@ func BenchmarkDereferenceCycle(b *testing.B) {
 	}
 }
 
+// BenchmarkOperationDiff compares pre-parsed 100 and 101-path descriptions and
+// requires one reported change.
 func BenchmarkOperationDiff(b *testing.B) {
 	left := benchmarkParsedDocument(b, benchmarkDescription(100))
 	right := benchmarkParsedDocument(b, benchmarkDescription(101))
@@ -367,6 +402,8 @@ func BenchmarkOperationDiff(b *testing.B) {
 	}
 }
 
+// BenchmarkFilterOperations times keep-all filtering on a parsed 100-path
+// description, requiring zero removals.
 func BenchmarkFilterOperations(b *testing.B) {
 	document := benchmarkParsedDocument(b, benchmarkDescription(100))
 	options := compose.DefaultFilterOptions()
@@ -386,6 +423,8 @@ func BenchmarkFilterOperations(b *testing.B) {
 	}
 }
 
+// BenchmarkMergeDocuments times merging two pre-parsed nonoverlapping 50-path
+// descriptions, requiring 50 contributions.
 func BenchmarkMergeDocuments(b *testing.B) {
 	first := benchmarkParsedDocument(b, benchmarkDescriptionRange(0, 50))
 	second := benchmarkParsedDocument(b, benchmarkDescriptionRange(50, 50))
@@ -405,6 +444,8 @@ func BenchmarkMergeDocuments(b *testing.B) {
 	}
 }
 
+// BenchmarkConvertOpenAPI31To32 times 100-path forward conversion and checks
+// the expected single review diagnostic.
 func BenchmarkConvertOpenAPI31To32(b *testing.B) {
 	raw := bytes.Replace(
 		benchmarkDescription(100),
@@ -431,6 +472,8 @@ func BenchmarkConvertOpenAPI31To32(b *testing.B) {
 	}
 }
 
+// BenchmarkConvertOpenAPI30To31 times 100-path nullable-schema translation and
+// requires zero diagnostics for this corpus.
 func BenchmarkConvertOpenAPI30To31(b *testing.B) {
 	raw := bytes.Replace(
 		benchmarkDescription(100),
@@ -462,6 +505,8 @@ func BenchmarkConvertOpenAPI30To31(b *testing.B) {
 	}
 }
 
+// BenchmarkConvertSwagger20ToOpenAPI30 times upgrading a pre-parsed 100-path
+// Swagger corpus and requires zero diagnostics.
 func BenchmarkConvertSwagger20ToOpenAPI30(b *testing.B) {
 	document := benchmarkParsedDocument(b, benchmarkSwaggerDescription(100))
 	target, err := openapi.ParseVersion("3.0.4")
@@ -482,6 +527,8 @@ func BenchmarkConvertSwagger20ToOpenAPI30(b *testing.B) {
 	}
 }
 
+// BenchmarkConvertOpenAPI31To30 times downgrading a pre-parsed 100-path
+// nullable-schema corpus and requires zero diagnostics.
 func BenchmarkConvertOpenAPI31To30(b *testing.B) {
 	raw := bytes.Replace(
 		benchmarkDescription(100),
@@ -513,6 +560,8 @@ func BenchmarkConvertOpenAPI31To30(b *testing.B) {
 	}
 }
 
+// BenchmarkConvertOpenAPI32To31 times downgrading a pre-parsed 100-path
+// description and requires zero diagnostics for this corpus.
 func BenchmarkConvertOpenAPI32To31(b *testing.B) {
 	document := benchmarkParsedDocument(b, benchmarkDescription(100))
 	target, err := openapi.ParseVersion("3.1.2")
@@ -533,6 +582,8 @@ func BenchmarkConvertOpenAPI32To31(b *testing.B) {
 	}
 }
 
+// BenchmarkConvertOpenAPI32ToSwagger20 times the multi-stage downgrade of a
+// pre-parsed 100-path corpus and checks one diagnostic.
 func BenchmarkConvertOpenAPI32ToSwagger20(b *testing.B) {
 	document := benchmarkParsedDocument(b, benchmarkDescription(100))
 	target, err := openapi.ParseVersion("2.0")

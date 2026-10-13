@@ -1,4 +1,11 @@
-// Package parse provides bounded, IO-free OpenAPI representation parsing.
+// Package parse reads exactly one JSON value or restricted YAML document into
+// immutable JSON semantics, without loading references or opening resources.
+// Readers are borrowed and never closed. Cancellation is polled between reads
+// and semantic traversal steps; it cannot interrupt an arbitrary blocking Read.
+//
+// Byte limits bound buffered input. Decoder strings and YAML node trees may be
+// allocated before semantic limits are checked; these limits are not a strict
+// peak-memory or CPU-time budget. Parsing does not validate OpenAPI rules.
 package parse
 
 import (
@@ -26,15 +33,23 @@ var (
 	ErrInvalidLimits = errors.New("invalid parse limits")
 )
 
-// Limits bounds all independently controllable JSON parser growth axes.
+// Limits bounds buffered input and subsequent semantic traversal. Every field
+// must be positive; MaxBytes must also be below the maximum int64.
 type Limits struct {
-	MaxBytes         int64
-	MaxTokens        int
-	MaxDepth         int
+	// MaxBytes caps input bytes; reading may consume one extra byte to detect overflow.
+	MaxBytes int64
+	// MaxTokens caps tokens counted during semantic decoding, including member names.
+	MaxTokens int
+	// MaxDepth caps value nesting, counting the root as one.
+	MaxDepth int
+	// MaxObjectMembers caps members in each object, not the document total.
 	MaxObjectMembers int
-	MaxArrayItems    int
-	MaxScalarBytes   int
-	MaxTotalValues   int
+	// MaxArrayItems caps items in each array, not the document total.
+	MaxArrayItems int
+	// MaxScalarBytes caps decoded string, key, or number bytes after token decoding.
+	MaxScalarBytes int
+	// MaxTotalValues caps semantic values across the complete document.
+	MaxTotalValues int
 }
 
 // DefaultLimits returns conservative limits suitable for untrusted API
@@ -51,15 +66,23 @@ func DefaultLimits() Limits {
 	}
 }
 
-// Error is a bounded JSON parser diagnostic. It never includes document
-// contents or object member names.
+// Error describes JSON or YAML parsing failure. Package-produced Code values
+// avoid document contents, but exported fields and unwrapped Cause are not a
+// privacy boundary. Error formats Offset as a byte even for YAML line offsets.
 type Error struct {
-	Code   string
+	// Code is a fixed diagnostic identifier in package-produced errors.
+	Code string
+	// Offset is a JSON byte offset or, for YAML diagnostics, a source line.
+	// Offset may be zero when a location is unavailable.
 	Offset int64
-	Kind   error
-	Cause  error
+	// Kind is the stable error classification exposed through Unwrap.
+	Kind error
+	// Cause is an underlying reader or decoder error; its text is not sanitized.
+	Cause error
 }
 
+// Error formats Code and Offset without rendering Kind or Cause. A nil receiver
+// returns a diagnostic placeholder.
 func (parseError *Error) Error() string {
 	if parseError == nil {
 		return "parse: <nil>"
@@ -83,7 +106,9 @@ func (parseError *Error) Unwrap() []error {
 	return causes
 }
 
-// JSON parses exactly one JSON value without performing implicit IO.
+// JSON reads exactly one UTF-8 JSON value, rejecting duplicate keys, trailing
+// data, and unpaired surrogate escapes. Failure returns an invalid zero Value,
+// not a partial tree. Reader ownership and cancellation follow the package contract.
 func JSON(ctx context.Context, reader io.Reader, limits Limits) (jsonvalue.Value, error) {
 	if ctx == nil {
 		return jsonvalue.Value{}, &Error{Code: "invalid_context", Kind: ErrInvalidJSON}

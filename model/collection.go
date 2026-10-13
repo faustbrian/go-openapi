@@ -9,12 +9,14 @@ import (
 // ErrInvalidCollection reports an invalid immutable collection construction.
 var ErrInvalidCollection = errors.New("invalid model collection")
 
-// List is an immutable ordered list.
+// List has immutable ordering and shallow-copied elements. Its zero value is
+// empty; mutability within T is not restricted.
 type List[T any] struct {
 	values []T
 }
 
-// NewList copies values into an immutable list.
+// NewList copies the outer values slice. Reference-valued contents of T are
+// neither cloned nor synchronized.
 func NewList[T any](values []T) List[T] {
 	return List[T]{values: append([]T(nil), values...)}
 }
@@ -38,18 +40,23 @@ func (list List[T]) Values() []T {
 	return append([]T(nil), list.values...)
 }
 
-// Entry is one named immutable map entry.
+// Entry is one named map entry. Value has the ownership semantics of T.
 type Entry[T any] struct {
-	Name  string
+	// Name is an exact, case-sensitive UTF-8 key; an empty key is allowed.
+	Name string
+	// Value is shallow-copied when the entry enters or leaves a Map.
 	Value T
 }
 
-// Map is an immutable insertion-ordered string map.
+// Map has immutable insertion order and shallow-copied entries. Its zero value
+// is empty; mutable contents of T remain caller-owned.
 type Map[T any] struct {
 	entries []Entry[T]
 }
 
-// NewMap copies entries and rejects duplicate or invalid UTF-8 names.
+// NewMap copies the outer entries slice and rejects duplicate or invalid UTF-8
+// names. Empty names are allowed. Strings retain their existing backing storage
+// and reference-valued contents of T are not cloned.
 func NewMap[T any](entries []Entry[T]) (Map[T], error) {
 	owned := append([]Entry[T](nil), entries...)
 	names := make(map[string]struct{}, len(owned))

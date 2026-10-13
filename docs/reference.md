@@ -17,7 +17,11 @@ immutable typed view:
 Future patch or minor versions are rejected rather than interpreted as the
 latest known version. Unknown fields and `x-` extensions remain in the lossless
 raw semantic value. Typed field accessors distinguish absent, explicit `null`,
-valid, and invalid values.
+shape-valid, and shape-invalid values. `Field.Valid` does not enforce requiredness,
+enums, or specification legality. Generic containers shallow-copy elements;
+mutable pointers/maps/slices inside application-defined `T` remain caller-owned.
+Direct version-package decoders check only their own marker; unlike the root
+dispatcher, they do not reject an additional marker for another dialect.
 
 Patch conversion within a supported minor line changes only the declared
 version marker. Cross-minor conversion is explicit and loss-aware. The
@@ -27,7 +31,12 @@ of an unsupported future version.
 
 ## Parse and validate
 
-Parsing requires an explicit context and limits. It performs no implicit I/O.
+Parsing requires an explicit context and limits. It reads only the borrowed
+reader, without closing it or performing implicit retrieval. Cancellation is
+cooperative between reads and traversal steps, not an interruption mechanism
+for an arbitrary blocking reader. Byte limits bound buffered input; decoder
+strings and YAML syntax trees can be allocated before semantic limits are
+checked. These limits do not establish a strict peak-memory or CPU-time budget.
 Every limit must be positive, and `MaxBytes` must be below `math.MaxInt64` so
 the parser can reserve a non-overflowing byte for limit detection.
 Strict YAML input accepts only JSON-compatible scalar tags and string mapping
@@ -75,7 +84,10 @@ for _, diagnostic := range report.Diagnostics() {
 ```
 
 The default validator uses the canonical JSON Schema engine's conservative
-resource limits for official data-model validation. For a reviewed large
+resource limits for official data-model validation. `FailFast` and
+`MaxDiagnostics` trim output after validation passes; they are not early-work
+or intermediate-allocation bounds. Operational errors return no partial report,
+but already executed provider effects are not rolled back. For a reviewed large
 description, construct an isolated cache with
 `validate.NewValidatorWithDocumentSchemaLimits`, starting from the canonical
 engine's defaults and increasing only the measured limiting dimension.

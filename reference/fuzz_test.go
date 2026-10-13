@@ -12,6 +12,8 @@ import (
 	"github.com/faustbrian/go-openapi/v2/reference"
 )
 
+// FuzzPointerCanonicalRoundTrip checks accepted pointer spellings round-trip
+// their decoded tokens through canonical formatting.
 func FuzzPointerCanonicalRoundTrip(f *testing.F) {
 	for _, seed := range []string{"", "/a", "/a~1b/m~0n/0", "/", "/bad~2escape"} {
 		f.Add(seed)
@@ -31,6 +33,8 @@ func FuzzPointerCanonicalRoundTrip(f *testing.F) {
 	})
 }
 
+// FuzzFragmentClassificationIsStable checks repeated percent-decoding has
+// stable acceptance and fragment kind/pointer/anchor results.
 func FuzzFragmentClassificationIsStable(f *testing.F) {
 	for _, seed := range []string{"", "/components/schemas/Pet", "anchor", "%2Fescaped", "%ff"} {
 		f.Add(seed)
@@ -49,6 +53,9 @@ func FuzzFragmentClassificationIsStable(f *testing.F) {
 	})
 }
 
+// FuzzBundleInternalDocumentsIsIdentity admits bounded internal-only
+// descriptions and checks successful bundling preserves semantic bytes and has
+// no rewrite entries.
 func FuzzBundleInternalDocumentsIsIdentity(f *testing.F) {
 	for _, seed := range []string{
 		`{"openapi":"3.2.0","paths":{},"components":{"schemas":{"Pet":{"type":"object"},"Alias":{"$ref":"#/components/schemas/Pet"}}}}`,
@@ -105,6 +112,8 @@ func FuzzBundleInternalDocumentsIsIdentity(f *testing.F) {
 	})
 }
 
+// FuzzDereferenceObjectsIsDeterministic checks bounded no-external expansion
+// has stable errors or identical output and ordered rewrite provenance.
 func FuzzDereferenceObjectsIsDeterministic(f *testing.F) {
 	for _, seed := range []string{
 		`{"openapi":"3.1.2","info":{"title":"API","version":"1"},

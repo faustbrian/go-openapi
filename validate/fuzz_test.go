@@ -12,6 +12,9 @@ import (
 	"github.com/faustbrian/go-openapi/v2/validate"
 )
 
+// FuzzDocumentValidationDeterminism validates bounded parsed descriptions twice
+// using one cache, asserting stable acceptance and ordered diagnostics, not
+// completeness of normative rules.
 func FuzzDocumentValidationDeterminism(f *testing.F) {
 	for _, seed := range []string{
 		`{"openapi":"3.2.0","info":{"title":"API","version":"1"},"paths":{}}`,

@@ -1,5 +1,7 @@
 // Package modelaccess translates immutable JSON values into typed model
-// fields without discarding invalid representations.
+// fields without discarding invalid representations. It distinguishes local
+// absent/null/shape-valid/shape-invalid states, without requiredness, enum or
+// reference validation. Generated models use these shared rules across dialects.
 package modelaccess
 
 import (
@@ -9,7 +11,10 @@ import (
 	sharedmodel "github.com/faustbrian/go-openapi/v2/model"
 )
 
-// Decoder converts one non-null JSON value to a typed immutable value.
+// Decoder converts a JSON value to T synchronously without retention or recovery.
+// Scalar bypasses it for null; ListValue and MapValue can pass null children.
+// T is shallow-copied, so caller-defined mutable results are not made immutable.
+// A usable decoder is required whenever conversion reaches a child; panics propagate.
 type Decoder[T any] func(jsonvalue.Value) (T, bool)
 
 // Raw returns an untyped lossless field.

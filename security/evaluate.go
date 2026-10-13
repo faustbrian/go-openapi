@@ -42,9 +42,12 @@ type requirementScheme struct {
 // Zero fields use DefaultLimits; negative fields are invalid. Positive overrides
 // remain caller-selected finite limits, without an additional upper ceiling.
 type Limits struct {
+	// MaxAlternatives caps Security Requirement array entries.
 	MaxAlternatives int
-	MaxSchemes      int
-	MaxScopes       int
+	// MaxSchemes caps total requirement scheme occurrences and credential map entries independently.
+	MaxSchemes int
+	// MaxScopes caps scope occurrences across requirements and credentials independently.
+	MaxScopes int
 }
 
 // DefaultLimits returns conservative limits for untrusted requirements.

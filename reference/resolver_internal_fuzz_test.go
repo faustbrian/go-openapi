@@ -14,6 +14,9 @@ import (
 
 const maximumFuzzResolverBody = 65_536
 
+// FuzzFileResolverIdentifierBoundary uses one owned local fixture and fresh
+// bounded resolvers to check stable identifier admission/errors/resources; it
+// does not authorize other filesystem roots.
 func FuzzFileResolverIdentifierBoundary(f *testing.F) {
 	root := f.TempDir()
 	path := filepath.Join(root, "schema.json")
@@ -55,6 +58,9 @@ func resolveFuzzFile(t *testing.T, root, identifier string) (Resource, error) {
 	return resolver.Resolve(context.Background(), identifier)
 }
 
+// FuzzHTTPResolverResponseBoundary uses a call-local fake RoundTripper and
+// bounded body/header inputs to check response admission determinism. It
+// performs no DNS or live network qualification.
 func FuzzHTTPResolverResponseBoundary(f *testing.F) {
 	for _, seed := range []struct {
 		body        []byte

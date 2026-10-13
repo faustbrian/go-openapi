@@ -14,7 +14,9 @@ import (
 
 // YAML writes a deterministic YAML 1.2-compatible representation of the JSON
 // semantic model. It does not claim to preserve source comments, anchors, or
-// scalar styles that are absent from the semantic model.
+// scalar styles that are absent from the semantic model. The intermediate YAML
+// node graph is built before emission; MaxBytes bounds output, not that graph.
+// Writer ownership, partial-output, and cancellation rules are the same as JSON.
 func YAML(
 	ctx context.Context,
 	writer io.Writer,

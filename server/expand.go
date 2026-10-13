@@ -1,5 +1,10 @@
 // Package server expands OpenAPI Server Object URL templates without owning
-// HTTP transport state or applying implicit escaping.
+// HTTP transport state or applying implicit escaping. Expand uses defaults and
+// exact caller overrides; ResolveReference applies net/url resolution after
+// expansion. Neither function retrieves a URI, validates a complete document,
+// enforces enum choices, or grants destination authority. Context-free calls
+// return complete strings or empty strings on error. Overrides are borrowed and
+// require caller synchronization; output limits are not peak-allocation limits.
 package server
 
 import (
@@ -33,9 +38,12 @@ var ErrLimitExceeded = errors.New("OpenAPI server expansion limit exceeded")
 // Options controls caller overrides and resource bounds. Values are inserted
 // exactly as supplied; callers own any required percent-encoding or escaping.
 type Options struct {
-	Values         map[string]string
+	// Values is a borrowed exact-name override map; callers must prevent concurrent mutation.
+	Values map[string]string
+	// MaxOutputBytes caps expanded UTF-8 bytes; zero uses the default and negatives fail.
 	MaxOutputBytes int
-	MaxVariables   int
+	// MaxVariables caps declarations, overrides, and template occurrences independently; zero defaults.
+	MaxVariables int
 }
 
 // DefaultOptions returns conservative bounds for runtime expansion.

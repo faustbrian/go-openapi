@@ -1,3 +1,7 @@
+// Command provenance verifies specification manifest metadata and SHA-256
+// digests against regular, non-symlink files beneath the selected -root checkout.
+// It performs no network retrieval and does not certify implementation conformance.
+// Run it from the repository root or supply -root explicitly.
 package main
 
 import (

@@ -1380,6 +1380,9 @@ func validSwaggerMediaType(value string) bool {
 	return len(parts) == 2 && parts[1] != ""
 }
 
+// Follow only the already-indexed reusable request bodies. A seen set stops
+// alias cycles without retrieving external documents; the returned availability
+// flag is conversion policy, not proof that an external target exists.
 func (converter *oas30SwaggerConverter) requestBodyReferenceTarget(
 	reference string,
 ) (string, bool, bool) {

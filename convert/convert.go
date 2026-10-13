@@ -1,5 +1,9 @@
 // Package convert provides explicit, directional, loss-aware OpenAPI version
-// migrations without mutating source documents.
+// migrations without mutating source documents. To retains both the source and
+// target model with ordered loss/manual-action diagnostics. Conversion is not a
+// proof of semantic equivalence or complete target validity: validate the result
+// and review diagnostics before publication. It performs no external retrieval,
+// never mutates input values, and returns a zero Result on operational failure.
 package convert
 
 import (
@@ -34,9 +38,13 @@ const (
 
 // Diagnostic reports one structured conversion consequence.
 type Diagnostic struct {
-	Code    string
-	Kind    DiagnosticKind
+	// Code identifies a stable conversion finding independently of Message.
+	Code string
+	// Kind distinguishes loss warnings from manual review actions.
+	Kind DiagnosticKind
+	// Pointer locates the affected source field as an escaped JSON Pointer.
 	Pointer string
+	// Message describes the limitation; it is not evidence of complete semantic equivalence.
 	Message string
 }
 

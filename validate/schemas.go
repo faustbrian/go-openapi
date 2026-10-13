@@ -27,6 +27,10 @@ type schemaCollector struct {
 
 var swaggerPropertySchemaPattern = regexp.MustCompile(`(?:^|/)properties/[^/]+$`)
 
+// Informative official schemas do not supersede prose-only constraints. Run
+// those checks separately, then cache equivalent serialized schema outcomes only
+// within this pass. Failed provider/compiler operations remain operational errors,
+// not successful empty validation reports.
 func validateSchemas(
 	ctx context.Context,
 	document openapi.Document,

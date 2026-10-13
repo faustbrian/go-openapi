@@ -1,3 +1,8 @@
+// Command modelgen reads the repository's prose-derived object-fields.tsv and
+// regenerates versioned model sources and smoke tests. The -root flag defaults
+// to the current directory; go generate . is the supported repository-root route.
+// Output replacement is atomic per file, not a transaction across all packages.
+// This trusted-checkout producer does not authenticate input pins itself.
 package main
 
 import (

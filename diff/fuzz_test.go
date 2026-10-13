@@ -11,6 +11,9 @@ import (
 	"github.com/faustbrian/go-openapi/v2/parse"
 )
 
+// FuzzOperationDiffDeterminism compares bounded same-dialect descriptions
+// twice, asserting identical errors/reports and paths-or-webhooks pointer
+// prefixes. It is not a complete compatibility oracle.
 func FuzzOperationDiffDeterminism(f *testing.F) {
 	seeds := [][2]string{
 		{

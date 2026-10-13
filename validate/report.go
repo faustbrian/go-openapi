@@ -1,5 +1,15 @@
 // Package validate performs version-aware OpenAPI document validation and
-// returns stable, machine-readable diagnostics.
+// returns stable, machine-readable diagnostics. Document combines official
+// schema checks with prose-specific rules, schema checks and supported reference
+// diagnostics; SchemaInstance separately checks runtime values and direction.
+// Decoding a typed view is not validation, and Report.Valid means no collected
+// error diagnostics, not exhaustive external-resource or business correctness.
+//
+// External references/examples/codecs require explicit borrowed providers.
+// Validation is synchronous and cooperative; a provider can block cancellation
+// unless it honors context. FailFast and MaxDiagnostics truncate output after
+// passes, not work or intermediate allocations. Validator caches can be reused
+// concurrently when caller-supplied collaborators are also safe for that use.
 package validate
 
 import (
@@ -39,27 +49,41 @@ const (
 
 // Diagnostic is one stable validation finding.
 type Diagnostic struct {
-	Code                    string
-	Message                 string
-	Severity                Severity
-	Source                  Source
-	InstanceLocation        string
-	KeywordLocation         string
+	// Code identifies the rule or diagnostic class; callers need not parse Message.
+	Code string
+	// Message explains the finding and may contain document names or provider error text.
+	Message string
+	// Severity distinguishes validity-blocking errors from advisory warnings.
+	Severity Severity
+	// Source identifies the document, schema, or reference validation subsystem.
+	Source Source
+	// InstanceLocation is an escaped JSON Pointer in the validated input; empty selects the root.
+	InstanceLocation string
+	// KeywordLocation identifies a schema keyword when supplied; semantic rules may leave it empty.
+	KeywordLocation string
+	// AbsoluteKeywordLocation is the absolute schema keyword URI when the evaluator supplies one.
 	AbsoluteKeywordLocation string
-	SpecificationVersion    string
-	SpecificationSection    string
+	// SpecificationVersion is the exact selected document revision.
+	SpecificationVersion string
+	// SpecificationSection names the relevant prose section when known.
+	SpecificationSection string
 }
 
 // ExternalExampleResource is one explicitly retrieved serialized example.
 type ExternalExampleResource struct {
+	// RetrievalURI records the identity returned by the application resolver.
 	RetrievalURI string
-	ContentType  string
-	Data         []byte
+	// ContentType declares the serialized example media type for decoding; no sniffing is implied.
+	ContentType string
+	// Data contains borrowed serialized bytes; callers/providers must not mutate them during validation.
+	Data []byte
 }
 
 // ExternalExampleResolver retrieves serialized example bytes through an
 // application-owned authorization and transport policy.
 type ExternalExampleResolver interface {
+	// ResolveExternalExample retrieves an authorized example synchronously. The provider
+	// owns transport policy, context cooperation, and safe lifetime of returned bytes.
 	ResolveExternalExample(context.Context, string) (ExternalExampleResource, error)
 }
 
@@ -81,13 +105,18 @@ func (resolver ExternalExampleResolverFunc) ResolveExternalExample(
 // representation. Implementations own format policy and perform no implicit
 // I/O through the validator.
 type MediaTypeExampleCodec interface {
+	// Encode serializes an immutable value synchronously under application format policy.
 	Encode(context.Context, jsonvalue.Value) ([]byte, error)
+	// Decode parses borrowed bytes synchronously into immutable semantic data; it must
+	// not retain mutable input aliases or perform unauthorized resource retrieval.
 	Decode(context.Context, []byte) (jsonvalue.Value, error)
 }
 
 // MediaTypeExampleCodecResolver selects an explicitly configured codec for a
 // Media Type Object. Returning nil leaves that representation unchecked.
 type MediaTypeExampleCodecResolver interface {
+	// ResolveMediaTypeExampleCodec selects a codec synchronously; nil skips that
+	// representation. Providers own context cooperation and concurrency safety.
 	ResolveMediaTypeExampleCodec(
 		context.Context,
 		string,
@@ -111,9 +140,15 @@ func (resolver MediaTypeExampleCodecResolverFunc) ResolveMediaTypeExampleCodec(
 	return resolver(ctx, mediaType, mediaTypeObject)
 }
 
-// Options controls diagnostic collection without changing rule semantics.
+// Options controls diagnostics and explicitly authorized external work.
+// Callback and resolver instances are borrowed and never closed; callers own
+// their concurrency safety, cancellation cooperation, and side effects.
 type Options struct {
-	FailFast       bool
+	// FailFast returns only the first diagnostic after validation passes finish; it
+	// is not an early-work cutoff and does not prevent callbacks or retrieval.
+	FailFast bool
+	// MaxDiagnostics caps returned findings after collection; it must be positive
+	// and is not a bound on intermediate diagnostic allocation.
 	MaxDiagnostics int
 	// MaxDocumentNodes limits semantic values visited in the input document.
 	MaxDocumentNodes int

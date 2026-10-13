@@ -19,7 +19,9 @@ var (
 // ReferenceOptions bounds RFC 3986 resolution against an expanded Server
 // Object URL.
 type ReferenceOptions struct {
-	MaxInputBytes  int
+	// MaxInputBytes caps each input string before URI parsing; zero uses the default.
+	MaxInputBytes int
+	// MaxOutputBytes caps the resolved URI string after construction; zero uses the default.
 	MaxOutputBytes int
 }
 

@@ -72,6 +72,9 @@ The title MUST be present.
 	}
 }
 
+// FuzzSpecmatrixManifestDecoder exercises bounded strict manifest decoding with
+// malformed/trailing inputs; outcomes are ignored, so this is panic-safety
+// coverage only.
 func FuzzSpecmatrixManifestDecoder(f *testing.F) {
 	for _, seed := range []string{
 		manifestWithFiles(),

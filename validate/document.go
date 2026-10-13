@@ -74,7 +74,9 @@ func (validator *Validator) Document(
 }
 
 // DocumentWithOptions validates one description and reuses only schemas owned
-// by this Validator.
+// by this Validator. Operational or context errors return a zero Report.
+// Provider effects are not rolled back, and output caps do not skip validation
+// passes. With no external resolver, disabled remote references are not errors.
 func (validator *Validator) DocumentWithOptions(
 	ctx context.Context,
 	document openapi.Document,
@@ -262,6 +264,9 @@ type documentSchemaEntry struct {
 	err    error
 }
 
+// Cache entries publish through ready after construction outside the mutex.
+// The constructing call owns its context; waiters cancel independently, and a
+// failed entry is removed to allow a later attempt. No provider runs under this lock.
 func (validator *Validator) documentSchema(
 	ctx context.Context,
 	dialect specversion.Dialect,

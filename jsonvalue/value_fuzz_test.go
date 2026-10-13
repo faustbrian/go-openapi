@@ -10,6 +10,9 @@ import (
 	"github.com/faustbrian/go-openapi/v2/jsonvalue"
 )
 
+// FuzzValueMarshalJSONWithLimits constructs immutable UTF-8 key/string values
+// and checks stable limit errors or deterministic valid JSON within selected
+// byte/depth/node budgets.
 func FuzzValueMarshalJSONWithLimits(f *testing.F) {
 	for _, seed := range [][]byte{
 		{},

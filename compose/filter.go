@@ -1,4 +1,13 @@
-// Package compose provides bounded, immutable OpenAPI composition operations.
+// Package compose filters operation surfaces and merges exact-version OpenAPI
+// documents into new immutable values with source provenance. Filtering does not
+// follow references; merging unions named registries and uses explicit collision
+// policy rather than treating every object as a recursive overlay.
+//
+// Inputs are borrowed during synchronous calls and must be valid decoded
+// documents. Callbacks are not retained or panic-isolated; callers own their
+// effects and cancellation cooperation. Errors return zero result objects,
+// without rolling back callback effects. Composition does not validate the
+// resulting description against every specification rule or load resources.
 package compose
 
 import (
@@ -43,13 +52,17 @@ func (operation Operation) Source() jsonvalue.Value {
 	return operation.source
 }
 
-// Predicate decides whether an operation remains in the result.
+// Predicate is called synchronously for each visited operation. It is not
+// retained; errors abort without a result and panics propagate. Cancellation
+// cannot interrupt a callback that does not cooperate.
 type Predicate func(Operation) (bool, error)
 
 // FilterOptions bounds independently growing filtering work.
 type FilterOptions struct {
+	// MaxOperations caps visited operations; zero uses the default and negatives fail.
 	MaxOperations int
-	MaxDepth      int
+	// MaxDepth caps traversed object nesting, root one; zero uses the default.
+	MaxDepth int
 }
 
 // DefaultFilterOptions returns conservative untrusted-document bounds.

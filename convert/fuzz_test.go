@@ -11,6 +11,9 @@ import (
 	"github.com/faustbrian/go-openapi/v2/validate"
 )
 
+// FuzzConvertPatchAndForwardVersions checks selected adjacent-version
+// conversion returns the requested marker; it does not prove semantic
+// equivalence or target validity.
 func FuzzConvertPatchAndForwardVersions(f *testing.F) {
 	for _, seed := range []string{
 		`{"openapi":"3.0.0","info":{"title":"API","version":"1"},"paths":{}}`,
@@ -55,6 +58,8 @@ func FuzzConvertPatchAndForwardVersions(f *testing.F) {
 	})
 }
 
+// FuzzConvertOpenAPI31To30 checks decoded 3.1 inputs convert to the selected
+// 3.0 marker; loss diagnostics and target validity are not asserted.
 func FuzzConvertOpenAPI31To30(f *testing.F) {
 	for _, seed := range []string{
 		`{"openapi":"3.1.2","info":{"title":"API","version":"1"},` +
@@ -86,6 +91,8 @@ func FuzzConvertOpenAPI31To30(f *testing.F) {
 	})
 }
 
+// FuzzConvertOpenAPI30ToSwagger20 admits validator-valid 3.0 descriptions and
+// checks conversion produces validator-valid Swagger 2.0 output.
 func FuzzConvertOpenAPI30ToSwagger20(f *testing.F) {
 	for _, seed := range []string{
 		`{"openapi":"3.0.4","info":{"title":"API","version":"1"},` +

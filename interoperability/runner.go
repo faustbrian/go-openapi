@@ -1,3 +1,9 @@
+// Command interoperability compares supplied, contained fixtures across the
+// module-pinned OpenAPI implementations. OPENAPI_INTEROPERABILITY_ROOT must be
+// absolute; the runner opens and closes a traversal-resistant root and writes
+// deterministic TSV status rows. This independent module consumes the published
+// root library, not sibling workspace replacements. Report agreement is not a
+// complete normative conformance or live-service qualification.
 package main
 
 import (

@@ -13,6 +13,9 @@ import (
 	"github.com/faustbrian/go-openapi/v2/internal/specification"
 )
 
+// FuzzModelgenFieldInventoryDecoder exercises bounded TSV decoding against
+// malformed and valid headers; return values are ignored, so it establishes
+// panic safety only.
 func FuzzModelgenFieldInventoryDecoder(f *testing.F) {
 	header := "id\tversion\tsource\tline\tobject\tvariant\tname\ttype\tpattern\trequired\tdescription\n"
 	for _, seed := range []string{

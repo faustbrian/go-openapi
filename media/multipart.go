@@ -23,17 +23,24 @@ var (
 // MultipartHeader is one additional part header. Content-Disposition and
 // Content-Type are represented by dedicated MultipartPart fields.
 type MultipartHeader struct {
-	Name  string
+	// Name is a part name or additional HTTP header name; validation occurs during encoding.
+	Name string
+	// Value is an already serialized header field value, validated against HTTP field syntax.
 	Value string
 }
 
 // MultipartPart is one already serialized multipart/form-data value.
-// Repeated names and caller order are preserved.
+// Repeated names and caller order are preserved. Slices are borrowed during
+// encoding and must not be concurrently mutated; no reference is retained.
 type MultipartPart struct {
-	Name        string
+	// Name is a part name or additional HTTP header name; validation occurs during encoding.
+	Name string
+	// ContentType is an optional concrete media type; wildcards are rejected.
 	ContentType string
-	Headers     []MultipartHeader
-	Data        []byte
+	// Headers is borrowed during encoding; dedicated disposition/type headers cannot be repeated here.
+	Headers []MultipartHeader
+	// Data is borrowed serialized payload bytes; encoding copies them into result storage.
+	Data []byte
 }
 
 // MultipartFormDataEncode writes a deterministic multipart/form-data body

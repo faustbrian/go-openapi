@@ -1,5 +1,12 @@
 // Package implicit resolves OpenAPI name-based connections across caller-owned
-// parsed documents without performing reference I/O.
+// parsed documents without performing reference I/O. ResolveComponent and
+// ResolveTag select entry or current document scope; ResolveOperationID searches
+// supplied documents and reports multiple operation matches as ambiguous.
+//
+// Input slices are borrowed synchronously and must not be concurrently mutated.
+// Results retain immutable data. Name lookup is not root-version validation,
+// URI retrieval, or proof that a matched object satisfies its specification.
+// These functions have explicit collection/work bounds but no cancellation API.
 package implicit
 
 import (
@@ -24,30 +31,45 @@ var (
 // Document is one already-parsed OpenAPI document and its caller-defined
 // identity. Resolution never loads the URI.
 type Document struct {
-	URI  string
+	// URI is caller-defined provenance; resolution does not retrieve it.
+	URI string
+	// Root is already-parsed immutable document data and must be an object.
 	Root jsonvalue.Value
 }
 
 // Match identifies one resolved object without discarding its source.
 type Match struct {
+	// DocumentURI records the selected source document identity.
 	DocumentURI string
-	Pointer     string
-	Value       jsonvalue.Value
+	// Pointer is an escaped JSON Pointer to the matched source object.
+	Pointer string
+	// Value retains the matched immutable semantic object.
+	Value jsonvalue.Value
 }
 
 // ComponentKind selects one fixed Components Object map.
 type ComponentKind uint8
 
 const (
+	// Schemas selects components.schemas, not Swagger definitions.
 	Schemas ComponentKind = iota
+	// Responses selects components.responses.
 	Responses
+	// Parameters selects components.parameters.
 	Parameters
+	// Examples selects components.examples.
 	Examples
+	// RequestBodies selects components.requestBodies.
 	RequestBodies
+	// Headers selects components.headers.
 	Headers
+	// SecuritySchemes selects components.securitySchemes.
 	SecuritySchemes
+	// Links selects components.links.
 	Links
+	// Callbacks selects components.callbacks.
 	Callbacks
+	// PathItems selects components.pathItems.
 	PathItems
 )
 
@@ -63,10 +85,14 @@ const (
 
 // Limits bounds name lookup over untrusted parsed documents.
 type Limits struct {
-	MaxDocuments  int
-	MaxNames      int
+	// MaxDocuments caps documents supplied to operation lookup; zero uses defaults.
+	MaxDocuments int
+	// MaxNames caps entries in the selected component or tag collection; zero defaults.
+	MaxNames int
+	// MaxOperations caps visited operations across supplied documents; zero defaults.
 	MaxOperations int
-	MaxDepth      int
+	// MaxDepth caps nested callback operation traversal; zero uses defaults.
+	MaxDepth int
 }
 
 // DefaultLimits returns conservative implicit-resolution limits.
@@ -81,18 +107,23 @@ func DefaultLimits() Limits {
 
 // ComponentOptions controls component-name scope and lookup limits.
 type ComponentOptions struct {
-	Scope  Scope
+	// Scope selects entry-document or current-document name lookup; zero selects entry.
+	Scope Scope
+	// Limits controls the relevant lookup work; zero fields use defaults and negatives fail.
 	Limits Limits
 }
 
 // NameOptions controls tag-name scope and lookup limits.
 type NameOptions struct {
-	Scope  Scope
+	// Scope selects entry-document or current-document name lookup; zero selects entry.
+	Scope Scope
+	// Limits controls the relevant lookup work; zero fields use defaults and negatives fail.
 	Limits Limits
 }
 
 // OperationOptions controls cross-document operation-name traversal limits.
 type OperationOptions struct {
+	// Limits controls the relevant lookup work; zero fields use defaults and negatives fail.
 	Limits Limits
 }
 
@@ -148,7 +179,8 @@ func ResolveComponent(
 }
 
 // ResolveTag resolves a top-level Tag Object by name. The zero-value options
-// resolve from the entry document, as recommended by OpenAPI.
+// resolve from the entry document, as recommended by OpenAPI. If duplicate tag
+// names exist, the first matching source entry wins; validate uniqueness separately.
 func ResolveTag(
 	entry Document,
 	current Document,

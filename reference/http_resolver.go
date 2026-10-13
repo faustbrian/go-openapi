@@ -29,18 +29,30 @@ import (
 // authorization is intentionally unsupported. AllowedCIDRs grants explicit
 // access to otherwise denied private or special-purpose address ranges.
 type HTTPResolverOptions struct {
-	AllowedSchemes         []string
-	AllowedHosts           []string
-	AllowedPorts           []int
-	AllowedCIDRs           []string
-	MaxBytes               int64
-	MaxDocuments           int
-	MaxRedirects           int
-	MaxConcurrency         int
-	MaxAddresses           int
+	// AllowedSchemes lists explicit http/https permissions, matched case-insensitively.
+	AllowedSchemes []string
+	// AllowedHosts lists exact IDNA-normalized hosts or IP literals; wildcards are unsupported.
+	AllowedHosts []string
+	// AllowedPorts lists explicit TCP ports, including implicit scheme defaults.
+	AllowedPorts []int
+	// AllowedCIDRs permits matching addresses even when private or special-purpose; nil grants none.
+	AllowedCIDRs []string
+	// MaxBytes caps each response body, further restricted by ParseLimits.MaxBytes.
+	MaxBytes int64
+	// MaxDocuments caps admitted requests cumulatively; failures after reservation consume budget.
+	MaxDocuments int
+	// MaxRedirects caps followed redirects; zero forbids them.
+	MaxRedirects int
+	// MaxConcurrency bounds active requests; waiting for a slot consumes Timeout.
+	MaxConcurrency int
+	// MaxAddresses caps a DNS result; every returned address must satisfy policy before dialing.
+	MaxAddresses int
+	// MaxResponseHeaderBytes sets the transport response-header bound.
 	MaxResponseHeaderBytes int64
-	Timeout                time.Duration
-	ParseLimits            parse.Limits
+	// Timeout bounds slot waiting, retrieval, and parsing via a derived context; it must be positive.
+	Timeout time.Duration
+	// ParseLimits must be fully positive; its byte limit is clamped to MaxBytes.
+	ParseLimits parse.Limits
 }
 
 // DefaultHTTPResolverOptions returns conservative resource and TLS defaults

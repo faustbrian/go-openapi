@@ -24,10 +24,14 @@ var (
 
 // DereferenceOptions bounds one explicit Reference Object expansion.
 type DereferenceOptions struct {
+	// ReferenceLimits bounds each target traversal and reference chain; all fields must be positive.
 	ReferenceLimits Limits
-	MaxReferences   int
-	MaxNodes        int
-	MaxDepth        int
+	// MaxReferences caps processed reference occurrences; it must be positive.
+	MaxReferences int
+	// MaxNodes caps semantic rewrite visits; it must be positive.
+	MaxNodes int
+	// MaxDepth caps rewrite nesting, counting the root as one; it must be positive.
+	MaxDepth int
 }
 
 // DefaultDereferenceOptions returns conservative bounds for untrusted input.
@@ -81,7 +85,10 @@ func (result DereferenceResult) Entries() []DereferenceEntry {
 // DereferenceObjects replaces OpenAPI Reference Objects with their resolved
 // object targets. JSON Schema $ref keywords are deliberately retained because
 // inlining them can change base URI and dynamic-scope semantics. Resolver is
-// the only external I/O boundary.
+// the only external I/O boundary. Retrieved resources are cached within this
+// call, and the resolver is not closed. Failure returns no partial document.
+// Legal reference cycles accepted by ResolveChain are errors when expansion
+// would require an infinite tree.
 func DereferenceObjects(
 	ctx context.Context,
 	base Resource,

@@ -138,6 +138,10 @@ func (converter *oas31SchemaConverter) document(
 	}
 }
 
+// A newer schema cannot be treated as legacy by changing its version marker.
+// Boolean schemas are represented with legacy objects, supported keywords are
+// translated, and unsupported semantics are accompanied by loss diagnostics.
+// A $ref branch drops siblings because the target line treats them as ignored.
 func (converter *oas31SchemaConverter) schema(
 	value jsonvalue.Value,
 	pointer string,

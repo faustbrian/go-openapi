@@ -1,5 +1,14 @@
 // Package diff provides bounded semantic compatibility comparisons for
 // OpenAPI descriptions without treating source-text changes as API changes.
+// Operations compares supported same-dialect surfaces, not arbitrary business
+// behavior or every possible schema inclusion relationship. Classifications
+// deliberately remain conditional or unknown when the available policy or
+// reference semantics do not support a conclusion.
+//
+// Immutable inputs are shared; returned change slices are copies. External work
+// occurs only through borrowed explicit resolvers, whose concurrency safety,
+// cancellation and effects remain application-owned. Errors return a zero Report
+// rather than a partially collected verdict.
 package diff
 
 import (
@@ -51,80 +60,154 @@ const (
 type Kind string
 
 const (
-	PathAdded                     Kind = "path-added"
-	PathRemoved                   Kind = "path-removed"
-	OperationAdded                Kind = "operation-added"
-	OperationRemoved              Kind = "operation-removed"
-	WebhookAdded                  Kind = "webhook-added"
-	WebhookRemoved                Kind = "webhook-removed"
-	OperationIDChanged            Kind = "operation-id-changed"
-	RequestBodyAdded              Kind = "request-body-added"
-	RequestBodyRemoved            Kind = "request-body-removed"
-	RequestBodyRequired           Kind = "request-body-required"
-	RequestBodyOptional           Kind = "request-body-optional"
-	RequestBodyChanged            Kind = "request-body-changed"
-	RequestMediaTypeAdded         Kind = "request-media-type-added"
-	RequestMediaTypeRemoved       Kind = "request-media-type-removed"
-	ResponseAdded                 Kind = "response-added"
-	ResponseRemoved               Kind = "response-removed"
-	ResponseChanged               Kind = "response-changed"
-	ResponseMediaTypeAdded        Kind = "response-media-type-added"
-	ResponseMediaTypeRemoved      Kind = "response-media-type-removed"
-	ParameterAdded                Kind = "parameter-added"
-	ParameterRemoved              Kind = "parameter-removed"
-	ParameterRequired             Kind = "parameter-required"
-	ParameterOptional             Kind = "parameter-optional"
-	ParameterChanged              Kind = "parameter-changed"
+	// PathAdded identifies a newly addressable path registry entry.
+	PathAdded Kind = "path-added"
+	// PathRemoved identifies a removed path registry entry.
+	PathRemoved Kind = "path-removed"
+	// OperationAdded identifies a new method on an existing path item.
+	OperationAdded Kind = "operation-added"
+	// OperationRemoved identifies a removed method on an existing path item.
+	OperationRemoved Kind = "operation-removed"
+	// WebhookAdded identifies a new webhook path item.
+	WebhookAdded Kind = "webhook-added"
+	// WebhookRemoved identifies a removed webhook path item.
+	WebhookRemoved Kind = "webhook-removed"
+	// OperationIDChanged identifies changed operationId metadata.
+	OperationIDChanged Kind = "operation-id-changed"
+	// RequestBodyAdded identifies an added request body contract.
+	RequestBodyAdded Kind = "request-body-added"
+	// RequestBodyRemoved identifies a removed request body contract.
+	RequestBodyRemoved Kind = "request-body-removed"
+	// RequestBodyRequired identifies a request body becoming required.
+	RequestBodyRequired Kind = "request-body-required"
+	// RequestBodyOptional identifies a request body becoming optional.
+	RequestBodyOptional Kind = "request-body-optional"
+	// RequestBodyChanged identifies a changed request body outside separately compared fields.
+	RequestBodyChanged Kind = "request-body-changed"
+	// RequestMediaTypeAdded identifies a newly accepted request media type.
+	RequestMediaTypeAdded Kind = "request-media-type-added"
+	// RequestMediaTypeRemoved identifies a removed accepted request media type.
+	RequestMediaTypeRemoved Kind = "request-media-type-removed"
+	// ResponseAdded identifies a newly described response key.
+	ResponseAdded Kind = "response-added"
+	// ResponseRemoved identifies a removed response key.
+	ResponseRemoved Kind = "response-removed"
+	// ResponseChanged identifies a changed response outside separately compared fields.
+	ResponseChanged Kind = "response-changed"
+	// ResponseMediaTypeAdded identifies a newly described response media type.
+	ResponseMediaTypeAdded Kind = "response-media-type-added"
+	// ResponseMediaTypeRemoved identifies a removed response media type.
+	ResponseMediaTypeRemoved Kind = "response-media-type-removed"
+	// ParameterAdded identifies a new effective parameter.
+	ParameterAdded Kind = "parameter-added"
+	// ParameterRemoved identifies a removed effective parameter.
+	ParameterRemoved Kind = "parameter-removed"
+	// ParameterRequired identifies a parameter becoming required.
+	ParameterRequired Kind = "parameter-required"
+	// ParameterOptional identifies a parameter becoming optional.
+	ParameterOptional Kind = "parameter-optional"
+	// ParameterChanged identifies a changed parameter outside separately compared fields.
+	ParameterChanged Kind = "parameter-changed"
+	// ParameterSerializationChanged identifies changed effective parameter serialization options.
 	ParameterSerializationChanged Kind = "parameter-serialization-changed"
-	ParameterSchemaChanged        Kind = "parameter-schema-changed"
-	ParameterContentChanged       Kind = "parameter-content-changed"
-	ParameterDefaultChanged       Kind = "parameter-default-changed"
-	ParameterExampleChanged       Kind = "parameter-example-changed"
-	RequestSchemaAdded            Kind = "request-schema-added"
-	RequestSchemaRemoved          Kind = "request-schema-removed"
-	RequestSchemaChanged          Kind = "request-schema-changed"
-	ResponseSchemaAdded           Kind = "response-schema-added"
-	ResponseSchemaRemoved         Kind = "response-schema-removed"
-	ResponseSchemaChanged         Kind = "response-schema-changed"
-	ResponseHeaderAdded           Kind = "response-header-added"
-	ResponseHeaderRemoved         Kind = "response-header-removed"
-	ResponseHeaderChanged         Kind = "response-header-changed"
-	SecurityRequired              Kind = "security-required"
-	SecurityOptional              Kind = "security-optional"
-	SecurityChanged               Kind = "security-changed"
-	SecuritySchemeAdded           Kind = "security-scheme-added"
-	SecuritySchemeRemoved         Kind = "security-scheme-removed"
-	SecuritySchemeChanged         Kind = "security-scheme-changed"
-	ServerAdded                   Kind = "server-added"
-	ServerRemoved                 Kind = "server-removed"
-	ServerChanged                 Kind = "server-changed"
-	ServerOrderChanged            Kind = "server-order-changed"
-	CallbackAdded                 Kind = "callback-added"
-	CallbackRemoved               Kind = "callback-removed"
-	CallbackChanged               Kind = "callback-changed"
-	CallbackExpressionAdded       Kind = "callback-expression-added"
-	CallbackExpressionRemoved     Kind = "callback-expression-removed"
-	CallbackExpressionChanged     Kind = "callback-expression-changed"
-	CallbackOperationAdded        Kind = "callback-operation-added"
-	CallbackOperationRemoved      Kind = "callback-operation-removed"
-	LinkAdded                     Kind = "link-added"
-	LinkRemoved                   Kind = "link-removed"
-	LinkChanged                   Kind = "link-changed"
-	RequestEncodingChanged        Kind = "request-encoding-changed"
-	ResponseEncodingChanged       Kind = "response-encoding-changed"
-	RequestExampleChanged         Kind = "request-example-changed"
-	ResponseExampleChanged        Kind = "response-example-changed"
-	SwaggerSchemeAdded            Kind = "swagger-scheme-added"
-	SwaggerSchemeRemoved          Kind = "swagger-scheme-removed"
-	SwaggerSchemesChanged         Kind = "swagger-schemes-changed"
-	SwaggerHostChanged            Kind = "swagger-host-changed"
-	SwaggerBasePathChanged        Kind = "swagger-base-path-changed"
-	RequestMediaTypesChanged      Kind = "request-media-types-changed"
-	ResponseMediaTypesChanged     Kind = "response-media-types-changed"
-	TagAdded                      Kind = "tag-added"
-	TagRemoved                    Kind = "tag-removed"
-	TagChanged                    Kind = "tag-changed"
-	ExtensionChanged              Kind = "extension-changed"
+	// ParameterSchemaChanged identifies a changed parameter schema.
+	ParameterSchemaChanged Kind = "parameter-schema-changed"
+	// ParameterContentChanged identifies a changed parameter content map.
+	ParameterContentChanged Kind = "parameter-content-changed"
+	// ParameterDefaultChanged identifies changed parameter default metadata.
+	ParameterDefaultChanged Kind = "parameter-default-changed"
+	// ParameterExampleChanged identifies changed parameter example metadata.
+	ParameterExampleChanged Kind = "parameter-example-changed"
+	// RequestSchemaAdded identifies an added request media schema.
+	RequestSchemaAdded Kind = "request-schema-added"
+	// RequestSchemaRemoved identifies a removed request media schema.
+	RequestSchemaRemoved Kind = "request-schema-removed"
+	// RequestSchemaChanged identifies a changed request media schema.
+	RequestSchemaChanged Kind = "request-schema-changed"
+	// ResponseSchemaAdded identifies an added response media schema.
+	ResponseSchemaAdded Kind = "response-schema-added"
+	// ResponseSchemaRemoved identifies a removed response media schema.
+	ResponseSchemaRemoved Kind = "response-schema-removed"
+	// ResponseSchemaChanged identifies a changed response media schema.
+	ResponseSchemaChanged Kind = "response-schema-changed"
+	// ResponseHeaderAdded identifies an added response header contract.
+	ResponseHeaderAdded Kind = "response-header-added"
+	// ResponseHeaderRemoved identifies a removed response header contract.
+	ResponseHeaderRemoved Kind = "response-header-removed"
+	// ResponseHeaderChanged identifies a changed response header contract.
+	ResponseHeaderChanged Kind = "response-header-changed"
+	// SecurityRequired identifies anonymous access becoming unavailable.
+	SecurityRequired Kind = "security-required"
+	// SecurityOptional identifies anonymous access becoming available.
+	SecurityOptional Kind = "security-optional"
+	// SecurityChanged identifies changed effective security requirements.
+	SecurityChanged Kind = "security-changed"
+	// SecuritySchemeAdded identifies an added security scheme definition.
+	SecuritySchemeAdded Kind = "security-scheme-added"
+	// SecuritySchemeRemoved identifies a removed security scheme definition.
+	SecuritySchemeRemoved Kind = "security-scheme-removed"
+	// SecuritySchemeChanged identifies a changed security scheme definition.
+	SecuritySchemeChanged Kind = "security-scheme-changed"
+	// ServerAdded identifies an added effective server entry.
+	ServerAdded Kind = "server-added"
+	// ServerRemoved identifies a removed effective server entry.
+	ServerRemoved Kind = "server-removed"
+	// ServerChanged identifies a changed effective server entry.
+	ServerChanged Kind = "server-changed"
+	// ServerOrderChanged identifies a reordered effective server sequence.
+	ServerOrderChanged Kind = "server-order-changed"
+	// CallbackAdded identifies an added callback definition.
+	CallbackAdded Kind = "callback-added"
+	// CallbackRemoved identifies a removed callback definition.
+	CallbackRemoved Kind = "callback-removed"
+	// CallbackChanged identifies a changed callback outside separately compared operations.
+	CallbackChanged Kind = "callback-changed"
+	// CallbackExpressionAdded identifies an added callback runtime-expression key.
+	CallbackExpressionAdded Kind = "callback-expression-added"
+	// CallbackExpressionRemoved identifies a removed callback runtime-expression key.
+	CallbackExpressionRemoved Kind = "callback-expression-removed"
+	// CallbackExpressionChanged identifies a changed callback runtime-expression path item.
+	CallbackExpressionChanged Kind = "callback-expression-changed"
+	// CallbackOperationAdded identifies an added callback method.
+	CallbackOperationAdded Kind = "callback-operation-added"
+	// CallbackOperationRemoved identifies a removed callback method.
+	CallbackOperationRemoved Kind = "callback-operation-removed"
+	// LinkAdded identifies an added response link.
+	LinkAdded Kind = "link-added"
+	// LinkRemoved identifies a removed response link.
+	LinkRemoved Kind = "link-removed"
+	// LinkChanged identifies a changed response link.
+	LinkChanged Kind = "link-changed"
+	// RequestEncodingChanged identifies changed request media encoding metadata.
+	RequestEncodingChanged Kind = "request-encoding-changed"
+	// ResponseEncodingChanged identifies changed response media encoding metadata.
+	ResponseEncodingChanged Kind = "response-encoding-changed"
+	// RequestExampleChanged identifies changed request media example metadata.
+	RequestExampleChanged Kind = "request-example-changed"
+	// ResponseExampleChanged identifies changed response media example metadata.
+	ResponseExampleChanged Kind = "response-example-changed"
+	// SwaggerSchemeAdded identifies an added effective Swagger transport scheme.
+	SwaggerSchemeAdded Kind = "swagger-scheme-added"
+	// SwaggerSchemeRemoved identifies a removed effective Swagger transport scheme.
+	SwaggerSchemeRemoved Kind = "swagger-scheme-removed"
+	// SwaggerSchemesChanged identifies changed Swagger transport schemes requiring review.
+	SwaggerSchemesChanged Kind = "swagger-schemes-changed"
+	// SwaggerHostChanged identifies changed Swagger host metadata.
+	SwaggerHostChanged Kind = "swagger-host-changed"
+	// SwaggerBasePathChanged identifies changed Swagger basePath metadata.
+	SwaggerBasePathChanged Kind = "swagger-base-path-changed"
+	// RequestMediaTypesChanged identifies changed effective Swagger consumes metadata.
+	RequestMediaTypesChanged Kind = "request-media-types-changed"
+	// ResponseMediaTypesChanged identifies changed effective Swagger produces metadata.
+	ResponseMediaTypesChanged Kind = "response-media-types-changed"
+	// TagAdded identifies an added top-level tag.
+	TagAdded Kind = "tag-added"
+	// TagRemoved identifies a removed top-level tag.
+	TagRemoved Kind = "tag-removed"
+	// TagChanged identifies changed top-level tag metadata.
+	TagChanged Kind = "tag-changed"
+	// ExtensionChanged identifies changed extension metadata under caller-selected classification.
+	ExtensionChanged Kind = "extension-changed"
 )
 
 // Change is one immutable semantic surface change.

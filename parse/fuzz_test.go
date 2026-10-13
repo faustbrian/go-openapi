@@ -11,6 +11,8 @@ import (
 	"github.com/faustbrian/go-openapi/v2/parse"
 )
 
+// FuzzJSONParserDeterminism checks bounded repeated parsing preserves
+// diagnostic code/offset and deterministic valid JSON semantics.
 func FuzzJSONParserDeterminism(f *testing.F) {
 	for _, seed := range []string{
 		`null`,
@@ -43,6 +45,8 @@ func FuzzJSONParserDeterminism(f *testing.F) {
 	})
 }
 
+// FuzzYAMLParserProducesJSONSemantics checks accepted bounded YAML can marshal
+// to valid JSON; rejected general-YAML inputs remain outside the assertion.
 func FuzzYAMLParserProducesJSONSemantics(f *testing.F) {
 	for _, seed := range []string{
 		"null\n",

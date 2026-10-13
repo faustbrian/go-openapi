@@ -10,6 +10,9 @@ import (
 	"testing"
 )
 
+// FuzzProvenanceManifestDecoder exercises bounded manifest decoding, metadata
+// validation and artifact collection. It ignores outcomes and does not read
+// files or authenticate digests.
 func FuzzProvenanceManifestDecoder(f *testing.F) {
 	for _, seed := range []string{
 		`{}`,

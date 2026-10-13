@@ -27,8 +27,11 @@ type AnnotatedEnumOptions struct {
 
 // AnnotatedEnumCase is one lossless const value and its optional annotations.
 type AnnotatedEnumCase struct {
-	Value       jsonvalue.Value
-	Title       model.Field[string]
+	// Value retains the exact const value, including null and number spelling.
+	Value jsonvalue.Value
+	// Title distinguishes an absent annotation from its concrete string, including empty.
+	Title model.Field[string]
+	// Description distinguishes an absent annotation from its concrete string, including empty.
 	Description model.Field[string]
 }
 

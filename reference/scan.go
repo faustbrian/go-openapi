@@ -17,7 +17,9 @@ type Occurrence struct {
 }
 
 // OccurrenceFilter selects $ref members before their values are interpreted.
-// Returning false treats the member as ordinary application data.
+// Returning false treats the member as ordinary application data. The callback
+// is synchronous and not retained; panics propagate and cancellation cannot
+// interrupt it. Rejected $ref children are not recursively scanned.
 type OccurrenceFilter func(Pointer, jsonvalue.Value) bool
 
 // Pointer returns the JSON Pointer to the $ref member.

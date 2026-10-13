@@ -23,13 +23,19 @@ var ErrDuplicateAnchor = errors.New("duplicate reference anchor")
 
 // Resource keeps retrieval identity, canonical identity, and content distinct.
 type Resource struct {
+	// RetrievalURI identifies where Root was retrieved; it need not equal CanonicalURI.
 	RetrievalURI string
+	// CanonicalURI supplies the reference base when nonempty; otherwise RetrievalURI is used.
 	CanonicalURI string
-	Root         jsonvalue.Value
+	// Root is immutable parsed content; the invalid zero Value is not an admissible resource.
+	Root jsonvalue.Value
 }
 
 // Resolver retrieves one explicitly authorized resource identifier.
 type Resolver interface {
+	// Resolve retrieves the fragment-free identifier under application-owned authorization.
+	// Resolve is called synchronously, must cooperate with its context, and returns
+	// immutable content. Implementations own their I/O, concurrency and cleanup policy.
 	Resolve(context.Context, string) (Resource, error)
 }
 
@@ -46,8 +52,11 @@ func (resolver ResolverFunc) Resolve(
 
 // Limits bounds in-resource traversal during resolution.
 type Limits struct {
+	// MaxTraversalDepth caps pointer tokens and nested anchor/scan traversal; it must be positive.
 	MaxTraversalDepth int
+	// MaxTraversalNodes caps scanned semantic values per traversal; it must be positive.
 	MaxTraversalNodes int
+	// MaxReferenceDepth caps followed targets in a chain; it must be positive.
 	MaxReferenceDepth int
 }
 
@@ -75,15 +84,20 @@ func (limits Limits) validate() error {
 
 // Target is one resolved value with its complete resource provenance.
 type Target struct {
+	// RequestedURI is the resolved fragment-free identifier requested from the resolver.
 	RequestedURI string
-	Resource     Resource
-	Fragment     Fragment
-	Value        jsonvalue.Value
+	// Resource records the retrieved target document and its identities.
+	Resource Resource
+	// Fragment is the decoded pointer, anchor, or root selector.
+	Fragment Fragment
+	// Value is the immutable target selected within Resource.Root.
+	Value jsonvalue.Value
 }
 
 // Resolve resolves one URI-reference against a resource. It performs no
 // external I/O unless resolver is non-nil and the reference leaves the base
-// resource.
+// resource. A supplied resolver is borrowed, not closed, and is responsible
+// for cancellation during its I/O. Failure returns no partial Target.
 func Resolve(
 	ctx context.Context,
 	base Resource,

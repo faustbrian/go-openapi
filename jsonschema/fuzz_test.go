@@ -9,6 +9,9 @@ import (
 	"github.com/faustbrian/go-openapi/v2/parse"
 )
 
+// FuzzSchemaObjectCompilationAndEvaluation feeds bounded schemas into each
+// pinned dialect, then evaluates arbitrary instance bytes. Outcomes are
+// deliberately ignored: this is a panic-safety boundary, not a validity oracle.
 func FuzzSchemaObjectCompilationAndEvaluation(f *testing.F) {
 	for _, seed := range []struct {
 		schema   string

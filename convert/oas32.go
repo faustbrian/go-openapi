@@ -55,6 +55,9 @@ func (converter *oas32DocumentConverter) indexMediaTypes(root jsonvalue.Value) {
 	}
 }
 
+// All recursive document branches share one work counter and context. Loss
+// reporting is source-ordered, so skipping an unsupported member must not skip
+// following siblings or grant extension payloads implicit conversion semantics.
 func (converter *oas32DocumentConverter) visit() error {
 	if err := converter.ctx.Err(); err != nil {
 		return err

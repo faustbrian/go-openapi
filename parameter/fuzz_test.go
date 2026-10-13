@@ -7,6 +7,9 @@ import (
 	"github.com/faustbrian/go-openapi/v2/specversion"
 )
 
+// FuzzOpenAPI32QueryDecode varies form query text and selected shape, checking
+// successful decoding marshals as JSON; scalar coercion and peer compatibility
+// are not asserted.
 func FuzzOpenAPI32QueryDecode(f *testing.F) {
 	for _, seed := range []struct {
 		raw   string
@@ -39,6 +42,8 @@ func FuzzOpenAPI32QueryDecode(f *testing.F) {
 	})
 }
 
+// FuzzSwagger20QueryDecode checks successful bounded Swagger array query
+// decoding yields marshalable semantics, including malformed-escape seeds.
 func FuzzSwagger20QueryDecode(f *testing.F) {
 	for _, seed := range []string{"value=one,two", "value=one%2Ctwo", "wrong=one", "value=%GG"} {
 		f.Add(seed)

@@ -24,11 +24,17 @@ var (
 
 // BundleOptions bounds one explicit component-bundling operation.
 type BundleOptions struct {
-	ReferenceLimits       Limits
-	MaxReferences         int
-	MaxComponents         int
-	MaxNodes              int
-	MaxDepth              int
+	// ReferenceLimits bounds each target traversal and reference chain; all fields must be positive.
+	ReferenceLimits Limits
+	// MaxReferences caps processed reference occurrences; it must be positive.
+	MaxReferences int
+	// MaxComponents caps added reusable objects; it must be positive.
+	MaxComponents int
+	// MaxNodes caps semantic rewrite visits; it must be positive.
+	MaxNodes int
+	// MaxDepth caps rewrite nesting, counting the root as one; it must be positive.
+	MaxDepth int
+	// MaxComponentNameBytes caps allocated component names; it must be positive.
 	MaxComponentNameBytes int
 }
 
@@ -103,6 +109,8 @@ func (result BundleResult) Entries() []BundleEntry {
 // BundleComponents localizes external references whose resolved targets live
 // in version-appropriate component registries. Resolver is the only external
 // I/O boundary. Unsupported target kinds fail instead of being guessed.
+// Retrieved resources are cached only within this call; the resolver is not
+// closed. Errors discard the local result, not external resolver side effects.
 func BundleComponents(
 	ctx context.Context,
 	base Resource,

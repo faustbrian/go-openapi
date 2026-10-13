@@ -34,9 +34,13 @@ const (
 
 // Options defines deterministic output policy and resource limits.
 type Options struct {
-	Mode     Mode
+	// Mode selects member ordering only; Canonical is not RFC 8785 canonicalization.
+	Mode Mode
+	// MaxBytes caps emitted bytes and must be positive; failure can leave a prefix written.
 	MaxBytes int
+	// MaxDepth caps nested children below the root and must be positive.
 	MaxDepth int
+	// MaxNodes caps semantic values, including the root, and must be positive.
 	MaxNodes int
 }
 
@@ -52,11 +56,15 @@ func DefaultOptions() Options {
 
 // Source exposes one complete immutable JSON semantic value.
 type Source interface {
+	// Raw returns the complete immutable semantic value without performing I/O.
 	Raw() jsonvalue.Value
 }
 
 // JSON writes compact deterministic JSON. Canonical mode is a package-defined
-// reproducibility policy, not an OpenAPI conformance representation.
+// reproducibility policy, not an OpenAPI conformance representation. The writer
+// is borrowed and never closed. Errors may leave a partial representation; no
+// rollback is attempted. Cancellation is checked between writes but cannot
+// interrupt a blocking caller Write.
 func JSON(
 	ctx context.Context,
 	writer io.Writer,

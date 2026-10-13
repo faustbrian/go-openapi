@@ -20,14 +20,17 @@ type InstanceDirection string
 const (
 	// DirectionNeutral applies direction-independent schema semantics only.
 	DirectionNeutral InstanceDirection = ""
-	// DirectionRequest rejects values for properties marked readOnly.
+	// DirectionRequest checks readOnly presence and direction-dependent requiredness.
+	// OpenAPI readOnly presence is advisory; Swagger uses an error diagnostic.
 	DirectionRequest InstanceDirection = "request"
-	// DirectionResponse permits readOnly properties in response values.
+	// DirectionResponse checks writeOnly presence and direction-dependent requiredness.
+	// OpenAPI writeOnly presence is advisory, rather than a blanket validity failure.
 	DirectionResponse InstanceDirection = "response"
 )
 
 // InstanceOptions controls direction-dependent Schema Object evaluation.
 type InstanceOptions struct {
+	// Direction selects annotation/requiredness handling; the empty value is neutral.
 	Direction InstanceDirection
 	// MaxNodes bounds direction-dependent schema and instance traversal. Zero
 	// uses a conservative default.
@@ -45,14 +48,18 @@ type InstanceOptions struct {
 // NamedBinaryMediaPart identifies one raw binary multipart value by its Schema
 // Object property name.
 type NamedBinaryMediaPart struct {
-	Name   string
+	// Name is the exact schema property name; an empty name is rejected.
+	Name string
+	// Octets is the caller-reported unencoded payload length; bytes are not read or verified.
 	Octets uint64
 }
 
 // PositionalBinaryMediaPart identifies one raw binary multipart value by its
 // zero-based sequential-media item index.
 type PositionalBinaryMediaPart struct {
-	Index  int
+	// Index is the zero-based sequential part position; negative indices are rejected.
+	Index int
+	// Octets is the caller-reported unencoded payload length; bytes are not read or verified.
 	Octets uint64
 }
 

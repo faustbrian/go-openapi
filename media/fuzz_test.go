@@ -9,6 +9,9 @@ import (
 	"github.com/faustbrian/go-openapi/v2/media"
 )
 
+// FuzzServerSentEventParsingDeterminism checks repeated bounded SSE parsing has
+// stable acceptance and equivalent dispatched semantic values, not independent
+// WHATWG conformance.
 func FuzzServerSentEventParsingDeterminism(f *testing.F) {
 	for _, seed := range []string{
 		"data: value\n\n",

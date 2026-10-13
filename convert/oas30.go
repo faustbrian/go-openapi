@@ -79,6 +79,10 @@ func (converter *oas30SchemaConverter) document(
 	}
 }
 
+// Only located Schema Objects reach this translation; arbitrary example and
+// extension data must not acquire JSON Schema keyword semantics. The legacy
+// nullable/exclusive-bound forms are rewritten, while malformed source keywords
+// become loss diagnostics rather than being silently declared equivalent.
 func (converter *oas30SchemaConverter) schema(
 	value jsonvalue.Value,
 	pointer string,

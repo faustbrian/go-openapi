@@ -1,4 +1,10 @@
-// Package specification maintains traceability to pinned OpenAPI prose.
+// Package specification extracts reviewable normative clauses and Object table
+// rows from caller-supplied Markdown and writes deterministic TSV inventories.
+// Extractors borrow readers and writers without closing them and impose a line
+// bound, not a complete file/row-count or cancellation policy. Provenance paths
+// and versions are supplied metadata, not independently authenticated here.
+// Inventories retain repeated variant rows; model generation and normative
+// evidence review apply their own selection and interpretation rules.
 package specification
 
 import (
@@ -22,13 +28,20 @@ var normativeKeyword = regexp.MustCompile(
 // sentence containing more than one keyword produces more than one occurrence
 // so evidence cannot accidentally cover an unreviewed clause.
 type Occurrence struct {
-	ID      string
+	// ID is a deterministic version-local occurrence sequence, not a content digest.
+	ID string
+	// Version is the pinned prose revision supplied to extraction.
 	Version string
-	Source  string
-	Line    int
+	// Source is the caller-provided repository-relative provenance path.
+	Source string
+	// Line is the one-based source line containing the keyword.
+	Line int
+	// Section is the latest Markdown heading, or Document before any heading.
 	Section string
+	// Keyword is one matched uppercase BCP 14 term.
 	Keyword string
-	Text    string
+	// Text retains normalized line text; multiple keywords can share the same line.
+	Text string
 }
 
 // WriteNormativeTSV writes the stable normative occurrence interchange used

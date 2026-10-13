@@ -154,13 +154,22 @@ type ComponentRenamer func(ComponentRename) (string, error)
 
 // MergeOptions bounds merge work and controls collisions.
 type MergeOptions struct {
-	MaxDocuments          int
-	MaxEntries            int
-	MaxDepth              int
-	MaxValueNodes         int
+	// MaxDocuments caps supplied documents; zero uses the default.
+	MaxDocuments int
+	// MaxEntries caps merge and preparation entries independently; zero uses the default.
+	MaxEntries int
+	// MaxDepth caps recursive value comparison and rewriting; zero uses the default.
+	MaxDepth int
+	// MaxValueNodes caps semantic comparison and rewrite work; zero uses the default.
+	MaxValueNodes int
+	// MaxComponentNameBytes caps selected component names; zero uses the default.
 	MaxComponentNameBytes int
-	ResolveConflict       ConflictResolver
-	RenameComponent       ComponentRenamer
+	// ResolveConflict is a synchronous, unretained collision callback; nil rejects collisions.
+	// ResolveConflict errors abort without a result and panics propagate.
+	ResolveConflict ConflictResolver
+	// RenameComponent selects an unused name after RenameIncoming. Nil uses the
+	// deterministic suggestion; the callback is synchronous and its errors abort.
+	RenameComponent ComponentRenamer
 }
 
 // DefaultMergeOptions returns conservative untrusted-document bounds.

@@ -16,6 +16,9 @@ import (
 	"github.com/faustbrian/go-openapi/v2/validate"
 )
 
+// This opt-in publicinterop fixture qualification retains pinned descriptions
+// and expected diagnostic classes. It is separate from the ordinary native
+// Examples and source-documentation proof, not rerun for comment-only changes.
 func TestPinnedPublicDescriptions(t *testing.T) {
 	for _, fixture := range []struct {
 		name string

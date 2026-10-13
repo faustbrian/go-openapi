@@ -54,9 +54,11 @@ JSON surrogate escapes. YAML is not a general-purpose YAML loader.
 
 **Observed fact:** Input bytes are read through the caller context under
 `parse.Limits`. JSON checks cancellation during token traversal. YAML checks it
-while the underlying decoder consumes syntax and at both document boundaries,
-then during semantic traversal. Parser diagnostics do not include source text
-or member names.
+through context-aware reader calls and at document boundaries, then during
+semantic traversal. It cannot preempt a decoder using already-buffered bytes or
+an arbitrary blocked reader. Package-produced parser `Error()` strings format
+fixed codes and locations; underlying decoder/reader causes remain available
+and are not sanitized.
 
 **Inference:** YAML alias expansion, parser differentials, and diagnostic
 reflection cannot be used to smuggle alternative OpenAPI semantics through the
@@ -178,8 +180,9 @@ resource ceilings or the selected evaluator version change.
 ## Concurrency and ownership
 
 **Observed fact:** Parsed semantic values and generated models are immutable.
-Collection accessors return outer slices owned by the caller. Resolver counters,
-compiler construction, and validation caches are synchronized. Callbacks are
+Collection accessors return outer slices owned by the caller, not deep copies
+of arbitrary generic elements or new backing storage for immutable strings.
+Resolver counters, compiler construction, and validation caches are synchronized. Callbacks are
 not deliberately invoked while package locks are held. Race tests exercise all
 production packages.
 
@@ -196,10 +199,29 @@ renderers and generators must apply contextual escaping.
 
 **Observed fact:** The module emits no telemetry. Resolver access errors redact
 paths, URLs, host details, anchor text, and underlying transport messages while
-preserving stable error classification. Parser `Error()` strings are bounded
-and content-free. A caller can deliberately inspect wrapped reader errors with
-`errors.Unwrap`; those causes belong to the caller's reader trust boundary and
+preserving stable error classification. Package-produced parser `Error()`
+strings use fixed codes and locations;
+caller-assigned exported fields are not a privacy boundary. A caller can inspect
+wrapped reader or decoder errors with `errors.Unwrap`; those causes belong to the caller's reader trust boundary and
 should not be logged blindly.
+
+## Current source-contract limitations
+
+Input admission and traversal limits are distinct from strict allocation or time
+ceilings. JSON decoder strings and YAML syntax trees can be built before semantic
+limits; parameter encoders and some media helpers build intermediate text before
+output-size checks. `serialize.JSON`/`YAML` borrow writers and can leave partial
+output on cancellation, bounds or writer failure. Generation replaces files
+atomically one at a time, not as a multi-file transaction.
+
+`validate.Options.FailFast` and `MaxDiagnostics` truncate after validation passes; they do
+not stop traversal, external callbacks or intermediate diagnostic collection.
+`expression.Template.Evaluate` currently discards internal marshal errors for
+non-string values and substitutes empty text when the default JSON marshal limits
+are exceeded. This is a loss-of-output limitation, not a conformance guarantee.
+`media.ValidateLinksetJSON` also discards its internal marshal error, so its input
+byte check cannot be relied upon when default marshaling fails. Caller admission
+remains necessary; these existing behaviors are documented, not repaired here.
 
 ## Supply chain and update procedure
 

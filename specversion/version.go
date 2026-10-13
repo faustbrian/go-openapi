@@ -1,5 +1,9 @@
 // Package specversion defines supported OpenAPI and Swagger versions without
-// importing any version-specific model package.
+// importing any version-specific model package. Parse accepts exact pinned
+// revisions only: 2.0, 3.0.0–3.0.4, 3.1.0–3.1.2, and 3.2.0. It distinguishes
+// malformed syntax from unsupported but syntactically valid versions; it does
+// not normalize leading zeroes or infer a nearest supported patch. Version's
+// invalid zero value prints an empty string and has an empty dialect.
 package specversion
 
 import (
@@ -19,10 +23,14 @@ var ErrUnsupportedVersion = errors.New("unsupported specification version")
 type Dialect string
 
 const (
+	// DialectSwagger20 identifies the separated Swagger 2.0 rules.
 	DialectSwagger20 Dialect = "swagger-2.0"
-	DialectOAS30     Dialect = "openapi-3.0"
-	DialectOAS31     Dialect = "openapi-3.1"
-	DialectOAS32     Dialect = "openapi-3.2"
+	// DialectOAS30 identifies supported OpenAPI 3.0 revisions.
+	DialectOAS30 Dialect = "openapi-3.0"
+	// DialectOAS31 identifies supported OpenAPI 3.1 revisions.
+	DialectOAS31 Dialect = "openapi-3.1"
+	// DialectOAS32 identifies the pinned OpenAPI 3.2 revision.
+	DialectOAS32 Dialect = "openapi-3.2"
 )
 
 // Version preserves the exact supported patch revision. Its zero value is

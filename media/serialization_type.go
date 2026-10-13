@@ -27,27 +27,38 @@ var (
 type SerializationDataType string
 
 const (
-	SerializationDataTypeAny     SerializationDataType = "any"
-	SerializationDataTypeNull    SerializationDataType = "null"
+	// SerializationDataTypeAny indicates no narrowing from the complete JSON data model.
+	SerializationDataTypeAny SerializationDataType = "any"
+	// SerializationDataTypeNull selects a null representation.
+	SerializationDataTypeNull SerializationDataType = "null"
+	// SerializationDataTypeBoolean selects a boolean representation.
 	SerializationDataTypeBoolean SerializationDataType = "boolean"
-	SerializationDataTypeNumber  SerializationDataType = "number"
-	SerializationDataTypeString  SerializationDataType = "string"
-	SerializationDataTypeArray   SerializationDataType = "array"
-	SerializationDataTypeObject  SerializationDataType = "object"
+	// SerializationDataTypeNumber selects numeric data, including schema integer types.
+	SerializationDataTypeNumber SerializationDataType = "number"
+	// SerializationDataTypeString selects string data.
+	SerializationDataTypeString SerializationDataType = "string"
+	// SerializationDataTypeArray selects ordered JSON array data.
+	SerializationDataTypeArray SerializationDataType = "array"
+	// SerializationDataTypeObject selects JSON object data.
+	SerializationDataTypeObject SerializationDataType = "object"
 )
 
 // SerializationTypeOptions controls bounded OpenAPI 3.2 serialization type
 // selection. A valid Data value takes precedence over schema inspection.
 // Resolver is invoked only for references that leave Resource.
 type SerializationTypeOptions struct {
-	Data            jsonvalue.Value
-	Resolver        reference.Resolver
+	// Data selects its actual JSON kind when valid; callers, not this function, validate it against schema.
+	Data jsonvalue.Value
+	// Resolver is borrowed for external references; nil denies external retrieval.
+	Resolver reference.Resolver
+	// ReferenceLimits bounds target traversal; only the entirely zero struct receives defaults.
 	ReferenceLimits reference.Limits
-	MaxSchemas      int
+	// MaxSchemas caps visited schema nodes; zero defaults to 100,000 and negatives fail.
+	MaxSchemas int
 }
 
 // SelectSerializationDataType selects the data-model type for non-JSON
-// serialization. It inspects validated runtime data when supplied. Otherwise,
+// serialization. Supplied valid Data selects its kind without instance validation. Otherwise,
 // it follows only $ref and allOf because those schemas apply to every instance;
 // ambiguous applicators such as oneOf, anyOf, and $dynamicRef are not inferred.
 func SelectSerializationDataType(

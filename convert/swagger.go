@@ -70,6 +70,9 @@ func (converter *swagger20Converter) referenceSiblingLoss(
 	}
 }
 
+// Conversion never fetches the resource behind an external reference. Keep the
+// reference and require caller review instead of asserting that its separately
+// stored target was converted along with this document.
 func (converter *swagger20Converter) externalReference(
 	reference string,
 	pointer string,

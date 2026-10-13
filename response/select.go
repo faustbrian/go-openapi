@@ -1,4 +1,9 @@
-// Package response selects response definitions for concrete HTTP statuses.
+// Package response selects response definitions for concrete HTTP statuses and
+// prepares focused header values without sending a response. Select uses exact,
+// uppercase range and default precedence without validating or resolving the
+// chosen member. Header helpers return copied slices over immutable strings or
+// values; callers own actual transport emission, including separate Set-Cookie
+// fields and any application policy beyond the checked field syntax.
 package response
 
 import (
@@ -46,14 +51,19 @@ const (
 
 // Match is one immutable response selection.
 type Match struct {
-	Key   string
-	Kind  MatchKind
+	// Key is the exact selected response member: status digits, uppercase range, or default.
+	Key string
+	// Kind records the precedence class used to select Key.
+	Kind MatchKind
+	// Value is the retained immutable source member; Select does not validate its shape.
 	Value jsonvalue.Value
 }
 
 // Header retains one applicable Header or Reference Object.
 type Header struct {
-	Name  string
+	// Name preserves header spelling; Headers omits Content-Type case-insensitively.
+	Name string
+	// Value retains the Header or Reference Object without resolving it.
 	Value jsonvalue.Value
 }
 

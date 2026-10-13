@@ -11,6 +11,9 @@ import (
 	"github.com/faustbrian/go-openapi/v2/serialize"
 )
 
+// FuzzJSONAndYAMLSemanticRoundTrip parses bounded JSON, emits both formats,
+// reparses, and compares canonical semantic bytes; this is a self round-trip,
+// not an independent serializer oracle.
 func FuzzJSONAndYAMLSemanticRoundTrip(f *testing.F) {
 	for _, seed := range []string{
 		`null`,

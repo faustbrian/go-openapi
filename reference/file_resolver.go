@@ -33,10 +33,14 @@ var (
 // are authorized after symlink evaluation, and only .json, .yaml, and .yml
 // resources are accepted.
 type FileResolverOptions struct {
+	// AllowedRoots lists existing directories opened at construction; the slice is not retained.
 	AllowedRoots []string
-	MaxBytes     int64
+	// MaxBytes caps each file input, further restricted by ParseLimits.MaxBytes.
+	MaxBytes int64
+	// MaxDocuments caps admitted calls cumulatively, including failures after reservation.
 	MaxDocuments int
-	ParseLimits  parse.Limits
+	// ParseLimits must be fully positive; its byte limit is clamped to MaxBytes.
+	ParseLimits parse.Limits
 }
 
 // DefaultFileResolverOptions returns bounded parsing defaults but no allowed

@@ -26,8 +26,11 @@ wire-compatible API change is compatible with an application's business rules.
 
 Use `errors.Is` with the sentinel categories exported by the package that owns
 the failed operation. Do not classify failures by matching error strings.
-Parser and resolver messages are bounded and redact untrusted content; wrapped
-causes should be logged only when their caller-owned source is safe to disclose.
+Package-produced parser messages use fixed codes and locations; unwrapped
+reader/decoder causes are not sanitized, and exported diagnostic fields can be
+assigned arbitrary text. Built-in resolver access failures withhold resource
+details, but validation diagnostics can include source names. Log only content
+whose source is safe to disclose.
 Context cancellation and deadlines remain distinguishable through the supplied
 context.
 

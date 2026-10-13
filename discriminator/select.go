@@ -1,5 +1,9 @@
 // Package discriminator selects Schema Object mapping hints without changing
-// JSON Schema validation outcomes.
+// JSON Schema validation outcomes. Select matches an exact string property,
+// explicit mapping or absent-property default; it does not retrieve targets or
+// authenticate payloads. MaxMappings bounds the source map, not an overall
+// instance traversal or memory budget. Results retain immutable source strings
+// and are safe to share; errors return no partial selection.
 package discriminator
 
 import (
@@ -18,6 +22,7 @@ var (
 
 // Limits bounds caller-controlled discriminator mappings.
 type Limits struct {
+	// MaxMappings caps mapping entries and must be positive; zero is not defaulted.
 	MaxMappings int
 }
 
@@ -50,11 +55,16 @@ const (
 
 // Selection is one immutable discriminator hint.
 type Selection struct {
+	// PropertyName is the exact discriminator property key in the instance.
 	PropertyName string
-	Value        string
-	Target       string
-	TargetKind   TargetKind
-	MatchKind    MatchKind
+	// Value is the selected string property, or empty for an absent-property default.
+	Value string
+	// Target is the mapping string or implicit schema name; it has not been resolved.
+	Target string
+	// TargetKind classifies the target spelling, not a verified resource type.
+	TargetKind TargetKind
+	// MatchKind records explicit mapping, implicit name, or absent-property default selection.
+	MatchKind MatchKind
 }
 
 // Select derives a schema-selection hint from one Discriminator Object and

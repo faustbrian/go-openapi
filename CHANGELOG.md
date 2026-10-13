@@ -4,6 +4,12 @@
 
 ### Changed
 
+- Document parser admission/cancellation and diagnostic privacy, shallow generic
+  container ownership, post-collection validation output caps, partial writer
+  output, and existing expression/linkset marshaling limitations. Regenerate
+  versioned model comments from the genuine producer with the repository-root
+  recipe and clarify typed shape checks versus document validity.
+
 - Adopt published OpenAPI v2.0.0 and JSON Schema v2.0.0 in the maintained
   interoperability harness. Keep peer versions and historical observations
   unchanged; candidate checks no longer rewrite owned import paths.

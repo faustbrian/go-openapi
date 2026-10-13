@@ -18,7 +18,9 @@ var ErrInvalidDocument = errors.New("invalid OpenAPI document")
 // Document is the shared immutable contract implemented by every versioned
 // root model.
 type Document interface {
+	// Raw returns the entire immutable semantic root, including unknown fields.
 	Raw() jsonvalue.Value
+	// SpecificationVersion returns the exact selected supported revision.
 	SpecificationVersion() Version
 }
 

@@ -1,5 +1,13 @@
 // Package expression parses and evaluates OpenAPI runtime expressions and
 // embedded callback or link expression templates against caller-owned data.
+// Parse and ParseTemplate construct immutable syntax views; Evaluate consumes
+// already-decoded messages without executing code or retrieving resources.
+// Parameter names are exact and headers match case-insensitively.
+//
+// Parsing has no configurable byte/depth budget. Template output is bounded,
+// but interpolation is not contextual URL/HTML/header escaping. Borrowed context
+// maps require caller synchronization. These synchronous functions do not accept
+// context.Context or guarantee a whole-input CPU/memory limit.
 package expression
 
 import (

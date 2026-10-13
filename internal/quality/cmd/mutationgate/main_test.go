@@ -64,6 +64,9 @@ func TestCheckDoesNotExposeUnknownMutantStatus(t *testing.T) {
 	}
 }
 
+// FuzzMutationReportDecoder exercises the bounded JSON report decoder without
+// asserting gate acceptance; this is panic-safety coverage, not a mutation
+// campaign.
 func FuzzMutationReportDecoder(f *testing.F) {
 	for _, seed := range []string{
 		`{}`,

@@ -1,5 +1,13 @@
 // Package parameter implements version-aware OpenAPI parameter codecs without
-// coupling serialization to an HTTP framework or router.
+// coupling serialization to an HTTP framework or router. OptionsFor derives
+// version/location defaults; Encode and Decode handle isolated parameter text,
+// not full requests, route matching or schema validation. Decoded scalar tokens
+// remain strings for caller-owned coercion and ambiguous nested shapes fail.
+//
+// No I/O or lifecycle resources are owned. Byte/item policy bounds accepted
+// input and output, but encoding can allocate intermediate text before the byte
+// check. Cookie/header styles do not supply general quoting or injection safety;
+// callers still apply the rules of the actual HTTP field and transport.
 package parameter
 
 import (

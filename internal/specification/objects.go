@@ -22,16 +22,27 @@ var (
 // ObjectField records one fixed or patterned field occurrence in normative
 // object prose. Variant tables deliberately retain repeated field names.
 type ObjectField struct {
-	ID          string
-	Version     string
-	Source      string
-	Line        int
-	Object      string
-	Variant     string
-	Name        string
-	Type        string
-	Pattern     bool
-	Required    bool
+	// ID is a deterministic version-local field sequence, not a content digest.
+	ID string
+	// Version is the pinned prose revision supplied to extraction.
+	Version string
+	// Source is the caller-provided provenance path.
+	Source string
+	// Line is the one-based source table-row line.
+	Line int
+	// Object is the normalized enclosing Object heading.
+	Object string
+	// Variant distinguishes fixed/patterned or specialized field tables.
+	Variant string
+	// Name is normalized field-name or field-pattern text from the first column.
+	Name string
+	// Type is normalized prose type text; model generation rejects unmapped types.
+	Type string
+	// Pattern marks a Field Pattern table row, rather than a fixed member.
+	Pattern bool
+	// Required records a required marker in the description, not evaluated conditional legality.
+	Required bool
+	// Description retains normalized prose table text used for human review.
 	Description string
 }
 

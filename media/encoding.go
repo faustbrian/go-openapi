@@ -56,22 +56,30 @@ var (
 
 // AppliedEncoding associates an immutable Encoding Object with an item index.
 type AppliedEncoding struct {
+	// Index is the zero-based sequential item position receiving the encoding.
 	Index int
+	// Value is the immutable Encoding Object assigned to Index.
 	Value jsonvalue.Value
 }
 
 // NamedEncodingValue associates one value with its form or multipart name and
 // Encoding Object. ItemIndex is -1 for a top-level object.
 type NamedEncodingValue struct {
-	Name      string
+	// Name is the exact source property, header, or form field spelling.
+	Name string
+	// ItemIndex is the top-level array position, or -1 for an object instance.
 	ItemIndex int
-	Encoding  jsonvalue.Value
-	Value     jsonvalue.Value
+	// Encoding retains the source Encoding Object without resolving nested references.
+	Encoding jsonvalue.Value
+	// Value is the immutable instance property or selected array item to encode.
+	Value jsonvalue.Value
 }
 
 // EncodingHeader retains one applicable Header or Reference Object.
 type EncodingHeader struct {
-	Name  string
+	// Name preserves the header spelling selected from the Encoding Object.
+	Name string
+	// Value is the retained Header or Reference Object, without target resolution.
 	Value jsonvalue.Value
 }
 
@@ -79,20 +87,30 @@ type EncodingHeader struct {
 // Nested fields are retained as immutable values for recursive application to
 // the corresponding child data and schemas.
 type EncodingApplication struct {
-	Encoding             jsonvalue.Value
-	ContentType          string
-	Headers              []EncodingHeader
-	Serialized           string
+	// Encoding retains the source Encoding Object without resolving nested references.
+	Encoding jsonvalue.Value
+	// ContentType is the selected concrete media type, rather than raw wildcard alternatives.
+	ContentType string
+	// Headers is a result-owned outer slice of applicable Header or Reference Objects.
+	Headers []EncodingHeader
+	// Serialized is the parameter-style representation when SerializationApplied is true.
+	Serialized string
+	// SerializationApplied distinguishes encoded text from data requiring a separate media codec.
 	SerializationApplied bool
-	NamedEncoding        jsonvalue.Value
-	PrefixEncoding       jsonvalue.Value
-	ItemEncoding         jsonvalue.Value
+	// NamedEncoding retains a nested named-encoding map, or an invalid zero Value when absent.
+	NamedEncoding jsonvalue.Value
+	// PrefixEncoding retains nested positional prefix encodings, or zero when absent.
+	PrefixEncoding jsonvalue.Value
+	// ItemEncoding retains the nested remainder Encoding Object, or zero when absent.
+	ItemEncoding jsonvalue.Value
 }
 
 // FormField is one already serialized name-value pair. Repeated names and
 // caller order are preserved.
 type FormField struct {
-	Name  string
+	// Name is the field name before FormURLEncode applies form escaping.
+	Name string
+	// Value is already serialized text; FormURLEncode performs form escaping.
 	Value string
 }
 

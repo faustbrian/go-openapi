@@ -1,4 +1,12 @@
-// Package media maps media-type representations into the JSON data model.
+// Package media supplies OpenAPI media representation helpers: SSE parsing,
+// named/positional Encoding application, bounded form/multipart emission, and
+// schema-derived serialization type selection. These helpers do not send HTTP
+// messages, validate complete documents, or provide arbitrary media codecs.
+//
+// Caller slices and streams are borrowed during synchronous calls. Prevent
+// concurrent mutation of mutable inputs. Immutable JSON results can be shared;
+// returned byte and result slices are caller-owned. Reference retrieval occurs
+// only through an explicit resolver supplied to type selection.
 package media
 
 import (
@@ -21,10 +29,14 @@ var (
 
 // ServerSentEventLimits bounds independent event-stream growth axes.
 type ServerSentEventLimits struct {
-	MaxBytes     int64
+	// MaxBytes caps consumed stream bytes; buffering may read ahead beyond consumed bytes.
+	MaxBytes int64
+	// MaxLineBytes caps raw bytes per line before UTF-8 replacement.
 	MaxLineBytes int
+	// MaxDataBytes caps accumulated event data, counting one separator byte per data field.
 	MaxDataBytes int
-	MaxEvents    int
+	// MaxEvents caps dispatched result events; all limits must be positive.
+	MaxEvents int
 }
 
 // DefaultServerSentEventLimits returns conservative untrusted-input bounds.
@@ -37,15 +49,21 @@ func DefaultServerSentEventLimits() ServerSentEventLimits {
 	}
 }
 
-// ServerSentEventError is a safe, stable parser diagnostic.
+// ServerSentEventError retains a parser classification and location. Package
+// diagnostics avoid stream content in Code; caller-assigned fields and unwrapped
+// Cause are not sanitized.
 type ServerSentEventError struct {
-	Code   string
+	// Code is a fixed identifier in package-produced errors, not a stream payload.
+	Code string
+	// Offset counts consumed stream bytes, not decoded rune positions.
 	Offset int64
-	Kind   error
-	Cause  error
+	// Kind is the stable invalid-input or limit classification exposed by Unwrap.
+	Kind error
+	// Cause retains an underlying reader error whose text is not sanitized.
+	Cause error
 }
 
-// Error returns bounded metadata without including stream contents.
+// Error formats Code and Offset without rendering Kind or Cause.
 func (parseError *ServerSentEventError) Error() string {
 	if parseError == nil {
 		return "parse server-sent events: <nil>"
@@ -88,7 +106,11 @@ type eventState struct {
 }
 
 // ParseServerSentEvents maps a bounded WHATWG text/event-stream into ordered
-// OpenAPI 3.2 JSON values. It performs no I/O beyond the supplied reader.
+// OpenAPI 3.2 JSON values. It performs no I/O beyond the borrowed reader, which
+// is never closed. Cancellation is polled between buffered reads and cannot
+// interrupt a blocked Read or Peek. Invalid UTF-8 is replaced with U+FFFD.
+// Events require a terminating blank line; EOF drops an incomplete final event.
+// Errors return nil, not the already-dispatched partial event slice.
 func ParseServerSentEvents(
 	ctx context.Context,
 	reader io.Reader,

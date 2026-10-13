@@ -1,5 +1,9 @@
 // Package specification embeds the exact specification resources pinned by
-// this module.
+// this module. Read returns copied bytes from embedded schema and IANA registry
+// resources, not the complete normative Markdown corpus or a network loader.
+// Names are embed.FS paths; unsupported names return an error. Authentication is
+// performed by maintainer provenance gates against manifest pins, not afresh on
+// each Read, and informative schemas do not supersede normative prose.
 package specification
 
 import (

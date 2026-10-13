@@ -1,5 +1,14 @@
 // Package jsonschema integrates OpenAPI Schema Object dialects with the
-// canonical json-schema evaluator.
+// canonical json-schema evaluator. NewCompilerForDocument selects pinned
+// Swagger/OpenAPI rules or an explicit declared dialect; Compile validates a
+// Schema Object before constructing an instance evaluation plan. It does not
+// validate the containing OpenAPI document.
+//
+// External schemas require an explicit loader. Pinned resources take precedence;
+// custom loaders/keyword callbacks remain application-owned, including context
+// cooperation and concurrency safety. Compiler instances own their caches and
+// start no background lifecycle. Immutable compiled plans use the public
+// github.com/faustbrian/go-json-schema/v2 contract and its separate limits.
 package jsonschema
 
 import (
@@ -78,7 +87,9 @@ type ResourceLoaderFunc = canonical.ResourceLoaderFunc
 type KeywordCompiler = canonical.KeywordCompiler
 
 // Compiler validates Schema Objects against their OpenAPI vocabulary before
-// compiling them into concurrent-safe evaluation plans.
+// compiling them into concurrent-safe evaluation plans. Concurrent Compile and
+// ValidateSchema calls share pinned/default dialect construction; custom provider
+// implementations must independently support the concurrency used by the caller.
 type Compiler struct {
 	defaultDialect  Dialect
 	baseURI         string
@@ -122,7 +133,9 @@ type vocabulary struct {
 // Document supplies the root fields needed to choose a Schema Object base
 // dialect without coupling this package to the root openapi package.
 type Document interface {
+	// Raw returns the immutable document root used to inspect dialect declarations.
 	Raw() jsonvalue.Value
+	// SpecificationVersion returns the selected supported specification revision.
 	SpecificationVersion() specversion.Version
 }
 
@@ -695,6 +708,10 @@ func escapeSchemaPointerToken(token string) string {
 	return strings.ReplaceAll(strings.ReplaceAll(token, "~", "~0"), "/", "~1")
 }
 
+// Pinned/default dialect construction is single-flight per compiler. The first
+// caller owns construction and its context; waiters may cancel independently.
+// Closing ready publishes initialized fields, and failed entries are removed so
+// later calls may retry rather than retaining a transient failure permanently.
 func (compiler *Compiler) engine(
 	ctx context.Context,
 	dialect Dialect,

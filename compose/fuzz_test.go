@@ -11,6 +11,9 @@ import (
 	"github.com/faustbrian/go-openapi/v2/parse"
 )
 
+// FuzzFilterOperationsKeepAllIsIdentity parses bounded descriptions across
+// dialects and checks keep-all filtering preserves bytes, revision and zero
+// removals.
 func FuzzFilterOperationsKeepAllIsIdentity(f *testing.F) {
 	for _, seed := range []string{
 		`{"openapi":"3.2.0","info":{"title":"API","version":"1"},"paths":{}}`,
@@ -62,6 +65,9 @@ func FuzzFilterOperationsKeepAllIsIdentity(f *testing.F) {
 	})
 }
 
+// FuzzMergeIdenticalDocumentsIsIdentity checks merging a bounded parsed
+// description with itself preserves semantic bytes and produces no
+// contributions.
 func FuzzMergeIdenticalDocumentsIsIdentity(f *testing.F) {
 	for _, seed := range []string{
 		`{"openapi":"3.2.0","paths":{},"components":{"schemas":{"Pet":true}}}`,

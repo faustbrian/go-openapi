@@ -24,20 +24,32 @@ var ErrLimitExceeded = errors.New("runtime expression limit exceeded")
 // Message contains typed caller-owned values from one HTTP message. Header
 // names are matched case-insensitively; query and path names are case-sensitive.
 type Message struct {
+	// Headers is borrowed during evaluation; names match case-insensitively.
+	// Headers with multiple matching spellings produce an ambiguity error.
 	Headers map[string]string
-	Query   map[string]jsonvalue.Value
-	Path    map[string]jsonvalue.Value
-	Body    jsonvalue.Value
+	// Query is a borrowed map of exact parameter names to immutable values.
+	Query map[string]jsonvalue.Value
+	// Path is a borrowed map of exact path parameter names to immutable values.
+	Path map[string]jsonvalue.Value
+	// Body is already-decoded data; the invalid zero Value means unavailable.
+	Body jsonvalue.Value
 }
 
 // Context contains the runtime request and response values available to an
 // expression. Evaluation reads but never mutates the supplied maps or values.
+// Callers must prevent concurrent map mutation; evaluation performs no I/O and
+// provides no context cancellation or input traversal budget.
 type Context struct {
-	URL        string
-	Method     string
+	// URL supplies $url; an empty string means unavailable, not a validated URI.
+	URL string
+	// Method supplies $method verbatim; an empty string means unavailable.
+	Method string
+	// StatusCode supplies $statusCode; zero means unavailable and accepted values are 100–999.
 	StatusCode int
-	Request    Message
-	Response   Message
+	// Request supplies $request expressions without reading a live HTTP request.
+	Request Message
+	// Response supplies $response expressions without reading a live HTTP response.
+	Response Message
 }
 
 // EvaluationOptions bounds embedded template evaluation.
@@ -153,7 +165,11 @@ func unavailable(label string) error {
 }
 
 // Evaluate renders a template, converting non-string semantic values to their
-// deterministic JSON representation.
+// deterministic JSON representation. MaxOutputBytes bounds accumulated text,
+// not intermediate JSON marshaling. Existing behavior converts a non-string
+// value that exceeds jsonvalue.DefaultMarshalLimits to empty text because the
+// internal marshal error is discarded; this is a limitation, not successful
+// lossless rendering. On a reported error, Evaluate returns an empty string.
 func (template Template) Evaluate(context Context, options EvaluationOptions) (string, error) {
 	maximum := options.MaxOutputBytes
 	if maximum < 0 {

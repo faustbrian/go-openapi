@@ -105,14 +105,19 @@ alone.
 Plain functions handle stateless value operations. Constructors validate
 coherent options before returning immutable values or concurrency-safe
 resolvers and validators; named `Default*` functions expose finite defaults.
-Operations that accept a context honor cancellation; pure bounded value
-operations remain context-free. Stable error categories support `errors.Is`.
+Operations that accept a context poll cancellation at their documented
+boundaries; arbitrary blocked reader, writer or provider calls require caller
+cooperation. Pure value operations remain context-free. Byte/output caps do not
+universally bound intermediate allocation, and diagnostic caps trim collected
+output rather than validation work. Stable error categories support `errors.Is`.
 The package does not orchestrate retries, although its standard-library HTTP
 transport may retry eligible idempotent requests after a reused-connection
 failure.
 
-Parsed values own their immutable data. Callers own supplied readers, writers,
-callbacks, and explicit resolver implementations. A file resolver owns its
+Parsed values and generated views share immutable data; string backing storage
+can be retained without cloning. Generic `model` containers copy outer slices,
+not mutable contents of caller-defined elements. Callers own supplied readers,
+writers, callbacks, and explicit resolver implementations. A file resolver owns its
 opened roots and must be closed; a built-in HTTP resolver owns its private
 transport and retains idle connections, which the caller releases with
 `CloseIdleConnections`. The package starts no background lifecycle. See the

@@ -1,5 +1,12 @@
 // Package jsonvalue provides an immutable JSON semantic value that preserves
-// exact number spelling and object member order.
+// exact number spelling and object member order. Constructors validate local
+// shape and copy outer collection slices, but do not impose parser admission
+// limits. Strings and immutable child values may share backing storage safely.
+//
+// MarshalJSONWithLimits measures the complete representation before allocating
+// output and returns nil bytes on failure. JSON whitespace, escape spelling and
+// presentation are not preserved. Values can be read concurrently; this package
+// performs no I/O and does not validate OpenAPI versions or schema rules.
 package jsonvalue
 
 import (
@@ -42,8 +49,11 @@ var ErrMarshalLimit = errors.New("JSON value serialization limit exceeded")
 // MarshalLimits bounds every independently controllable serialization growth
 // axis.
 type MarshalLimits struct {
+	// MaxBytes caps the complete encoded JSON length; it must be positive.
 	MaxBytes int
+	// MaxDepth caps value nesting, counting the root as one; it must be positive.
 	MaxDepth int
+	// MaxNodes caps semantic values including the root; it must be positive.
 	MaxNodes int
 }
 
@@ -60,10 +70,12 @@ func DefaultMarshalLimits() MarshalLimits {
 
 var numberPattern = regexp.MustCompile(`^-?(0|[1-9][0-9]*)(\.[0-9]+)?([eE][+-]?[0-9]+)?$`)
 
-// Member is one object member. Object copies the supplied slice and member
-// names before retaining it.
+// Member is one object member. Object copies the outer slice, retaining
+// immutable values and strings without forcing new string backing storage.
 type Member struct {
-	Name  string
+	// Name is an exact UTF-8 member name. Object rejects duplicates, but permits empty names.
+	Name string
+	// Value is an immutable child; its invalid zero value is rejected by Object.
 	Value Value
 }
 

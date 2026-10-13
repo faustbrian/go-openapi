@@ -1,3 +1,8 @@
+// Command specmatrix extracts normative clauses and object fields from pinned
+// Markdown selected by specification/manifest.json. The -root flag defaults to
+// the current directory; repository-root go generate . runs this before modelgen.
+// It replaces each TSV atomically and creates evidence.tsv only when absent.
+// Pin authentication is a separate provenance check, not implicit in extraction.
 package main
 
 import (

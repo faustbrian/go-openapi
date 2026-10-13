@@ -30,9 +30,12 @@ const (
 
 // NullPlan describes the OpenAPI-recommended XML representation of null.
 type NullPlan struct {
-	Omit         bool
+	// Omit indicates an absent XML attribute representation for null.
+	Omit bool
+	// EmptyElement requests an empty element, paired with Attributes, rather than omission.
 	EmptyElement bool
-	Attributes   []xml.Attr
+	// Attributes is a caller-owned slice for the xsi:nil marker; PlanNull creates it per call.
+	Attributes []xml.Attr
 }
 
 // PlanNull returns the OpenAPI-recommended representation for a null property.
