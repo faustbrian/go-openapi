@@ -236,3 +236,12 @@ that changed-content boundary rather than rescanning immutable historical data.
 The parent independent whole-final-diff disposition remains pending before the
 coherent Intent commit. Publication, hosted CI and enforcement remain
 coordinator-owned.
+
+## Objective Enforcement
+
+The checksum-pinned public Tools v2.4.1 verifier now supplies
+`make source-docs-check` as a prerequisite of the existing local and CI Make
+routes. Ordinary shared CI selects strict source-documentation checking and
+requires its result. Native prerequisites, operation budgets, security and
+release controls are retained. Hosted exact-head evidence is recorded by the
+coordination ledger; configuration alone does not establish green delivery.

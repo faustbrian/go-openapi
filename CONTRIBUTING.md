@@ -45,7 +45,7 @@ GOWORK=off go test ./...
 Both declared modules have no services or test/build tags. The untagged command
 runs deterministic fuzz seeds and saved corpus regressions, not active
 exploration or the explicit `publicinterop` corpus. With the checksum-pinned
-public Tools v2.1.1 verifier selected by `.golib.yaml`, run from the root:
+public Tools v2.4.1 verifier selected by `.golib.yaml`, run from the root:
 
 ```bash
 make inventory
@@ -118,3 +118,12 @@ Follow [repository structure policy](AGENTS.md#repository-structure). New module
 require an explicit purpose, ownership boundary, dependency review, package
 catalog entry, full quality gates, documentation, changelog, license, security
 policy, compatibility plan, and release dry-run.
+
+## Source Documentation
+
+Install the checksum-pinned public verifier declared in `.golib.yaml`.
+`make source-docs-check` validates objective Go comment, marker, link and
+generated-producer structure; `make check`, `make check-full` and `make ci`
+require it before their existing checks. Shared CI runs the same strict
+contract and includes its result in Required. This is structural enforcement,
+not a substitute for source-truth review or behavioral verification.
