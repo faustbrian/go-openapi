@@ -1,5 +1,7 @@
 # Dependency audit
 
+[Documentation index](README.md) · [Repository entry](../README.md)
+
 The machine-readable [dependency inventory](dependencies.tsv) records the
 2026-07-22 historical review, including graph-only modules. It is not proof of
 the current selected build list; use `go.mod`, `go.sum` and resolved module
@@ -42,3 +44,6 @@ the sibling JSON Schema implementation for ECMAScript compatibility, so schema
 evaluation must retain its explicit execution limits. Replacing it requires an
 ECMAScript-compatible engine and full JSON Schema conformance evidence; a
 feature-narrowing substitution is not acceptable.
+
+Choose the next guide in the [documentation index](README.md)
+or return to the [repository entry](../README.md) for installation and ownership.

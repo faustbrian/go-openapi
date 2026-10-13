@@ -1,5 +1,7 @@
 # Security and trust-boundary model
 
+[Documentation index](README.md) · [Repository entry](../README.md)
+
 This document describes the implemented security model reviewed by the
 2026-07-22 release audit. It is a bounded engineering claim, not a guarantee
 against every future input, dependency defect, or caller misconfiguration.
@@ -250,3 +252,6 @@ cross-platform tests remain separate evidence under
 [interoperability](interoperability.md), [performance](performance.md), and
 `specification/conformance/`. None may be inferred from this threat model,
 aggregate coverage, official-schema success, or self round trips.
+
+Choose the next guide in the [documentation index](README.md)
+or return to the [repository entry](../README.md) for installation and ownership.

@@ -1,5 +1,7 @@
 # Documentation
 
+[Repository entry](../README.md) · [Versioned ecosystem](https://github.com/faustbrian/go-library-tools/blob/v1.4.0/docs/ecosystem/README.md)
+
 `openapi` parses, models, validates, transforms, and compares Swagger and
 OpenAPI documents. Start with the README quickstart, then use the sections
 below for deeper contracts.
@@ -38,3 +40,15 @@ authoritative API reference.
 
 Historical audit snapshots are retained in Git history rather than published
 as current release documentation.
+
+## Complete documentation map
+
+- [Dependency audit](dependencies.md) — `docs/dependencies.md`
+- [FAQ and troubleshooting](faq.md) — `docs/faq.md`
+- [Interoperability evidence](interoperability.md) — `docs/interoperability.md`
+- [Package map](package-map.md) — `docs/package-map.md`
+- [Performance and complexity evidence](performance.md) — `docs/performance.md`
+- [Feature reference](reference.md) — `docs/reference.md`
+- [Security and trust-boundary model](security.md) — `docs/security.md`
+- [Source documentation audit](source-documentation-audit.md) — `docs/source-documentation-audit.md`
+- [Specification decisions](specification-decisions.md) — `docs/specification-decisions.md`

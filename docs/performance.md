@@ -1,5 +1,7 @@
 # Performance and complexity evidence
 
+[Documentation index](README.md) · [Repository entry](../README.md)
+
 This document defines the benchmark methodology and release regression policy.
 The latest retained historical run is
 [`2026-07-22-darwin-arm64.txt`](benchmarks/2026-07-22-darwin-arm64.txt).
@@ -95,3 +97,6 @@ policy, resolver state, input and output limits, diagnostics, cold or warm
 state, and successful result semantics. Until those conditions are met,
 independent implementations are interoperability evidence only and their
 numbers are not comparable to this suite.
+
+Choose the next guide in the [documentation index](README.md)
+or return to the [repository entry](../README.md) for installation and ownership.

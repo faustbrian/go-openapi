@@ -1,5 +1,7 @@
 # FAQ and troubleshooting
 
+[Documentation index](README.md) · [Repository entry](../README.md)
+
 ## Which package should an application import first?
 
 Start with `github.com/faustbrian/go-openapi/v2`. Its `ParseJSON` and `ParseYAML`
@@ -96,3 +98,6 @@ versions are rejected rather than interpreted as the latest known version.
 Use the [support process](../SUPPORT.md) for reproducible defects and adoption
 questions. Report security vulnerabilities through the private process in
 [SECURITY.md](../SECURITY.md).
+
+Choose the next guide in the [documentation index](README.md)
+or return to the [repository entry](../README.md) for installation and ownership.

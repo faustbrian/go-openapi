@@ -1,5 +1,7 @@
 # Interoperability evidence
 
+[Documentation index](README.md) · [Repository entry](../README.md)
+
 The decision-attributed review is
 [`specification/interoperability.tsv`](../specification/interoperability.tsv).
 The isolated harness owns the raw executable matrix in
@@ -185,3 +187,6 @@ configured interoperability operation. Ordinary scheduled shared CI runs bounded
 checks, not this full comparison. Version or behavior drift is a failure
 requiring review; the expected matrix must never be loosened merely to accept
 a new independent result.
+
+Choose the next guide in the [documentation index](README.md)
+or return to the [repository entry](../README.md) for installation and ownership.

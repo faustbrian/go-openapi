@@ -1,5 +1,7 @@
 # Feature reference
 
+[Documentation index](README.md) · [Repository entry](../README.md)
+
 This reference contains the detailed behavior and usage notes for the public
 OpenAPI surfaces. Start with the root README and documentation index before
 using this package-level reference.
@@ -999,3 +1001,6 @@ The isolated interoperability comparison and its independent dependency graph,
 fixture policy and classified observations are documented in
 [interoperability evidence](interoperability.md). Candidate composition is not
 proof that the root version is publicly available.
+
+Choose the next guide in the [documentation index](README.md)
+or return to the [repository entry](../README.md) for installation and ownership.

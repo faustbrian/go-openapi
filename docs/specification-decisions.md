@@ -1,5 +1,7 @@
 # Specification decisions
 
+[Documentation index](README.md) · [Repository entry](../README.md)
+
 This document records package decisions where the pinned OpenAPI prose,
 published artifacts, or accepted errata need interpretation. The order of
 authority is normative prose, accepted OpenAPI Initiative errata, published
@@ -271,3 +273,6 @@ Additional authoritative sources: `{"id":"rfc8259-source","version":"RFC 8259","
 None for the interpretations currently recorded here. New accepted errata,
 retrieval semantics, or parser compatibility exceptions require a stable
 decision before implementation.
+
+Choose the next guide in the [documentation index](README.md)
+or return to the [repository entry](../README.md) for installation and ownership.
