@@ -883,8 +883,11 @@ consumers without field-line injection.
 contexts, relation arrays, URI-reference targets, and standard, extension, and
 internationalized target attributes. `media.SerializeLinkset` transcodes that
 same model to deterministic `application/linkset` text, repeats shared anchors
-for each emitted link, and RFC 8187-encodes internationalized attributes. Both
-operations are local-only and enforce independent link-count and byte bounds.
+for each emitted link regardless of context member order, and RFC 8187-encodes
+internationalized attributes. Both operations are local-only and enforce
+independent link-count and byte bounds. Input representation also obeys
+`jsonvalue.DefaultMarshalLimits`; a representation failure propagates its cause
+and serialization publishes no partial text.
 OpenAPI 3.2 document validation also statically checks `application/linkset`
 and `application/linkset+json` schemas for the required root `linkset` array,
 context objects, relation arrays, and required string `href` targets through

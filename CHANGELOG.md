@@ -2,11 +2,24 @@
 
 ## Unreleased
 
+## 2.0.2 - 2026-10-14
+
+### Fixed
+
+- Propagate JSON representation failures from embedded expressions and RFC 9264
+  link validation instead of silently losing values or accepting unrepresentable
+  input. Failed expression and link serialization return no partial output.
+- Apply context anchors to all links regardless of member order, while preserving
+  emitted link order and rejecting invalid anchors before output.
+
 ### Changed
+
+- Adopt pinned shared supply-chain verification and strict source-documentation
+  checks, and make standalone adoption and package ownership guidance explicit.
 
 - Document parser admission/cancellation and diagnostic privacy, shallow generic
   container ownership, post-collection validation output caps, partial writer
-  output, and existing expression/linkset marshaling limitations. Regenerate
+  output, and expression/link representation admission. Regenerate
   versioned model comments from the genuine producer with the repository-root
   recipe and clarify typed shape checks versus document validity.
 

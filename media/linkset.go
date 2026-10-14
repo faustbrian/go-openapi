@@ -19,10 +19,9 @@ var (
 
 // ValidateLinksetJSON validates a bounded application/linkset+json value. The
 // root object, contexts, relations, targets, and target attributes follow the
-// RFC 9264 model. No URI is retrieved. Existing behavior ignores an internal
-// default-limit MarshalJSON error, so maxBytes does not establish input byte
-// admission when marshaling fails. Bound semantic input separately; this is a
-// limitation of the current implementation, not a specification interpretation.
+// RFC 9264 model. No URI is retrieved. Input representation obeys both
+// jsonvalue.DefaultMarshalLimits and maxBytes; marshal errors propagate before
+// link traversal. Construction of caller-owned semantic input is not bounded.
 func ValidateLinksetJSON(
 	value jsonvalue.Value,
 	maxLinks int,
@@ -34,11 +33,9 @@ func ValidateLinksetJSON(
 // SerializeLinkset emits application/linkset text from the supported RFC 9264
 // JSON linkset model. Links retain source order and are
 // separated by a comma and newline; no URI is retrieved. Output is accumulated
-// locally and discarded on errors. An anchor applies only to relations encountered
-// after its source member; late anchors are not retroactively applied. This is
-// existing order-sensitive behavior, not a lossless-equivalence guarantee.
-// The input-admission limitation documented by ValidateLinksetJSON also applies;
-// maxBytes still caps emitted text.
+// locally and discarded on errors. An anchor applies to its complete context
+// regardless of member order. ValidateLinksetJSON input representation limits
+// also apply, and maxBytes separately caps emitted text.
 func SerializeLinkset(
 	value jsonvalue.Value,
 	maxLinks int,
@@ -94,7 +91,10 @@ func visitLinkset(
 	if maxLinks < 1 || maxBytes < 1 || value.Kind() != jsonvalue.ObjectKind {
 		return ErrInvalidLinkset
 	}
-	raw, _ := value.MarshalJSON()
+	raw, err := value.MarshalJSON()
+	if err != nil {
+		return err
+	}
 	if len(raw) > maxBytes {
 		return ErrLinksetLimit
 	}
@@ -111,14 +111,16 @@ func visitLinkset(
 		}
 		members, _ := context.Members()
 		anchor := ""
+		if anchorValue, exists := context.Lookup("anchor"); exists {
+			var valid bool
+			anchor, valid = anchorValue.Text()
+			if !valid || !validLinksetURIReference(anchor) {
+				return ErrInvalidLinkset
+			}
+		}
 		hasRelation := false
 		for _, member := range members {
 			if member.Name == "anchor" {
-				var valid bool
-				anchor, valid = member.Value.Text()
-				if !valid || !validLinksetURIReference(anchor) {
-					return ErrInvalidLinkset
-				}
 				continue
 			}
 			hasRelation = true

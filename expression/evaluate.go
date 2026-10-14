@@ -166,10 +166,9 @@ func unavailable(label string) error {
 
 // Evaluate renders a template, converting non-string semantic values to their
 // deterministic JSON representation. MaxOutputBytes bounds accumulated text,
-// not intermediate JSON marshaling. Existing behavior converts a non-string
-// value that exceeds jsonvalue.DefaultMarshalLimits to empty text because the
-// internal marshal error is discarded; this is a limitation, not successful
-// lossless rendering. On a reported error, Evaluate returns an empty string.
+// not intermediate JSON marshaling. Non-string values also obey
+// jsonvalue.DefaultMarshalLimits; a failed representation propagates its error
+// without publishing partial template text. On error, Evaluate returns an empty string.
 func (template Template) Evaluate(context Context, options EvaluationOptions) (string, error) {
 	maximum := options.MaxOutputBytes
 	if maximum < 0 {
@@ -186,7 +185,10 @@ func (template Template) Evaluate(context Context, options EvaluationOptions) (s
 			if err != nil {
 				return "", err
 			}
-			piece = templateText(value)
+			piece, err = templateText(value)
+			if err != nil {
+				return "", err
+			}
 		}
 		if len(piece) > maximum-result.Len() {
 			return "", ErrLimitExceeded
@@ -196,11 +198,14 @@ func (template Template) Evaluate(context Context, options EvaluationOptions) (s
 	return result.String(), nil
 }
 
-func templateText(value jsonvalue.Value) string {
+func templateText(value jsonvalue.Value) (string, error) {
 	if value.Kind() == jsonvalue.StringKind {
 		text, _ := value.Text()
-		return text
+		return text, nil
 	}
-	encoded, _ := value.MarshalJSON()
-	return string(encoded)
+	encoded, err := value.MarshalJSON()
+	if err != nil {
+		return "", err
+	}
+	return string(encoded), nil
 }

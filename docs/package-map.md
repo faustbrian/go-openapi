@@ -21,7 +21,7 @@ Internal packages and non-releasable fixtures are intentionally excluded.
 | [`github.com/faustbrian/go-openapi/v2/expression`](../expression/evaluate.go) | Public expression package; see the linked source and module guide. |
 | [`github.com/faustbrian/go-openapi/v2/implicit`](../implicit/resolve.go) | Public implicit package; see the linked source and module guide. |
 | [`github.com/faustbrian/go-openapi/v2/jsonschema`](../jsonschema/annotated_enum.go) | Public jsonschema package; see the linked source and module guide. |
-| [`github.com/faustbrian/go-openapi/v2/jsonvalue`](../jsonvalue/value.go) | Public jsonvalue package; see the linked source and module guide. |
+| [`github.com/faustbrian/go-openapi/v2/jsonvalue`](../jsonvalue/value.go) | Public JSON value package; see the linked source and module guide. |
 | [`github.com/faustbrian/go-openapi/v2/media`](../media/encoding.go) | Public media package; see the linked source and module guide. |
 | [`github.com/faustbrian/go-openapi/v2/model`](../model/collection.go) | Public model package; see the linked source and module guide. |
 | [`github.com/faustbrian/go-openapi/v2/oas30`](../oas30/model_generated.go) | Public oas30 package; see the linked source and module guide. |
@@ -35,10 +35,10 @@ Internal packages and non-releasable fixtures are intentionally excluded.
 | [`github.com/faustbrian/go-openapi/v2/serialize`](../serialize/json.go) | Public serialize package; see the linked source and module guide. |
 | [`github.com/faustbrian/go-openapi/v2/server`](../server/expand.go) | Public server package; see the linked source and module guide. |
 | [`github.com/faustbrian/go-openapi/v2/specification`](../specification/resources.go) | Public specification package; see the linked source and module guide. |
-| [`github.com/faustbrian/go-openapi/v2/specversion`](../specversion/version.go) | Public specversion package; see the linked source and module guide. |
+| [`github.com/faustbrian/go-openapi/v2/specversion`](../specversion/version.go) | Public specification version package; see the linked source and module guide. |
 | [`github.com/faustbrian/go-openapi/v2/swagger20`](../swagger20/model_generated.go) | Public swagger20 package; see the linked source and module guide. |
 | [`github.com/faustbrian/go-openapi/v2/validate`](../validate/components.go) | Public validate package; see the linked source and module guide. |
-| [`github.com/faustbrian/go-openapi/v2/xmlvalue`](../xmlvalue/null.go) | Public xmlvalue package; see the linked source and module guide. |
+| [`github.com/faustbrian/go-openapi/v2/xmlvalue`](../xmlvalue/null.go) | Public XML value package; see the linked source and module guide. |
 
 Choose the next guide in the [documentation index](README.md)
 or return to the [repository entry](../README.md) for installation and ownership.

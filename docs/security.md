@@ -218,12 +218,14 @@ atomically one at a time, not as a multi-file transaction.
 
 `validate.Options.FailFast` and `MaxDiagnostics` truncate after validation passes; they do
 not stop traversal, external callbacks or intermediate diagnostic collection.
-`expression.Template.Evaluate` currently discards internal marshal errors for
-non-string values and substitutes empty text when the default JSON marshal limits
-are exceeded. This is a loss-of-output limitation, not a conformance guarantee.
-`media.ValidateLinksetJSON` also discards its internal marshal error, so its input
-byte check cannot be relied upon when default marshaling fails. Caller admission
-remains necessary; these existing behaviors are documented, not repaired here.
+`expression.Template.Evaluate` propagates non-string marshal failures and returns
+no partial template text. Non-string interpolation and RFC 9264 input representation
+obey `jsonvalue.DefaultMarshalLimits` independently of the application output or
+input byte allowance. `media.ValidateLinksetJSON` and `SerializeLinkset` propagate
+failed input representation before traversing links; serialization returns no
+partial output on error. RFC 9264 anchors apply to every relation in their context,
+regardless of member order. These operations do not bound construction of caller-
+owned semantic values or turn output limits into a global allocation budget.
 
 ## Supply chain and update procedure
 
