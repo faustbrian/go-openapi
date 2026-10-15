@@ -116,6 +116,7 @@ func FuzzBundleInternalDocumentsIsIdentity(f *testing.F) {
 // has stable errors or identical output and ordered rewrite provenance.
 func FuzzDereferenceObjectsIsDeterministic(f *testing.F) {
 	for _, seed := range []string{
+		`{"openapi":"3.1.1","info":{"title":"API","version":"1"},"paths":{"/pets":{"get":{"responses":{"200":{"description":"OK"},"x-data":{"$ref":"literal","responses":{"200":{"$ref":"also-literal"}}}}}}}}`,
 		`{"openapi":"3.1.2","info":{"title":"API","version":"1"},
 		"paths":{},"components":{"responses":{
 		"Target":{"description":"OK"},

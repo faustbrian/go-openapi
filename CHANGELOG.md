@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Preserve opaque specification-extension data during Reference Object
+  dereferencing, including nested reference-shaped fields in Responses
+  extensions. Real x-named component entries still resolve; traversal limits
+  remain enforced and no external resolution is enabled implicitly.
+
 ## 2.0.2 - 2026-10-14
 
 ### Fixed

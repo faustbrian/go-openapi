@@ -456,7 +456,14 @@ func bundleExtensionMember(pointer string, name string) bool {
 	default:
 		return true
 	}
-	return !bundleMapNamesMayStartWithX(parsed.Tokens())
+	return bundleExtensionToken(parsed.Tokens(), name)
+}
+
+// The same named-map distinction applies to bundling and dereferencing.
+// An extension subtree is literal data; x-named schemas/responses in component
+// maps are still real protocol objects.
+func bundleExtensionToken(tokens []string, name string) bool {
+	return len(name) >= 2 && strings.EqualFold(name[:2], "x-") && !bundleMapNamesMayStartWithX(tokens)
 }
 
 func bundleMapNamesMayStartWithX(tokens []string) bool {
@@ -465,7 +472,7 @@ func bundleMapNamesMayStartWithX(tokens []string) bool {
 	}
 	if len(tokens) == 1 {
 		switch tokens[0] {
-		case "definitions", "parameters", "responses", "securityDefinitions":
+		case "definitions", "parameters", "responses", "securityDefinitions", "webhooks":
 			return true
 		}
 	}
@@ -474,7 +481,7 @@ func bundleMapNamesMayStartWithX(tokens []string) bool {
 	}
 	switch tokens[len(tokens)-1] {
 	case "$defs", "properties", "patternProperties", "dependentSchemas",
-		"examples", "headers", "links", "callbacks", "content", "encoding":
+		"examples", "headers", "links", "callbacks", "content", "encoding", "additionalOperations":
 		return true
 	default:
 		return false

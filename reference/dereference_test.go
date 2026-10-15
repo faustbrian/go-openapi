@@ -9,6 +9,58 @@ import (
 	"github.com/faustbrian/go-openapi/v2/reference"
 )
 
+func TestDereferenceObjectsPreservesOpaqueExtensions(t *testing.T) {
+	t.Parallel()
+	for _, version := range []string{"3.0.4", "3.1.1", "3.2.0"} {
+		t.Run(version, func(t *testing.T) {
+			base := reference.Resource{Root: bundleValue(t, `{"openapi":"`+version+`","info":{"title":"API","version":"1"},"paths":{"/pets":{"get":{"responses":{"200":{"$ref":"#/components/responses/x-Response"},"x-data":{"$ref":"literal","externalValue":"ordinary data","responses":{"200":{"$ref":"also-literal"}}}}}}},"components":{"responses":{"x-Response":{"description":"OK"}}},"x-data":{"responses":{"200":{"$ref":"not-an-external-resource"}}}}`)}
+			result, err := reference.DereferenceObjects(context.Background(), base, nil, reference.DefaultDereferenceOptions())
+			if err != nil {
+				t.Fatal("extension triggered reference resolution", err)
+			}
+			before, _ := bundleMemberAt(t, base.Root, "paths", "/pets", "get", "responses", "x-data").MarshalJSON()
+			after, _ := bundleMemberAt(t, result.Document().Raw(), "paths", "/pets", "get", "responses", "x-data").MarshalJSON()
+			if string(before) != string(after) {
+				t.Fatal("extension data changed")
+			}
+			if description, _ := bundleMemberAt(t, result.Document().Raw(), "paths", "/pets", "get", "responses", "200", "description").Text(); description != "OK" || len(result.Entries()) != 1 {
+				t.Fatal("real x-named response was treated as extension")
+			}
+			limited := reference.DefaultDereferenceOptions()
+			limited.MaxNodes = 8
+			if _, err := reference.DereferenceObjects(context.Background(), base, nil, limited); !errors.Is(err, reference.ErrLimitExceeded) {
+				t.Fatal("extension bypassed traversal resource bound", err)
+			}
+		})
+	}
+}
+
+func TestDereferenceObjectsResolvesXNamedWebhookAndOperations(t *testing.T) {
+	t.Parallel()
+	for _, version := range []string{"3.1.1", "3.2.0"} {
+		for _, name := range []string{"event", "x-event"} {
+			t.Run(version+"/"+name, func(t *testing.T) {
+				base := reference.Resource{Root: bundleValue(t, `{"openapi":"`+version+`","info":{"title":"API","version":"1"},"paths":{},"webhooks":{"`+name+`":{"$ref":"#/components/pathItems/Notify"}},"components":{"pathItems":{"Notify":{"post":{"responses":{"200":{"description":"OK"}}}}}}}`)}
+				result, err := reference.DereferenceObjects(context.Background(), base, nil, reference.DefaultDereferenceOptions())
+				if err != nil {
+					t.Fatal(err)
+				}
+				if description, _ := bundleMemberAt(t, result.Document().Raw(), "webhooks", name, "post", "responses", "200", "description").Text(); description != "OK" || len(result.Entries()) != 1 {
+					t.Fatal("valid named webhook was treated as extension")
+				}
+			})
+		}
+	}
+	base := reference.Resource{Root: bundleValue(t, `{"openapi":"3.2.0","info":{"title":"API","version":"1"},"paths":{"/pets":{"additionalOperations":{"x-READ":{"responses":{"200":{"$ref":"#/components/responses/OK"}}}}}},"components":{"responses":{"OK":{"description":"OK"}}}}`)}
+	result, err := reference.DereferenceObjects(context.Background(), base, nil, reference.DefaultDereferenceOptions())
+	if err != nil {
+		t.Fatal(err)
+	}
+	if description, _ := bundleMemberAt(t, result.Document().Raw(), "paths", "/pets", "additionalOperations", "x-READ", "responses", "200", "description").Text(); description != "OK" || len(result.Entries()) != 1 {
+		t.Fatal("valid named additional operation was treated as extension")
+	}
+}
+
 func TestDereferenceObjectsInlinesArbitraryResponseTargets(t *testing.T) {
 	t.Parallel()
 

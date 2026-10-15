@@ -427,6 +427,13 @@ func (dereferencer *objectDereferencer) isReferenceObject(tokens []string) bool 
 	if len(tokens) == 0 {
 		return false
 	}
+	// Keep traversing/counting literal data for resource limits, but never
+	// interpret a nested reference-shaped object inside an extension.
+	for index, token := range tokens {
+		if bundleExtensionToken(tokens[:index], token) {
+			return false
+		}
+	}
 	if dereferencer.dialect == specversion.DialectSwagger20 {
 		return lastParentIs(tokens, "parameters") ||
 			lastParentIs(tokens, "responses")
