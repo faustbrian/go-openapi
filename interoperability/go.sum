@@ -10,8 +10,8 @@ github.com/dlclark/regexp2/v2 v2.8.2 h1:uTTe+cxADL4be+dv4DZwsBIEPCQ6RHPlnVuKrtLq
 github.com/dlclark/regexp2/v2 v2.8.2/go.mod h1:avUrQvPaLz2DrFNHJF0taWAFFX2C1GMSSoeiqFjcBmU=
 github.com/faustbrian/go-json-schema/v2 v2.0.0 h1:88kzwDCcP8Xo3SaDyUzc6oWtl83id9P6uY/gjgyQ/74=
 github.com/faustbrian/go-json-schema/v2 v2.0.0/go.mod h1:ikxluAloOz0MuH7up4K9tIpKVGO/Y8z72wQ/hpvwHn4=
-github.com/faustbrian/go-openapi/v2 v2.0.0 h1:lPDVyrZJxnxXT0HJ3+eIqSi9C6Ije6QQpOB7tO7z9MA=
-github.com/faustbrian/go-openapi/v2 v2.0.0/go.mod h1:BpEy2DPz/YR5C9gcBcKAxkG4fO+jo6WLwjNDy075MYY=
+github.com/faustbrian/go-openapi/v2 v2.0.2 h1:XPzfPg5msLkHlctetD/c0pyoG+SV01l099X4VAlsgjo=
+github.com/faustbrian/go-openapi/v2 v2.0.2/go.mod h1:BpEy2DPz/YR5C9gcBcKAxkG4fO+jo6WLwjNDy075MYY=
 github.com/getkin/kin-openapi v0.149.0 h1:ZbhmVJ4yq5RZDUsyP8lcBcGMsjsaTqXEFt6isdtMDfA=
 github.com/getkin/kin-openapi v0.149.0/go.mod h1:1+BHDzstro+P5CKtPy1X4PfofnFgmRe6uvMy9+r9fKY=
 github.com/go-openapi/analysis v1.0.0 h1:sNvbAGCJqUTqIAodr9IVqJMmuZas3YS9ms1dGK9yiJ4=
