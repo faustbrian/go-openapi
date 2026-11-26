@@ -909,3 +909,113 @@ func TestDocumentWarnsAboutOpenAPI30InactiveEncodingSerialization(t *testing.T) 
 		})
 	}
 }
+
+func TestDocumentRejectsOpenAPI32MediaTypeDescription(t *testing.T) {
+	t.Parallel()
+
+	const mediaType = "/paths/~1items/get/responses/200/content/application~1json"
+	tests := []struct {
+		name    string
+		version string
+		field   string
+		valid   bool
+	}{
+		{name: "3.2 description", version: "3.2.0", field: `"description":"d",`, valid: false},
+		{name: "3.2 unknown field", version: "3.2.0", field: `"bogus":"d",`, valid: false},
+		{name: "3.2 extension", version: "3.2.0", field: `"x-description":"d",`, valid: true},
+		{name: "3.2 fixed fields only", version: "3.2.0", field: ``, valid: true},
+		{name: "3.1 description", version: "3.1.2", field: `"description":"d",`, valid: false},
+		{name: "3.1 extension", version: "3.1.2", field: `"x-description":"d",`, valid: true},
+		{name: "3.1 fixed fields only", version: "3.1.2", field: ``, valid: true},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			t.Parallel()
+
+			document := mustDocument(t, `{"openapi":"`+test.version+`","info":{"title":"API","version":"1"},
+				"paths":{"/items":{"get":{"responses":{"200":{"description":"ok","content":{
+				"application/json":{`+test.field+`"schema":{"type":"string"}}}}}}}}}`)
+			report, err := validate.Document(context.Background(), document)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if report.Valid() != test.valid {
+				t.Fatalf("Valid() = %v, want %v; diagnostics %#v", report.Valid(), test.valid, report.Diagnostics())
+			}
+			if test.valid {
+				return
+			}
+			diagnostics := report.Diagnostics()
+			if len(diagnostics) != 1 {
+				t.Fatalf("diagnostics = %#v, want one unevaluated-property finding", diagnostics)
+			}
+			diagnostic := diagnostics[0]
+			if diagnostic.Code != "openapi.document.unevaluatedProperties" ||
+				!strings.HasPrefix(diagnostic.InstanceLocation, mediaType) {
+				t.Fatalf("diagnostic = %#v, want unevaluatedProperties at %s", diagnostic, mediaType)
+			}
+		})
+	}
+}
+
+func TestDocumentRejectsOpenAPI32NonTokenHeaderNames(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name     string
+		version  string
+		paths    string
+		location string
+		valid    bool
+	}{
+		{
+			name: "3.2 header parameter", version: "3.2.0", valid: false,
+			paths:    `{"/a":{"get":{"parameters":[{"name":"bad name","in":"header","schema":{"type":"string"}}],"responses":{"200":{"description":"ok"}}}}}`,
+			location: "/paths/~1a/get/parameters/0/name",
+		},
+		{
+			name: "3.2 response header", version: "3.2.0", valid: false,
+			paths:    `{"/a":{"get":{"responses":{"200":{"description":"ok","headers":{"bad name":{"schema":{"type":"string"}}}}}}}}`,
+			location: "/paths/~1a/get/responses/200/headers/bad name",
+		},
+		{
+			name: "3.2 encoding header", version: "3.2.0", valid: false,
+			paths:    `{"/a":{"post":{"requestBody":{"content":{"multipart/form-data":{"schema":{"type":"object","properties":{"f":{"type":"string"}}},"encoding":{"f":{"headers":{"bad name":{"schema":{"type":"string"}}}}}}}},"responses":{"200":{"description":"ok"}}}}}`,
+			location: "/paths/~1a/post/requestBody/content/multipart~1form-data/encoding/f/headers/bad name",
+		},
+		{
+			name: "3.2 token header names", version: "3.2.0", valid: true,
+			paths: `{"/a":{"get":{"parameters":[{"name":"X-Request-ID","in":"header","schema":{"type":"string"}}],"responses":{"200":{"description":"ok","headers":{"X-Rate-Limit":{"schema":{"type":"integer"}}}}}}}}`,
+		},
+		{
+			name: "3.1 header parameter", version: "3.1.2", valid: true,
+			paths: `{"/a":{"get":{"parameters":[{"name":"bad name","in":"header","schema":{"type":"string"}}],"responses":{"200":{"description":"ok"}}}}}`,
+		},
+		{
+			name: "3.1 response header", version: "3.1.2", valid: true,
+			paths: `{"/a":{"get":{"responses":{"200":{"description":"ok","headers":{"bad name":{"schema":{"type":"string"}}}}}}}}`,
+		},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			t.Parallel()
+
+			document := mustDocument(t, `{"openapi":"`+test.version+`","info":{"title":"API","version":"1"},"paths":`+test.paths+`}`)
+			report, err := validate.Document(context.Background(), document)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if report.Valid() != test.valid {
+				t.Fatalf("Valid() = %v, want %v; diagnostics %#v", report.Valid(), test.valid, report.Diagnostics())
+			}
+			if test.valid {
+				return
+			}
+			diagnostics := report.Diagnostics()
+			if len(diagnostics) != 1 || diagnostics[0].Code != "openapi.document.pattern" ||
+				diagnostics[0].InstanceLocation != test.location {
+				t.Fatalf("diagnostics = %#v, want one pattern finding at %s", diagnostics, test.location)
+			}
+		})
+	}
+}

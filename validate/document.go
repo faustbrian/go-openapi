@@ -398,7 +398,7 @@ func schemaResource(dialect specversion.Dialect) (string, canonical.Dialect, err
 	case specversion.DialectOAS31:
 		return "schemas/3.1/schema-2025-11-23.json", canonical.Draft202012, nil
 	case specversion.DialectOAS32:
-		return "schemas/3.2/schema-2025-11-23.json", canonical.Draft202012, nil
+		return "schemas/3.2/schema-2026-11-12.json", canonical.Draft202012, nil
 	default:
 		return "", "", fmt.Errorf("unsupported OpenAPI document dialect %q", dialect)
 	}

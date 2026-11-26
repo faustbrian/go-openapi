@@ -57,7 +57,7 @@ spec20=8e166da300c64bb7144938fec518b8e3f4cae715
 spec30=b8953109f2eb4d9eebcc7f702f70456b2e074567
 spec31=82603363df271c104c8f527f0fe641ea67da93fd
 spec32=99710bcb26cbe4be646565eebeb04348f02374b5
-site=121b0101ea4728d96149143ca784920d3a36ab54
+site=968e3d21e167fbad313721e4c1eafa4c0da86659
 petstore=8f0dd286987880b4af7bce552aca3813166f3049
 github_rest=417c4fb368fc6a7162ce5f3eeeddce1a9a217747
 
@@ -79,8 +79,8 @@ sync_file "$site_repo" "$site" oas/3.1/schema/2025-11-23 schemas/3.1/schema-2025
 sync_file "$site_repo" "$site" oas/3.1/schema-base/2025-11-23 schemas/3.1/schema-base-2025-11-23.json ab0bde84a429f43f280624f645a19d05c90b626e63862d7278074a465a20ff54
 sync_file "$site_repo" "$site" oas/3.1/dialect/2024-11-10 schemas/3.1/dialect-2024-11-10.json 647f32dfff64949d5020a28ecd1af4ffeffb1e9c695f861a52255a8004e07460
 sync_file "$site_repo" "$site" oas/3.1/meta/2024-11-10 schemas/3.1/meta-2024-11-10.json 80706a9a404affedbf84ac4dc1328c9ce0d2a00804cdfc4d95c0ddd0053121dd
-sync_file "$site_repo" "$site" oas/3.2/schema/2025-11-23 schemas/3.2/schema-2025-11-23.json 7d48f01f37eeae4799041b371ad5f533f9f533fd2b0caa1011a8ba27c5b48b70
-sync_file "$site_repo" "$site" oas/3.2/schema-base/2025-11-23 schemas/3.2/schema-base-2025-11-23.json 423daa88e2285fa343856c08502fe63fd8aa3674cd5b4ef88746ba6f82647af3
+sync_file "$site_repo" "$site" oas/3.2/schema/2026-11-12 schemas/3.2/schema-2026-11-12.json f1f7ee38d431a7bb1082e4df2288dbe1d4d3f49081b497af249c07b77737fb43
+sync_file "$site_repo" "$site" oas/3.2/schema-base/2026-11-12 schemas/3.2/schema-base-2026-11-12.json 8e432f0f148597960daa3aafa0c0030d8aae7538d32c217854a1e3aada595216
 sync_file "$site_repo" "$site" oas/3.2/dialect/2025-09-17 schemas/3.2/dialect-2025-09-17.json 4e2c989f3d1e6489d41bc1ca4ade11743278c612b82fba9144c6116c79f1c273
 sync_file "$site_repo" "$site" oas/3.2/meta/2025-09-17 schemas/3.2/meta-2025-09-17.json a1959c0aa1f9a7ce58f2b75699be5bc5187c8a25901fe04a227f1d9419ba4e9c
 
