@@ -6,6 +6,19 @@
   dereferencing, including nested reference-shaped fields in Responses
   extensions. Real x-named component entries still resolve; traversal limits
   remain enforced and no external resolution is enabled implicitly.
+- Validate OpenAPI 3.2.0 documents against the corrected 2026-11-12 published
+  schema instead of 2025-11-23. Documents that earlier releases accepted now
+  fail validation when a Media Type Object has `description`, which 3.2.0 does
+  not define, or when a header parameter name or a Response or Encoding
+  `headers` key is not an RFC 9110 token. Remove or rename those fields, for
+  example to an `x-` extension. OpenAPI 3.1 validation is unchanged, and an
+  omitted 3.2 `jsonSchemaDialect` still defaults to the OPENAPI-DEC-001
+  dialect, not the newer default the 2026-11-12 schema annotates.
+  The schema also applies the path-parameter name rule `^[^{}]+$` to
+  `content`-based path parameters (upstream 00e9e33), so a
+  `components.parameters` entry with `in: path` and a brace-containing name
+  now gets `openapi.document.pattern` even when nothing references it.
+- OPENAPI-DEC-011
 
 ## 2.1.0 - 2026-10-22
 

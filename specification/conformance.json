@@ -120,6 +120,18 @@
       "differential_evidence": ["specification/interoperability.tsv"],
       "differential_classification": "deliberate policy difference",
       "public_behavior": ["Supported YAML maps exactly to the package JSON semantic model."]
+    },
+    {
+      "id": "OPENAPI-DEC-011",
+      "authoritative_sources": ["openapi-3.2-source", "openapi-artifacts-source"],
+      "executable_evidence": ["TestDocumentRejectsOpenAPI32MediaTypeDescription", "TestDocumentRejectsOpenAPI32NonTokenHeaderNames"],
+      "fixtures": [],
+      "fuzz": [],
+      "interoperability_evidence": [],
+      "interoperability_classification": "not assessed",
+      "differential_evidence": [],
+      "differential_classification": "not assessed",
+      "public_behavior": ["OpenAPI 3.2.0 validation applies the 2026-11-12 schema corrections for Media Type fields and header names."]
     }
   ]
 }

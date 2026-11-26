@@ -318,6 +318,37 @@
       "documentation": ["docs/specification-decisions.md", "docs/reference.md", "docs/security.md"],
       "upstream_status": "The conformance ledger records each supported version's Reference Object rules.",
       "reconsider_when": "OpenAPI changes Reference Object siblings, base resolution, or legal-cycle requirements."
+    },
+    {
+      "id": "OPENAPI-DEC-011",
+      "title": "OpenAPI 3.2 published schema corrections",
+      "status": "resolved",
+      "owner": "openapi maintainers",
+      "classification": "erratum",
+      "decision_scope": "normative",
+      "specification": "OpenAPI 3.2.0",
+      "version": "3.2.0",
+      "source_authority": "openapi-3.2-source",
+      "section": "4.8.12 Parameter Object, 4.8.14 Media Type Object, 4.8.15 Encoding Object, and 4.8.17 Response Object",
+      "requirement_strength": "not specified",
+      "issue": "The 2025-11-23 published OpenAPI 3.2 schema allows a description field on Media Type Objects, which the released 3.2.0 prose does not define, and accepts header names that are not RFC 9110 field-name tokens, although the 3.2.0 prose defines header names by RFC 9110.",
+      "interpretations": ["Keep the 2025-11-23 schema", "Correct only the Media Type description locally", "Adopt the corrected 2026-11-12 schema iteration"],
+      "peer_behavior": "Validators pinned to the 2025-11-23 schema accept Media Type description and non-token header names; validators using the 2026-11-12 schema reject both.",
+      "selected_behavior": "OpenAPI 3.2.0 documents validate against the 2026-11-12 published schema. description on a Media Type Object is reported as an unevaluated property like any other unknown field, and header parameter names and Response and Encoding headers keys that are not RFC 9110 tokens are reported as pattern failures. OpenAPI 3.1 validation keeps its 2025-11-23 schema, and the default 3.2 Schema Object dialect remains as selected by OPENAPI-DEC-001.",
+      "rationale": "Normative prose outranks published schemas. The upstream corrections state that Media Type description was not in 3.2.0 and apply the RFC 9110 field-name syntax that the 3.2.0 prose already names for headers.",
+      "security_consequences": "Only checksum-pinned schema resources are registered and no network access occurs. Rejecting non-token header names prevents descriptions that no conforming HTTP message could carry.",
+      "resource_consequences": "Document validation remains bounded by compiler depth, node, operation, and cancellation limits.",
+      "compatibility_consequences": "OpenAPI 3.2.0 documents that earlier releases accepted now fail validation when a Media Type Object has description or a header name is not an RFC 9110 token; producers must remove or rename those fields, for example to an x- extension.",
+      "wire_consequences": "Parsing, models, and source bytes are unchanged; only the validation report differs.",
+      "executable_evidence": ["TestDocumentRejectsOpenAPI32MediaTypeDescription", "TestDocumentRejectsOpenAPI32NonTokenHeaderNames"],
+      "fixture_evidence": [],
+      "fuzz_evidence": [],
+      "interoperability_evidence": [],
+      "differential_evidence": [],
+      "public_apis": ["validate.Document", "validate.DocumentWithOptions"],
+      "documentation": ["docs/specification-decisions.md"],
+      "upstream_status": "OpenAPI corrections on v3.2-dev, including #5594 merged as 52601961c72de8965085bc950c846f235a45de19 and the RFC 9110 header-name change fbb7da733fc49fb6d789ab635332dd58d3f96b3b, are published by spec.openapis.org in the 2026-11-12 schema iteration at 482a23a1512de624822033bf21688a943c6a69ec.",
+      "reconsider_when": "A released OpenAPI 3.2 patch or a later published 3.2 schema iteration changes Media Type Object fields, header-name syntax, or another 3.2.0 validation boundary."
     }
   ]
 }
