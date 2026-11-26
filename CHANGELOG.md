@@ -18,7 +18,7 @@
   `content`-based path parameters (upstream 00e9e33), so a
   `components.parameters` entry with `in: path` and a brace-containing name
   now gets `openapi.document.pattern` even when nothing references it.
-- OPENAPI-DEC-011
+- OPENAPI-DEC-011 sha256:968315b0fc7a07942d41f35c0b9853f31c40ca86e37fa4c334164da2e554f14a
 
 ## 2.1.0 - 2026-10-22
 
