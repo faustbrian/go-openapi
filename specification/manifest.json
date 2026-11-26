@@ -6,6 +6,12 @@
       "url": "https://github.com/OAI/OpenAPI-Specification/pull/4994",
       "mergeCommit": "0f65e951d63d34c207cd79081cff4743c0d763fb",
       "decision": "docs/specification-decisions.md#openapi-dec-001-openapi-32-default-schema-object-dialect"
+    },
+    {
+      "version": "3.2.0",
+      "url": "https://github.com/OAI/OpenAPI-Specification/pull/5594",
+      "mergeCommit": "52601961c72de8965085bc950c846f235a45de19",
+      "decision": "docs/specification-decisions.md#openapi-dec-011-openapi-32-published-schema-corrections"
     }
   ],
   "jsonSchemaArtifacts": {
@@ -76,9 +82,9 @@
   },
   "publishedArtifacts": {
     "repository": "https://github.com/OAI/spec.openapis.org",
-    "revision": "121b0101ea4728d96149143ca784920d3a36ab54",
+    "revision": "968e3d21e167fbad313721e4c1eafa4c0da86659",
     "license": "Apache-2.0",
-    "licenseSource": "https://github.com/OAI/spec.openapis.org/blob/121b0101ea4728d96149143ca784920d3a36ab54/LICENSE",
+    "licenseSource": "https://github.com/OAI/spec.openapis.org/blob/968e3d21e167fbad313721e4c1eafa4c0da86659/LICENSE",
     "files": [
       {"source":"oas/2.0/schema/2017-08-27","path":"schemas/2.0/2017-08-27.json","sha256":"b36871c8016292c5e66dd3b203e69aeff98bfef97e0b3c67c1909036095586a5"},
       {"source":"oas/3.0/schema/2024-10-18","path":"schemas/3.0/2024-10-18.json","sha256":"2385f5bbb8c37878daae73baeabe7f34b2f022a4a8c049329ee61f71796f039c"},
@@ -86,8 +92,8 @@
       {"source":"oas/3.1/schema-base/2025-11-23","path":"schemas/3.1/schema-base-2025-11-23.json","sha256":"ab0bde84a429f43f280624f645a19d05c90b626e63862d7278074a465a20ff54"},
       {"source":"oas/3.1/dialect/2024-11-10","path":"schemas/3.1/dialect-2024-11-10.json","sha256":"647f32dfff64949d5020a28ecd1af4ffeffb1e9c695f861a52255a8004e07460"},
       {"source":"oas/3.1/meta/2024-11-10","path":"schemas/3.1/meta-2024-11-10.json","sha256":"80706a9a404affedbf84ac4dc1328c9ce0d2a00804cdfc4d95c0ddd0053121dd"},
-      {"source":"oas/3.2/schema/2025-11-23","path":"schemas/3.2/schema-2025-11-23.json","sha256":"7d48f01f37eeae4799041b371ad5f533f9f533fd2b0caa1011a8ba27c5b48b70"},
-      {"source":"oas/3.2/schema-base/2025-11-23","path":"schemas/3.2/schema-base-2025-11-23.json","sha256":"423daa88e2285fa343856c08502fe63fd8aa3674cd5b4ef88746ba6f82647af3"},
+      {"source":"oas/3.2/schema/2026-11-12","path":"schemas/3.2/schema-2026-11-12.json","sha256":"f1f7ee38d431a7bb1082e4df2288dbe1d4d3f49081b497af249c07b77737fb43"},
+      {"source":"oas/3.2/schema-base/2026-11-12","path":"schemas/3.2/schema-base-2026-11-12.json","sha256":"8e432f0f148597960daa3aafa0c0030d8aae7538d32c217854a1e3aada595216"},
       {"source":"oas/3.2/dialect/2025-09-17","path":"schemas/3.2/dialect-2025-09-17.json","sha256":"4e2c989f3d1e6489d41bc1ca4ade11743278c612b82fba9144c6116c79f1c273"},
       {"source":"oas/3.2/meta/2025-09-17","path":"schemas/3.2/meta-2025-09-17.json","sha256":"a1959c0aa1f9a7ce58f2b75699be5bc5187c8a25901fe04a227f1d9419ba4e9c"},
       {"source":"registry/alternative-schema.md","path":"registries/alternative-schema.md","sha256":"acc1af468e58da669ec2cff5816c89ebfcd515b27c68710080169ec7d1f38320"},

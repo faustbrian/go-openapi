@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-10-12",
+  "reviewed_at": "2026-11-26",
   "review_interval_days": 30,
   "authorities": [
     {
@@ -38,9 +38,9 @@
     {
       "id": "openapi-artifacts-source",
       "kind": "registry",
-      "version": "2025-11-23 publication",
-      "url": "https://spec.openapis.org/oas/3.2/schema/2025-11-23",
-      "sha256": "7d48f01f37eeae4799041b371ad5f533f9f533fd2b0caa1011a8ba27c5b48b70",
+      "version": "2026-11-12 publication",
+      "url": "https://spec.openapis.org/oas/3.2/schema/2026-11-12",
+      "sha256": "f1f7ee38d431a7bb1082e4df2288dbe1d4d3f49081b497af249c07b77737fb43",
       "specifications": ["OpenAPI published schemas and registries"]
     },
     {
@@ -110,7 +110,7 @@
       "id": "openapi-artifact-updates",
       "kind": "releases",
       "url": "https://github.com/OAI/spec.openapis.org/commits/main.atom",
-      "sha256": "b0e11f7ba14eb29901b460a569849909a39ae055c661ad7c964c87ec415b8080",
+      "sha256": "f9440745ba9fe12f7476ba94399f1128e83352ecb4b7b51b0c823c055d372e46",
       "specifications": ["OpenAPI published schemas and registries"]
     },
     {
@@ -145,7 +145,7 @@
       "id": "rfc9110-errata",
       "kind": "errata",
       "url": "https://errata.rfc-editor.org/rfc9110",
-      "sha256": "cec32fd170146656d933f627b512f2e027ae5c3592f5ec7760c3627493b30505",
+      "sha256": "bdd312bd1c1dc5b04ac86286bf6f1eca35fb70371c3900d8638fe98ba16c963f",
       "specifications": ["RFC 9110 HTTP Semantics"]
     },
     {

@@ -61,6 +61,7 @@ and [`monitoring.json`](monitoring.json).
 | OPENAPI-DEC-008 | Security Requirement composition |
 | OPENAPI-DEC-009 | Server URL template expansion |
 | OPENAPI-DEC-010 | JSON-equivalent YAML input |
+| OPENAPI-DEC-011 | OpenAPI 3.2 published schema corrections |
 
 `independent/` contains checksum-pinned, license-preserved public descriptions
 used only as interoperability and scale evidence. Their popularity and current

@@ -10,6 +10,7 @@
     {"id": "OPENAPI-DEC-007", "digests": ["514cb9989d61158bfb863b9537ae21a2f8a8682ce5baf3274b220ab500a9fbed"]},
     {"id": "OPENAPI-DEC-008", "digests": ["cc10809f406b12336deb53537ad9146ba71ac98c6962779c229dc203c501e018"]},
     {"id": "OPENAPI-DEC-009", "digests": ["962eee676c2080c6558e03d53fe08911ab6cc2e9de353428f7f4cef6659bc300"]},
-    {"id": "OPENAPI-DEC-010", "digests": ["192a09d27fcf47ca576b13c537c30266880ca4298db996e400c41f3ffbec96af", "cfd3ed8d4b897ba39715ecd061f875b6d5da62eb87aab1a017de8e9f79fb37a7"]}
+    {"id": "OPENAPI-DEC-010", "digests": ["192a09d27fcf47ca576b13c537c30266880ca4298db996e400c41f3ffbec96af", "cfd3ed8d4b897ba39715ecd061f875b6d5da62eb87aab1a017de8e9f79fb37a7"]},
+    {"id": "OPENAPI-DEC-011", "digests": ["968315b0fc7a07942d41f35c0b9853f31c40ca86e37fa4c334164da2e554f14a"]}
   ]
 }
